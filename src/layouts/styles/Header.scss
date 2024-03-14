@@ -1,1 +1,5 @@
 @import "@sass/main";
+
+header {
+  @include full;
+}

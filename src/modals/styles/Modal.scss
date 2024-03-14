@@ -1,0 +1,29 @@
+#backdrop {
+  background: rgba(0, 0, 0, 0.75);
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 99;
+  overflow: hidden;
+}
+
+#modal {
+  padding: 1rem 2rem;
+  height: fit-content;
+  width: fit-content;
+  background: white;
+  z-index: 100;
+  border-radius: 5px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  & .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
