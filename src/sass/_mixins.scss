@@ -1,0 +1,50 @@
+@mixin prefix($property, $value) {
+  -webkit-#{$property}: $value;
+  -moz-#{$property}: $value;
+  -ms-#{$property}: $value;
+  -o-#{$property}: $value;
+  #{$property}: $value;
+}
+
+@mixin ellipsis() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin background-gradient($start-color, $end-color) {
+  background: $start-color;
+  background: -moz-linear-gradient(top, $start-color 0%, $end-color 100%);
+  background: -webkit-linear-gradient(top, $start-color 0%, $end-color 100%);
+  background: linear-gradient(to bottom, $start-color 0%, $end-color 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$start-color}', endColorstr='#{$end-color}', GradientType=0);
+}
+
+@mixin box-shadow {
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+@mixin absolute-center($width, $height) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -($height / 2);
+  margin-left: -($width / 2);
+}
+
+@mixin full() {
+  width: 100%;
+  height: 100%;
+}
+
+@mixin btn-effect {
+  // &:hover {
+  //   transform: scale(1.01);
+  // }
+  &:active {
+    filter: brightness(0.99);
+    transform: scale(0.99);
+  }
+}
