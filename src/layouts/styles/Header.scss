@@ -1,5 +1,19 @@
 @import "@sass/main";
 
 header {
-  @include full;
+  width: 100%;
+  height: fit-content;
+  background: $white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+header .menu {
+  display: flex;
+}
+
+header .profile {
+  display: flex;
 }
