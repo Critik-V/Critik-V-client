@@ -3,7 +3,7 @@
 header {
   width: 100%;
   height: fit-content;
-  background: $white;
+  background: whiteu;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -74,6 +74,6 @@ header .profile {
   }
 }
 
-.active-menu {
+.active-menu-header {
   border-bottom: 0.2rem solid $primary-green;
 }

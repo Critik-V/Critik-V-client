@@ -1,0 +1,21 @@
+@import "@sass/main";
+
+.posts-menu {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  & a {
+    color: $primary-green;
+    padding: 0.6rem;
+    border-radius: 5px;
+  }
+}
+
+.active-menu-posts {
+  padding: 0.6rem;
+  border-radius: 5px;
+  background-color: $tertiary-green;
+  color: $primary-green;
+  cursor: pointer;
+}

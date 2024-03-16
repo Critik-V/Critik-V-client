@@ -5,7 +5,7 @@ import { Link, NavLink } from "react-router-dom";
 import AwesomeIcons from "@components/AwesomeIcons";
 import MobileMenu from "@components/MobileMenu";
 
-const cssMenuActive: string = "active-menu";
+const cssMenuActive: string = "active-menu-header";
 
 export const Header: FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
