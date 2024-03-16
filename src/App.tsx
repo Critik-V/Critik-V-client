@@ -1,6 +1,8 @@
 import { Header } from "@layouts/Header";
 import Home from "@pages/Home";
-import MyPosts from "@pages/MyPosts";
+import Posts from "@pages/Posts";
+import MyArchivedPosts from "@pages/sub-pages/MyArchivedPosts";
+import MyPosts from "@pages/sub-pages/MyPosts";
 
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Fragment } from "react/jsx-runtime";
@@ -18,10 +20,10 @@ const router = createBrowserRouter([
       { path: "", element: <Home /> },
       {
         path: "my-posts",
-        element: <MyPosts />,
+        element: <Posts />,
         children: [
-          { path: "", element: <div>All</div> },
-          { path: "archived", element: <div>Archived</div> },
+          { path: "", element: <MyPosts /> },
+          { path: "archived", element: <MyArchivedPosts /> },
         ],
       },
       { path: "favorites", element: <div>Favorites</div> },

@@ -1,9 +1,9 @@
 import PostsMenu from "@components/PostsMenu";
-import "./styles/MyPosts.scss";
+import "./styles/Posts.scss";
 import SubHeader from "@layouts/SubHeader";
 import { Outlet } from "react-router-dom";
 
-export default function MyPosts() {
+export default function Posts() {
   return (
     <main id="Posts">
       <SubHeader>
