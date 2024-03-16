@@ -19,6 +19,6 @@ export default defineConfig({
       "@assets": "/src/assets",
       "@sass": "/src/sass",
       "@layouts": "/src/layouts",
-    }
-  }
+    },
+  },
 });
