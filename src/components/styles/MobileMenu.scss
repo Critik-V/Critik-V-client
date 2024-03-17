@@ -9,6 +9,7 @@
   top: 9.5%;
   right: 1%;
   transition: all 1s;
+  @include box-shadow;
 
   @include desktop {
     display: none;
