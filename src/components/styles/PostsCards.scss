@@ -101,5 +101,14 @@
       color: white;
       background: $primary-green;
     }
+    & .unfav {
+      background: transparent;
+      color: $primary-green;
+      border: 1px dashed $primary-green;
+      span {
+        margin-right: 0.2rem;
+        color: $primary-black;
+      }
+    }
   }
 }

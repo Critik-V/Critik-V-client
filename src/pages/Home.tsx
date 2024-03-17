@@ -8,13 +8,13 @@ export default function Home() {
   return (
     <main id="Home">
       <SubHeader>
-        <SearchBar />
+      <SearchBar />
         <button id="make-post-btn">
           <AwesomeIcons type="regular" name="file" />
           Poster son CV
         </button>
       </SubHeader>
-      <section id="posts">
+      <section id="all-posts">
         <PostCard />
         <PostCard />
         <PostCard />

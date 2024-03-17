@@ -1,4 +1,5 @@
 import { Header } from "@layouts/Header";
+import Favorite from "@pages/Favorite";
 import Home from "@pages/Home";
 import Posts from "@pages/Posts";
 import MyArchivedPosts from "@pages/sub-pages/MyArchivedPosts";
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
           { path: "archived", element: <MyArchivedPosts /> },
         ],
       },
-      { path: "favorites", element: <div>Favorites</div> },
+      { path: "favorites", element: <Favorite /> },
       { path: "guide", element: <div>CV Guide</div> },
       { path: "about-us", element: <div>About Us</div> },
       { path: "profile", element: <div>Profile</div> },
