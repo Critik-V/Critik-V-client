@@ -34,8 +34,15 @@ export default function SearchBar() {
           <option selected disabled>
             Etablissement
           </option>
-          <option value="SCHOOL">Ecole</option>
-          <option value="COMPANY">Entreprise</option>
+          <optgroup label="Ecole / Université">
+            <option value="SCHOOL">ESATIC</option>
+            <option value="SCHOOL">INPHB</option>
+            <option value="SCHOOL">Autre</option>
+          </optgroup>
+          <optgroup label="Entreprise">
+            <option value="">Meta</option>
+            <option value="COMPANY">Autre</option>
+          </optgroup>
         </select>
         <button type="submit">Rechercher</button>
       </div>

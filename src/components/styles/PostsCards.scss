@@ -1,0 +1,105 @@
+@import "@sass/main";
+
+.card {
+  @include full;
+  padding: 1rem;
+  background: white;
+  border-radius: 5px;
+  display: grid;
+  gap: 0.2rem;
+  grid-template-columns: 1fr;
+  grid-template-rows: 15% 25% 35% 25%;
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    justify-content: flex-end;
+    align-items: center;
+    & span {
+      text-transform: capitalize;
+      margin: 0 0.1rem;
+      padding: 0.3rem 0.5rem;
+      font-size: 0.5rem;
+      font-weight: 500;
+      color: white;
+      background: $primary-grey;
+      border-radius: 100px;
+    }
+    & .new {
+      background: $primary-purple;
+    }
+    & .unreviewed {
+      background: $secondary-purple;
+    }
+  }
+
+  &__title {
+    @include full;
+    overflow: hidden;
+    p {
+      @include full;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: $primary-black;
+      @include line-clamp(2, 1.5rem);
+    }
+  }
+
+  &__description {
+    @include full;
+    overflow: hidden;
+    p {
+      @include full;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: $primary-black;
+      @include line-clamp(3, 100%);
+    }
+  }
+
+  &__menu {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    align-items: center;
+    &-number {
+      margin-right: 1rem;
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: $primary-green;
+      & span {
+        color: $primary-black;
+        margin-right: 0.5rem;
+      }
+    }
+    & button {
+      padding: 0.5rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: red;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s;
+      @include btn-effect;
+    }
+    & .edit {
+      color: $primary-green;
+      background: $tertiary-green;
+    }
+    & .delete {
+      color: $primary-red;
+      background: $secondary-red;
+    }
+    & .archive {
+      color: $primary-blue;
+      background: $secondary-blue;
+    }
+    & .see-more {
+      color: white;
+      background: $primary-green;
+    }
+  }
+}

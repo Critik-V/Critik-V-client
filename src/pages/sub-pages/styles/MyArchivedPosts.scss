@@ -1,0 +1,13 @@
+@import "@sass/main";
+
+#my-archived-posts {
+  padding: 1rem;
+  @include full;
+  max-width: $posts-layout-max-width;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-rows: repeat(1, 190px);
+  grid-auto-rows: minmax(190px, 1fr);
+  gap: 1rem;
+}

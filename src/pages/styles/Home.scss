@@ -1,7 +1,7 @@
 @import "@sass/main";
 
 #Home {
-  button:not([type="submit"]) {
+  #make-post-btn {
     @include tablet-portrait {
       display: none;
     }
@@ -18,4 +18,16 @@
     transition: background-color 0.3s;
     @include btn-effect;
   }
+}
+
+#posts {
+  padding: 1rem;
+  @include full;
+  max-width: $posts-layout-max-width;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-rows: repeat(1, 190px);
+  grid-auto-rows: minmax(190px, 1fr);
+  gap: 1rem;
 }
