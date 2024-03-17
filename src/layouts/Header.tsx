@@ -50,7 +50,7 @@ export const Header: FC = () => {
               className={({ isActive }) =>
                 isActive ? cssMenuActive : undefined
               }>
-              About Us
+              A propos
             </NavLink>
           </button>
         </div>

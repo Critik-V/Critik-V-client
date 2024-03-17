@@ -1,4 +1,5 @@
 import { Header } from "@layouts/Header";
+import { AboutUs } from "@pages/AboutUs";
 import Favorite from "@pages/Favorite";
 import Home from "@pages/Home";
 import Posts from "@pages/Posts";
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
       },
       { path: "favorites", element: <Favorite /> },
       { path: "guide", element: <div>CV Guide</div> },
-      { path: "about-us", element: <div>About Us</div> },
+      { path: "about-us", element: <AboutUs /> },
       { path: "profile", element: <div>Profile</div> },
     ],
   },

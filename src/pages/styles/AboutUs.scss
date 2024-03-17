@@ -1,1 +1,63 @@
 @import "@sass/main";
+
+#about-us {
+  @include full;
+  padding: 1rem;
+  margin: 0 auto;
+  max-width: 600px;
+
+  & h1,
+  & h2 {
+    text-align: center;
+    margin: 1rem 0;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: $primary-green;
+  }
+
+  & p {
+    text-align: justify;
+    font-size: 0.9rem;
+    color: $primary-black;
+    font-weight: 300;
+    line-height: 1.2rem;
+  }
+
+  & .links {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    & a {
+      cursor: pointer;
+      margin: 0 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      background: white;
+      color: $primary-black;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.3s;
+      &:first-child {
+        color: black;
+      }
+      &:last-child {
+        color: #5865f2;
+      }
+    }
+  }
+
+  & .logo {
+    @include full;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      display: inline;
+      text-align: left;
+      width: 4rem;
+      margin: 2rem auto;
+      filter: grayscale(100%) contrast(3);
+    }
+  }
+}
