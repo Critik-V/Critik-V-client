@@ -34,6 +34,11 @@ export default function MobileMenu({ hide }: PropsTypes): JSX.Element {
       </div>
       <div className="mb-menu__menu">
         <button>
+          <NavLink onClick={hide} to={"/new-post"}>
+            Poster son CV
+          </NavLink>
+        </button>
+        <button>
           <NavLink onClick={hide} to={"/my-posts"}>
             Mes Posts
           </NavLink>

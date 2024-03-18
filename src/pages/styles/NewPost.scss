@@ -1,0 +1,84 @@
+@import "@sass/main";
+
+#new-post {
+  @include full;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 30rem;
+
+  & form {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    background: white;
+    margin: 1.5rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+
+    & input::placeholder,
+    & textarea::placeholder {
+      color: #d9d9d9;
+      font-style: italic;
+    }
+
+    label {
+      margin: 0.5rem 0;
+      font-weight: 600;
+      & span {
+        color: #ff7575;
+      }
+    }
+
+    & > *:not(label) {
+      padding: 0.7rem 1rem;
+      border-radius: 7px;
+      outline: none;
+      color: $primary-black;
+    }
+    & > *:not(label, button) {
+      border: 1px solid #d9d9d9a7;
+    }
+
+    & select {
+      background: white;
+    }
+
+    & textarea {
+      resize: none;
+    }
+    & div {
+      margin: 0.5rem 0;
+      text-align: center;
+      padding: 1.5rem;
+      border-radius: 10px;
+      border: 2px dashed $primary-green;
+      background: #d9d9d910;
+      font-size: 0.7rem;
+
+      & i {
+        font-size: 1.2rem;
+        margin: 0.5rem 0;
+        color: $primary-green;
+      }
+
+      & span {
+        color: red;
+        font-weight: 500;
+      }
+    }
+    & button[type="submit"] {
+      margin: 1rem 0;
+      padding: 0.7rem 1rem;
+      border: none;
+      border-radius: 7px;
+      background: $primary-green;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+      text-transform: capitalize;
+    }
+  }
+}
