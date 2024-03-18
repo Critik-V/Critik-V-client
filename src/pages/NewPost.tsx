@@ -1,11 +1,48 @@
-import preventDefault from "@utils/preventDefault";
 import "./styles/NewPost.scss";
 import AwesomeIcons from "@components/AwesomeIcons";
+import Dropzone from "react-dropzone";
+import { Fragment } from "react/jsx-runtime";
 
-export default function NewPost() {
+type IsUploadedProps = { name: string; weight: number };
+
+export function NofileUpload(): JSX.Element {
+  return (
+    <Fragment>
+      <AwesomeIcons type="regular" name="file" animation="shake" />
+      <p style={{ fontWeight: 600 }}>Charger votre CV ici</p>
+      <p>
+        Exclusivement <span>PDF</span> de taille <span>Max 3.0 Mo</span>
+      </p>
+    </Fragment>
+  );
+}
+export function IsUploading(): JSX.Element {
+  return (
+    <Fragment>
+      <AwesomeIcons type="solid" name="upload" animation="beat" />
+      <p style={{ fontWeight: 600 }}>Ajouter le fichier PDF</p>
+      <p>
+        <span>Assuerez vous que ça soit le bon</span>
+      </p>
+    </Fragment>
+  );
+}
+export function IsUploaded({ name, weight }: IsUploadedProps): JSX.Element {
+  return (
+    <Fragment>
+      <AwesomeIcons type="regular" name="file-pdf" />
+      <p style={{ fontWeight: 600 }}>{name}</p>
+      <p>
+        <span>{(weight / (1024 * 1024)).toFixed(2)} Mo</span>
+      </p>
+    </Fragment>
+  );
+}
+
+export default function NewPost(): JSX.Element {
   return (
     <section id="new-post">
-      <form onSubmit={preventDefault}>
+      <form>
         <label htmlFor="new-post-title">
           Titre <span>*</span>
         </label>
@@ -13,6 +50,7 @@ export default function NewPost() {
           type="text"
           name="new-post-title"
           id="new-post-title"
+          maxLength={100}
           placeholder="Titre de votre post"
         />
         <label htmlFor="new-post-description">
@@ -24,7 +62,7 @@ export default function NewPost() {
           id="new-post-description"
           cols={30}
           rows={4}
-          maxLength={150}></textarea>
+          maxLength={300}></textarea>
         <label htmlFor="new-post-job-type">
           Type d'emploi <span>*</span>
         </label>
@@ -65,13 +103,35 @@ export default function NewPost() {
           <option value="SENIOR">Senior</option>
           <option value="EXPERT">Expert</option>
         </select>
-        <div>
-          <AwesomeIcons type="regular" name="file-pdf" animation="shake" />
-          <p style={{ fontWeight: 600 }}>Charger votre CV ici</p>
-          <p>
-            Exclusivement <span>PDF</span> de taille <span>Max 3.0 Mo</span>
-          </p>
-        </div>
+        <label htmlFor="upload-field">
+          CV <span>*</span>
+        </label>
+        <Dropzone
+          maxFiles={1}
+          maxSize={3 * 1024 * 1024}
+          accept={{ "application/pdf": [".pdf"] }}>
+          {({ getRootProps, getInputProps, acceptedFiles, isDragActive }) => (
+            <section>
+              <div
+                {...getRootProps()}
+                style={
+                  isDragActive
+                    ? { borderColor: "#07beb8", backgroundColor: "#07beb84c" }
+                    : undefined
+                }>
+                <input {...getInputProps()} />
+                {isDragActive && <IsUploading />}
+                {acceptedFiles[0] && !isDragActive && (
+                  <IsUploaded
+                    name={acceptedFiles[0].name}
+                    weight={acceptedFiles[0].size}
+                  />
+                )}
+                {!acceptedFiles[0] && !isDragActive && <NofileUpload />}
+              </div>
+            </section>
+          )}
+        </Dropzone>
         <button type="submit">Poster</button>
       </form>
     </section>
