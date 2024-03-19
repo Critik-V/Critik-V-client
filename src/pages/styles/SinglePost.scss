@@ -1,0 +1,6 @@
+@import "@sass/main";
+
+#single-post {
+  @include full;
+  padding: 1rem;
+}

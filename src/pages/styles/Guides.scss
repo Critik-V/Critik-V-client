@@ -1,1 +1,58 @@
 @import "@sass/main";
+
+@keyframes up-to-down {
+  0% {
+    transform: translateY(-15px);
+  }
+  50% {
+    transform: translateY(15px);
+  }
+  100% {
+    transform: translateY(-15px);
+  }
+}
+
+#guide {
+  @include full;
+  padding: 1rem;
+  margin: 0 auto;
+  max-width: 600px;
+
+  & h1 {
+    text-align: center;
+    margin: 1rem 0;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: $primary-green;
+    text-transform: uppercase;
+  }
+
+  & img {
+    text-align: center;
+    width: 40%;
+    margin: 1.5rem auto;
+    object-fit: contain;
+    animation-name: up-to-down;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+  }
+
+  & p {
+    text-align: justify;
+    font-size: 0.9rem;
+    font-weight: 300;
+  }
+
+  & button {
+    display: block;
+    cursor: pointer;
+    margin: 1.5rem auto;
+    padding: 0.7rem 1rem;
+    border-radius: 5px;
+    background: $primary-green;
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+}

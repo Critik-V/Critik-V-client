@@ -1,9 +1,11 @@
 import { Header } from "@layouts/Header";
 import { AboutUs } from "@pages/AboutUs";
 import Favorite from "@pages/Favorite";
+import Guide from "@pages/Guide";
 import Home from "@pages/Home";
 import NewPost from "@pages/NewPost";
 import Posts from "@pages/Posts";
+import SinglePost from "@pages/SinglePost";
 import MyArchivedPosts from "@pages/sub-pages/MyArchivedPosts";
 import MyPosts from "@pages/sub-pages/MyPosts";
 
@@ -21,6 +23,7 @@ const router = createBrowserRouter([
     ),
     children: [
       { path: "", element: <Home /> },
+      { path: "posts/:id", element: <SinglePost /> },
       {
         path: "my-posts",
         element: <Posts />,
@@ -31,7 +34,7 @@ const router = createBrowserRouter([
       },
       { path: "new-post", element: <NewPost /> },
       { path: "favorites", element: <Favorite /> },
-      { path: "guide", element: <div>CV Guide</div> },
+      { path: "guide", element: <Guide /> },
       { path: "about-us", element: <AboutUs /> },
       { path: "profile", element: <div>Profile</div> },
     ],
