@@ -9,11 +9,14 @@
   justify-content: center;
   align-items: center;
   background: transparent;
+  text-align: center;
 
   & img:nth-child(1) {
-    width: 5rem;
-    margin-bottom: 2rem;
-    filter: grayscale(100%) brightness(100%);
+    display: inline;
+      text-align: left;
+      width: 4rem;
+      margin: 2rem auto;
+      filter: grayscale(100%) contrast(3);
   }
 
   & img:nth-child(2) {
@@ -22,14 +25,14 @@
   }
 
   &-title {
-    font-size: 3rem;
+    font-size: 2.5rem;
     margin-top: 1rem;
     font-weight: 900;
     color: $primary-grey;
   }
 
   &-message {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin-top: 0.5rem;
     color: $primary-grey;
   }

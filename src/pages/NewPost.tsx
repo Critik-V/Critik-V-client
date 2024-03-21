@@ -2,6 +2,8 @@ import "./styles/NewPost.scss";
 import AwesomeIcons from "@components/AwesomeIcons";
 import Dropzone from "react-dropzone";
 import { Fragment } from "react/jsx-runtime";
+import { toast } from "react-hot-toast";
+import { FileRejectedToast } from "@components/CustomToasts";
 
 type IsUploadedProps = { name: string; weight: number };
 
@@ -109,7 +111,18 @@ export default function NewPost(): JSX.Element {
         <Dropzone
           maxFiles={1}
           maxSize={3 * 1024 * 1024}
-          accept={{ "application/pdf": [".pdf"] }}>
+          accept={{ "application/pdf": [".pdf"] }}
+          onDropRejected={() =>
+            toast(
+              (t) => <FileRejectedToast dismiss={() => toast.dismiss(t.id)} />,
+              {
+                duration: 5000,
+                style: {
+                  background: "#f7ede2",
+                },
+              }
+            )
+          }>
           {({ getRootProps, getInputProps, acceptedFiles, isDragActive }) => (
             <section>
               <div

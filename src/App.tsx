@@ -9,6 +9,7 @@ import Posts from "@pages/Posts";
 import SinglePost from "@pages/SinglePost";
 import MyArchivedPosts from "@pages/sub-pages/MyArchivedPosts";
 import MyPosts from "@pages/sub-pages/MyPosts";
+import { Toaster } from "react-hot-toast";
 
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Fragment } from "react/jsx-runtime";
@@ -43,6 +44,11 @@ const router = createBrowserRouter([
   { path: "*", element: <NotFound /> },
 ]);
 
-export default function App() {
-  return <RouterProvider router={router} />;
+export default function App(): JSX.Element {
+  return (
+    <Fragment>
+      <Toaster position="top-center" gutter={64} />
+      <RouterProvider router={router} />
+    </Fragment>
+  );
 }

@@ -1,0 +1,34 @@
+@import "@sass/main";
+
+.custom-toast {
+  @include full;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+
+  & i {
+    margin-right: 0.5rem;
+    color: $primary-red;
+    font-size: 1.2rem;
+  }
+
+  & p {
+    font-size: 0.9rem;
+    color: $primary-black;
+    font-weight: 700;
+    line-height: 1.2rem;
+  }
+
+  & button {
+    margin-left: 0.5rem;
+    width: 25px;
+    height: 25px;
+    color: $primary-black;
+    background: rgb(235, 235, 235);
+    border-radius: 100px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
