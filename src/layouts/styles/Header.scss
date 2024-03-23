@@ -8,6 +8,10 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
+  box-shadow: 0 0.1rem 0.7rem rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 3;
 }
 
 header .menu {
@@ -15,6 +19,7 @@ header .menu {
   align-items: center;
   width: fit-content;
   height: 100%;
+  z-index: 4;
   & img {
     max-width: 70px;
     height: 100%;
