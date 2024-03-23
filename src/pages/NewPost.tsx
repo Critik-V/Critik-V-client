@@ -43,7 +43,8 @@ export function IsUploaded({ name, weight }: IsUploadedProps): JSX.Element {
 
 export default function NewPost(): JSX.Element {
   return (
-    <section id="new-post">
+    <main id="new-post">
+      <h1>Nouveau post</h1>
       <form>
         <label htmlFor="new-post-title">
           Titre <span>*</span>
@@ -145,8 +146,11 @@ export default function NewPost(): JSX.Element {
             </section>
           )}
         </Dropzone>
-        <button type="submit">Poster</button>
+        <button type="submit">
+          <AwesomeIcons name="upload" type="solid" />
+          Poster
+        </button>
       </form>
-    </section>
+    </main>
   );
 }

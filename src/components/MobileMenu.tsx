@@ -60,7 +60,7 @@ export default function MobileMenu({ hide }: PropsTypes): JSX.Element {
         </button>
       </div>
       <div className="mb-menu__setting">
-        <Link onClick={hide} to="profile">
+        <Link onClick={hide} to="/profile">
           <AwesomeIcons type="solid" name="cog" />
         </Link>
       </div>

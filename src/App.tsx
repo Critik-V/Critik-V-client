@@ -6,6 +6,7 @@ import Home from "@pages/Home";
 import NewPost from "@pages/NewPost";
 import NotFound from "@pages/NotFound";
 import Posts from "@pages/Posts";
+import Profile from "@pages/Profile";
 import SinglePost from "@pages/SinglePost";
 import MyArchivedPosts from "@pages/sub-pages/MyArchivedPosts";
 import MyPosts from "@pages/sub-pages/MyPosts";
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
       { path: "favorites", element: <Favorite /> },
       { path: "guide", element: <Guide /> },
       { path: "about-us", element: <AboutUs /> },
-      { path: "profile", element: <div>Profile</div> },
+      { path: "profile", element: <Profile /> },
     ],
   },
   { path: "*", element: <NotFound /> },

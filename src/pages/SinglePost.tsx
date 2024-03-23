@@ -3,7 +3,7 @@ import "./styles/SinglePost.scss";
 import resumeExeImg from "@assets/resume.jpg";
 import preventDefault from "@utils/preventDefault";
 
-export function PostDescription() {
+export function PostDescription(): JSX.Element {
   return (
     <div className="desc">
       <h2>
@@ -36,7 +36,7 @@ export function PostDescription() {
   );
 }
 
-export function Comment() {
+export function Comment(): JSX.Element {
   return (
     <div className="comment">
       <p>
@@ -62,7 +62,7 @@ export function Comment() {
   );
 }
 
-export function NoComment() {
+export function NoComment(): JSX.Element {
   return (
     <div className="no-comment">
       <AwesomeIcons name="comment-slash" type="solid" />
@@ -71,7 +71,7 @@ export function NoComment() {
   );
 }
 
-export default function SinglePost() {
+export default function SinglePost(): JSX.Element {
   return (
     <main id="single-post">
       <div id="single-post-resume">
