@@ -1,29 +1,97 @@
+@import "@sass/main";
+
 #backdrop {
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.5);
   position: fixed;
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
-  z-index: 99;
+  z-index: 20;
   overflow: hidden;
+  backdrop-filter: blur(2px);
 }
 
-#modal {
+.modal {
   padding: 1rem 2rem;
   height: fit-content;
-  width: fit-content;
+  width: 300px;
   background: white;
-  z-index: 100;
+  z-index: 50;
   border-radius: 5px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
-  & .header {
+  &__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    & button {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__content {
+    text-align: center;
+    & > * {
+      margin: 0.5rem 0;
+    }
+    & div[data-type="delete"] i {
+      font-size: 4rem;
+      color: $secondary-red;
+    }
+    & div[data-type="archive"] i,
+    & div[data-type="unarchive"] i {
+      font-size: 4rem;
+      color: $secondary-blue;
+    }
+    & p {
+      font-size: 0.8rem;
+    }
+    & button {
+      padding: 0.7rem 1rem;
+      color: white;
+      background: $primary-green;
+      width: 100%;
+      @include btn-effect;
+      border-radius: 10px;
+      &[data-type="archive"],
+      &[data-type="unarchive"] {
+        background: $primary-blue;
+      }
+      &[data-type="delete"] {
+        background: $primary-red;
+      }
+    }
+  }
+}
+
+.modal-form {
+  @include full;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 30rem;
+  z-index: 50;
+  border-radius: 5px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  & h1 {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: $secondary-black;
+    text-transform: capitalize;
+    font-weight: 700;
+  }
+
+  @include form;
+  & form button:nth-child(1) {
+    align-self: flex-end;
   }
 }

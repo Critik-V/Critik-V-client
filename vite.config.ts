@@ -19,6 +19,7 @@ export default defineConfig({
       "@assets": "/src/assets",
       "@sass": "/src/sass",
       "@layouts": "/src/layouts",
+      "@modals": "/src/modals",
     },
   },
 });

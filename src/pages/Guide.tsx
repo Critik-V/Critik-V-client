@@ -1,5 +1,5 @@
 import "./styles/Guides.scss";
-import illustrationImg from "../assets/coffre-fort.webp";
+import illustrationImg from "../assets/strong-box.webp";
 import AwesomeIcons from "@components/AwesomeIcons";
 
 export default function Guide(): JSX.Element {

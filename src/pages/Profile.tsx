@@ -1,16 +1,16 @@
 import AwesomeIcons from "@components/AwesomeIcons";
 import "./styles/Profile.scss";
+import preventDefault from "@utils/preventDefault";
 
 const linkedinPlaceholder = "https://www.linkedin.com/in/username";
 const githubPlaceholder = "https://www.github.com/username";
 const otherLinkPlaceholder = "https://www.example.com";
 
-
 export default function Profile(): JSX.Element {
   return (
     <main id="profile">
       <h1>Vôtre profil</h1>
-      <form>
+      <form onSubmit={preventDefault}>
         <label htmlFor="profile-name">Nom & prénom</label>
         <input disabled type="text" name="" id="" value={"user name"} />
         <label htmlFor="profile-description">Description</label>

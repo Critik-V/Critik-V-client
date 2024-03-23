@@ -1,17 +1,17 @@
 import { create } from "zustand";
 
+type LayoutType = "ARCHIVE" | "DELETE" | "UNARCHIVE" | "EDIT" | null;
+type DataType = { [key: string]: unknown } | null;
+
 type State = {
   visible: boolean;
-  layout: string | null;
-  data: { [key: string]: unknown } | null;
+  layout: LayoutType;
+  data: DataType;
 };
 
 type Action = {
   hide: () => void;
-  show: (input: {
-    layout: string;
-    data: { [key: string]: unknown } | null;
-  }) => void;
+  show: (input: { layout: LayoutType; data: DataType }) => void;
 };
 
 export const modalContext = create<State & Action>((set) => ({
@@ -19,10 +19,7 @@ export const modalContext = create<State & Action>((set) => ({
   layout: null,
   data: null,
   hide: () => set({ visible: false, layout: null, data: null }),
-  show: (input: {
-    layout: string | null;
-    data: { [key: string]: unknown } | null;
-  }) =>
+  show: (input: { layout: LayoutType; data: DataType }) =>
     set(() => ({
       visible: true,
       layout: input.layout,

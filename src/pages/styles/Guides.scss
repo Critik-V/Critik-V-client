@@ -1,17 +1,5 @@
 @import "@sass/main";
 
-@keyframes up-to-down {
-  0% {
-    transform: translateY(-15px);
-  }
-  50% {
-    transform: translateY(15px);
-  }
-  100% {
-    transform: translateY(-15px);
-  }
-}
-
 #guide {
   @include full;
   padding: 1rem;

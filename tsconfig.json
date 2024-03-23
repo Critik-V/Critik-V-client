@@ -14,7 +14,8 @@
       "@hooks/*": ["./src/hooks/*"],
       "@assets/*": ["./src/assets/*"],
       "@sass/*": ["./src/sass/*"],
-      "@layouts/*": ["./src/layouts/*"]
+      "@layouts/*": ["./src/layouts/*"],
+      "@modals/*": ["./src/modals/*"]
     },
 
     /* Bundler mode */

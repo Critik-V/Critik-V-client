@@ -1,6 +1,6 @@
 import "./styles/Favorite.scss";
 import SubHeader from "@layouts/SubHeader";
-import SearchBar from "@components/SearchBar";
+import { FavSearchBar } from "@components/SearchBar";
 import { FavCard } from "@components/PostsCards";
 import { Fragment } from "react/jsx-runtime";
 import Empty from "@layouts/Empty";
@@ -13,7 +13,7 @@ export default function Favorite(): JSX.Element {
       {show && (
         <main id="favorite">
           <SubHeader>
-            <SearchBar />
+            <FavSearchBar />
           </SubHeader>
           <section id="favorite-posts">
             <FavCard />

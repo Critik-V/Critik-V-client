@@ -1,3 +1,4 @@
+import { modalContext } from "@context/store";
 import AwesomeIcons from "./AwesomeIcons";
 import "./styles/PostsCards.scss";
 
@@ -7,6 +8,8 @@ const UnreviewedCardTag: JSX.Element = (
 );
 
 export function MyPostCard() {
+  const { show } = modalContext((state) => state);
+
   return (
     <div className="card">
       <div className="card__tags">
@@ -34,13 +37,25 @@ export function MyPostCard() {
           <span>12</span>
           <AwesomeIcons type="regular" name="bookmark" />
         </div>
-        <button className="archive">
+        <button
+          onClick={() => {
+            show({ layout: "ARCHIVE", data: {} });
+          }}
+          className="archive">
           <AwesomeIcons type="regular" name="eye-slash" />
         </button>
-        <button className="edit">
+        <button
+          onClick={() => {
+            show({ layout: "EDIT", data: {} });
+          }}
+          className="edit">
           <AwesomeIcons type="solid" name="pencil" />
         </button>
-        <button className="delete">
+        <button
+          onClick={() => {
+            show({ layout: "DELETE", data: {} });
+          }}
+          className="delete">
           <AwesomeIcons type="solid" name="trash-can" />
         </button>
         <button className="see-more">
@@ -52,6 +67,8 @@ export function MyPostCard() {
 }
 
 export function ArchivedCard() {
+  const { show } = modalContext((state) => state);
+
   return (
     <div className="card">
       <div className="card__tags">
@@ -78,7 +95,11 @@ export function ArchivedCard() {
           <span>12</span>
           <AwesomeIcons type="regular" name="bookmark" />
         </div>
-        <button className="archive">
+        <button
+          onClick={() => {
+            show({ layout: "UNARCHIVE", data: {} });
+          }}
+          className="archive">
           <AwesomeIcons type="regular" name="eye" />
         </button>
         <button className="delete">

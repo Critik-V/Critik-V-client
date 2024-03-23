@@ -1,6 +1,6 @@
 import AwesomeIcons from "@components/AwesomeIcons";
 import "./styles/Home.scss";
-import SearchBar from "@components/SearchBar";
+import { SearchBar } from "@components/SearchBar";
 import SubHeader from "@layouts/SubHeader";
 import { PostCard } from "@components/PostsCards";
 import { Link } from "react-router-dom";

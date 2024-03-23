@@ -14,6 +14,8 @@ import { Toaster } from "react-hot-toast";
 
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Fragment } from "react/jsx-runtime";
+import Modal from "@modals/Modal";
+import { modalContext } from "@context/store";
 
 const router = createBrowserRouter([
   {
@@ -46,9 +48,12 @@ const router = createBrowserRouter([
 ]);
 
 export default function App(): JSX.Element {
+  const modalVisibilty = modalContext((state) => state.visible);
+
   return (
     <Fragment>
       <Toaster position="top-center" gutter={64} />
+      {modalVisibilty && <Modal />}
       <RouterProvider router={router} />
     </Fragment>
   );
