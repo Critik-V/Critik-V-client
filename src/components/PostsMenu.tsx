@@ -3,7 +3,7 @@ import "./styles/PostsMenu.scss";
 
 const cssMenuActive: string = "active-menu-posts";
 
-export default function PostsMenu() {
+export default function PostsMenu(): JSX.Element {
   return (
     <div className="posts-menu">
       <NavLink

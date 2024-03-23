@@ -7,7 +7,7 @@ const UnreviewedCardTag: JSX.Element = (
   <span className="unreviewed">unreviewed</span>
 );
 
-export function MyPostCard() {
+export function MyPostCard(): JSX.Element {
   const { show } = modalContext((state) => state);
 
   return (
@@ -66,7 +66,7 @@ export function MyPostCard() {
   );
 }
 
-export function ArchivedCard() {
+export function ArchivedCard(): JSX.Element {
   const { show } = modalContext((state) => state);
 
   return (
@@ -102,7 +102,11 @@ export function ArchivedCard() {
           className="archive">
           <AwesomeIcons type="regular" name="eye" />
         </button>
-        <button className="delete">
+        <button
+          onClick={() => {
+            show({ layout: "DELETE", data: {} });
+          }}
+          className="delete">
           <AwesomeIcons type="solid" name="trash-can" />
         </button>
         <button className="see-more">
@@ -113,7 +117,7 @@ export function ArchivedCard() {
   );
 }
 
-export function PostCard() {
+export function PostCard(): JSX.Element {
   return (
     <div className="card">
       <div className="card__tags">
@@ -149,7 +153,7 @@ export function PostCard() {
   );
 }
 
-export function FavCard() {
+export function FavCard(): JSX.Element {
   return (
     <div className="card">
       <div className="card__tags">

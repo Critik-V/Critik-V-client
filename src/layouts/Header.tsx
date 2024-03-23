@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { useState } from "react";
 import "./styles/Header.scss";
 import CritikVLogo from "@assets/logo.svg";
 import { Link, NavLink } from "react-router-dom";
@@ -7,7 +7,7 @@ import MobileMenu from "@components/MobileMenu";
 
 const cssMenuActive: string = "active-menu-header";
 
-export const Header: FC = () => {
+export default function Header(): JSX.Element {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   return (
@@ -74,4 +74,4 @@ export const Header: FC = () => {
       {isMenuOpen && <MobileMenu hide={() => setIsMenuOpen(false)} />}
     </header>
   );
-};
+}

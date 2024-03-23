@@ -1,5 +1,5 @@
-import { Header } from "@layouts/Header";
-import { AboutUs } from "@pages/AboutUs";
+import Header from "@layouts/Header";
+import AboutUs from "@pages/AboutUs";
 import Favorite from "@pages/Favorite";
 import Guide from "@pages/Guide";
 import Home from "@pages/Home";

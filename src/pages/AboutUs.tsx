@@ -1,9 +1,8 @@
-import { FC } from "react";
 import "./styles/AboutUs.scss";
 import AwesomeIcons from "@components/AwesomeIcons";
 import logoImg from "@assets/logo.svg";
 
-export const AboutUs: FC = () => {
+export default function AboutUs(): JSX.Element {
   return (
     <section id="about-us">
       <h1>À propos de nous</h1>
@@ -48,4 +47,4 @@ export const AboutUs: FC = () => {
       </div>
     </section>
   );
-};
+}

@@ -1,7 +1,7 @@
 import "./styles/Empty.scss";
 import emptyImg from "@assets/empty.png";
 
-export default function Empty() {
+export default function Empty(): JSX.Element {
   return (
     <main id="empty">
       <img src={emptyImg} alt="empty reference" />

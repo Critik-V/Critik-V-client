@@ -4,15 +4,15 @@
 Critik-V Client Side (Open-source project)
 </h2>
 
-[![GitHub stars](https://img.shields.io/github/stars/Critik-V/Critik-V.svg?style=social&label=Star)](https://github.com/Critik-V/Critik-V)
+[![GitHub stars](https://img.shields.io/github/stars/Critik-V/Critik-V-client.svg?style=social&label=Star)](https://github.com/Critik-V/Critik-V-client)
 [![GitHub Sponsors](https://img.shields.io/github/sponsors/Critik-V.svg?style=social)](https://github.com/sponsors/Critik-V)
-[![GitHub contributors](https://img.shields.io/github/contributors/Critik-V/Critik-V.svg)](https://github.com/Critik-V/Critik-V/graphs/contributors)
-![GitHub forks](https://img.shields.io/github/forks/Critik-V/Critik-V.svg)
-![GitHub issues](https://img.shields.io/github/issues/Critik-V/Critik-V.svg)
-![GitHub last commit](https://img.shields.io/github/last-commit/Critik-V/Critik-V.svg)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/Critik-V/Critik-V.svg)
-![GitHub pull requests](https://img.shields.io/github/issues-pr-closed/Critik-V/Critik-V.svg)
-![GitHub license](https://img.shields.io/github/license/Critik-V/Critik-V.svg)
+[![GitHub contributors](https://img.shields.io/github/contributors/Critik-V/Critik-V-client.svg)](https://github.com/Critik-V/Critik-V-client/graphs/contributors)
+![GitHub forks](https://img.shields.io/github/forks/Critik-V/Critik-V-client.svg)
+![GitHub issues](https://img.shields.io/github/issues/Critik-V/Critik-V-client.svg)
+![GitHub last commit](https://img.shields.io/github/last-commit/Critik-V/Critik-V-client.svg)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/Critik-V/Critik-V-client.svg)
+![GitHub pull requests](https://img.shields.io/github/issues-pr-closed/Critik-V/Critik-V-client.svg)
+![GitHub license](https://img.shields.io/github/license/Critik-V/Critik-V-client.svg)
 
 <p align="center">
     <a href="https://discord.gg/Bw9Aa7zC">Discord Community</a> | <a href="./docs/CONTRIBUTING.md">Contribution Guide</a>

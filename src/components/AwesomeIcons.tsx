@@ -16,7 +16,7 @@ export default function AwesomeIcons({
   type,
   name,
   animation,
-}: AwesomeIconsProps) {
+}: AwesomeIconsProps): JSX.Element {
   return (
     <i
       className={`fa-${type} fa-${name} ${

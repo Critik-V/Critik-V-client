@@ -1,7 +1,7 @@
 import preventDefault from "@utils/preventDefault";
 import "./styles/SearchBar.scss";
 
-export function SearchBar() {
+export function SearchBar(): JSX.Element {
   return (
     <form onSubmit={preventDefault} className="search">
       <div className="search__first">
@@ -50,7 +50,7 @@ export function SearchBar() {
   );
 }
 
-export function FavSearchBar() {
+export function FavSearchBar(): JSX.Element {
   return (
     <form onSubmit={preventDefault} className="search">
       <div className="search__first">
