@@ -57,6 +57,10 @@ export default function NewPost(): JSX.Element {
   const [file, setFile] = useState<File | null>(null);
   const onSubmit: SubmitHandler<InputType> = (data) => {
     data.file = file;
+    if (!data.file) {
+      toast.error("Veuillez ajouter un fichier PDF");
+      return;
+    }
     console.log(data);
   };
   return (
@@ -69,6 +73,7 @@ export default function NewPost(): JSX.Element {
         <input
           type="text"
           id="new-post-title"
+          required
           maxLength={100}
           placeholder="Titre de votre post"
           {...register("title")}
@@ -77,6 +82,7 @@ export default function NewPost(): JSX.Element {
           Description <span>*</span>
         </label>
         <textarea
+          required
           {...register("description")}
           placeholder="Description de votre post"
           id="new-post-description"
@@ -85,8 +91,12 @@ export default function NewPost(): JSX.Element {
         <label htmlFor="new-post-job-type">
           Type d'emploi <span>*</span>
         </label>
-        <select {...register("jobType")} id="new-post-job-type">
-          <option selected disabled>
+        <select
+          required
+          defaultValue=""
+          {...register("jobType")}
+          id="new-post-job-type">
+          <option value="" disabled>
             Type d'emploi
           </option>
           <option value="APPRENTICESHIP">Alternance</option>
@@ -95,8 +105,12 @@ export default function NewPost(): JSX.Element {
           <option value="INTERNSHIP">Stage</option>
         </select>
         <label htmlFor="new-post-job-domain">Domaine</label>
-        <select {...register("domain")} id="new-post-job-domain">
-          <option selected disabled>
+        <select
+          required
+          defaultValue=""
+          {...register("domain")}
+          id="new-post-job-domain">
+          <option value="" disabled>
             Domaine
           </option>
           <option value="DEVELOPMENT">Développement</option>
@@ -114,8 +128,12 @@ export default function NewPost(): JSX.Element {
         <label htmlFor="new-post-level">
           Niveau <span>*</span>
         </label>
-        <select {...register("level")} id="new-post-level">
-          <option selected disabled>
+        <select
+          required
+          defaultValue=""
+          {...register("level")}
+          id="new-post-level">
+          <option value="" disabled>
             Niveau
           </option>
           <option value="JUNIOR">Junior</option>
