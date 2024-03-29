@@ -4,6 +4,8 @@ import Dropzone from "react-dropzone";
 import { Fragment } from "react/jsx-runtime";
 import { toast } from "react-hot-toast";
 import { FileRejectedToast } from "@components/CustomToasts";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useState } from "react";
 
 type IsUploadedProps = { name: string; weight: number };
 
@@ -41,35 +43,49 @@ export function IsUploaded({ name, weight }: IsUploadedProps): JSX.Element {
   );
 }
 
+type InputType = {
+  title: string;
+  description: string;
+  jobType: string;
+  domain?: string;
+  level: string;
+  file: File | null;
+};
+
 export default function NewPost(): JSX.Element {
+  const { register, handleSubmit } = useForm<InputType>({});
+  const [file, setFile] = useState<File | null>(null);
+  const onSubmit: SubmitHandler<InputType> = (data) => {
+    data.file = file;
+    console.log(data);
+  };
   return (
     <main id="new-post">
       <h1>Nouveau post</h1>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="new-post-title">
           Titre <span>*</span>
         </label>
         <input
           type="text"
-          name="new-post-title"
           id="new-post-title"
           maxLength={100}
           placeholder="Titre de votre post"
+          {...register("title")}
         />
         <label htmlFor="new-post-description">
           Description <span>*</span>
         </label>
         <textarea
+          {...register("description")}
           placeholder="Description de votre post"
-          name="new-post-description"
           id="new-post-description"
           cols={30}
-          rows={4}
-          maxLength={300}></textarea>
+          rows={4}></textarea>
         <label htmlFor="new-post-job-type">
           Type d'emploi <span>*</span>
         </label>
-        <select name="new-post-job-type" id="new-post-job-type">
+        <select {...register("jobType")} id="new-post-job-type">
           <option selected disabled>
             Type d'emploi
           </option>
@@ -79,7 +95,7 @@ export default function NewPost(): JSX.Element {
           <option value="INTERNSHIP">Stage</option>
         </select>
         <label htmlFor="new-post-job-domain">Domaine</label>
-        <select name="new-post-job-domain" id="new-post-job-domain">
+        <select {...register("domain")} id="new-post-job-domain">
           <option selected disabled>
             Domaine
           </option>
@@ -98,7 +114,7 @@ export default function NewPost(): JSX.Element {
         <label htmlFor="new-post-level">
           Niveau <span>*</span>
         </label>
-        <select name="new-post-level" id="new-post-level">
+        <select {...register("level")} id="new-post-level">
           <option selected disabled>
             Niveau
           </option>
@@ -113,6 +129,8 @@ export default function NewPost(): JSX.Element {
           maxFiles={1}
           maxSize={3 * 1024 * 1024}
           accept={{ "application/pdf": [".pdf"] }}
+          onDropAccepted={(files) => setFile(files[0])}
+          onFileDialogOpen={() => setFile(null)}
           onDropRejected={() =>
             toast(
               (t) => <FileRejectedToast dismiss={() => toast.dismiss(t.id)} />,
@@ -125,25 +143,23 @@ export default function NewPost(): JSX.Element {
             )
           }>
           {({ getRootProps, getInputProps, acceptedFiles, isDragActive }) => (
-            <section>
-              <div
-                {...getRootProps()}
-                style={
-                  isDragActive
-                    ? { borderColor: "#07beb8", backgroundColor: "#07beb84c" }
-                    : undefined
-                }>
-                <input {...getInputProps()} />
-                {isDragActive && <IsUploading />}
-                {acceptedFiles[0] && !isDragActive && (
-                  <IsUploaded
-                    name={acceptedFiles[0].name}
-                    weight={acceptedFiles[0].size}
-                  />
-                )}
-                {!acceptedFiles[0] && !isDragActive && <NofileUpload />}
-              </div>
-            </section>
+            <div
+              {...getRootProps()}
+              style={
+                isDragActive
+                  ? { borderColor: "#07beb8", backgroundColor: "#07beb84c" }
+                  : undefined
+              }>
+              <input {...getInputProps({})} />
+              {isDragActive && <IsUploading />}
+              {acceptedFiles[0] && !isDragActive && (
+                <IsUploaded
+                  name={acceptedFiles[0].name}
+                  weight={acceptedFiles[0].size}
+                />
+              )}
+              {!acceptedFiles[0] && !isDragActive && <NofileUpload />}
+            </div>
           )}
         </Dropzone>
         <button type="submit">
