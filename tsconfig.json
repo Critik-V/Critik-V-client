@@ -10,12 +10,13 @@
       "@pages/*": ["./src/pages/*"],
       "@context/*": ["./src/context/*"],
       "@store/*": ["./src/store/*"],
-      "@utils/*": ["./src/utils/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@assets/*": ["./src/assets/*"],
       "@sass/*": ["./src/sass/*"],
       "@layouts/*": ["./src/layouts/*"],
-      "@modals/*": ["./src/modals/*"]
+      "@modals/*": ["./src/modals/*"],
+      "@utils": ["./src/utils"],
+      "@types": ["./src/types"]
     },
 
     /* Bundler mode */

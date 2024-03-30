@@ -2,3 +2,11 @@
 @import "mixins";
 @import "responsive";
 @import "animations";
+
+.invalid-input {
+  background: $secondary-red;
+  border: 1px solid $primary-red !important;
+  &::placeholder {
+    color: $primary-red !important;
+  }
+}

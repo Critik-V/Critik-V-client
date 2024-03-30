@@ -20,6 +20,7 @@ export default defineConfig({
       "@sass": "/src/sass",
       "@layouts": "/src/layouts",
       "@modals": "/src/modals",
+      "@types": "/src/types",
     },
   },
 });

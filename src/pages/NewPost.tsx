@@ -4,8 +4,9 @@ import Dropzone from "react-dropzone";
 import { Fragment } from "react/jsx-runtime";
 import { toast } from "react-hot-toast";
 import { FileRejectedToast } from "@components/CustomToasts";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { NewPostInputType } from "@types";
 
 type IsUploadedProps = { name: string; weight: number };
 
@@ -43,19 +44,10 @@ export function IsUploaded({ name, weight }: IsUploadedProps): JSX.Element {
   );
 }
 
-type InputType = {
-  title: string;
-  description: string;
-  jobType: string;
-  domain?: string;
-  level: string;
-  file: File | null;
-};
-
 export default function NewPost(): JSX.Element {
-  const { register, handleSubmit } = useForm<InputType>({});
+  const { register, handleSubmit } = useForm<NewPostInputType>();
   const [file, setFile] = useState<File | null>(null);
-  const onSubmit: SubmitHandler<InputType> = (data) => {
+  const onSubmit: SubmitHandler<NewPostInputType> = (data) => {
     data.file = file;
     if (!data.file) {
       toast.error("Veuillez ajouter un fichier PDF");
@@ -149,7 +141,8 @@ export default function NewPost(): JSX.Element {
           accept={{ "application/pdf": [".pdf"] }}
           onDropAccepted={(files) => setFile(files[0])}
           onFileDialogOpen={() => setFile(null)}
-          onDropRejected={() =>
+          onDropRejected={() => {
+            setFile(null);
             toast(
               (t) => <FileRejectedToast dismiss={() => toast.dismiss(t.id)} />,
               {
@@ -158,8 +151,8 @@ export default function NewPost(): JSX.Element {
                   background: "#f7ede2",
                 },
               }
-            )
-          }>
+            );
+          }}>
           {({ getRootProps, getInputProps, acceptedFiles, isDragActive }) => (
             <div
               {...getRootProps()}
