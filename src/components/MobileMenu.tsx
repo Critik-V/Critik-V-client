@@ -5,23 +5,29 @@ import AwesomeIcons from "./AwesomeIcons";
 
 type PropsTypes = {
   hide: () => void;
+  btnRef: React.RefObject<HTMLButtonElement>;
 };
 
-export default function MobileMenu({ hide }: PropsTypes): JSX.Element {
+export default function MobileMenu({ hide, btnRef }: PropsTypes): JSX.Element {
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        hide();
+      if (
+        btnRef.current?.contains(event.target as Node) ||
+        menuRef.current?.contains(event.target as Node)
+      ) {
+        return;
       }
+
+      return hide();
     }
 
     document.addEventListener("click", handleClickOutside);
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, [hide]);
+  }, [hide, btnRef]);
 
   return (
     <div className="mb-menu" ref={menuRef}>

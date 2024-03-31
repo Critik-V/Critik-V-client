@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./styles/Header.scss";
 import CritikVLogo from "@assets/logo.svg";
 import { Link, NavLink } from "react-router-dom";
@@ -9,6 +9,7 @@ const cssMenuActive: string = "active-menu-header";
 
 export default function Header(): JSX.Element {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const menuBtnRef = useRef<HTMLButtonElement>(null);
 
   return (
     <header>
@@ -57,6 +58,7 @@ export default function Header(): JSX.Element {
       </div>
       <div className="profile">
         <button
+          ref={menuBtnRef}
           onClick={() => setIsMenuOpen((prev) => !prev)}
           className="profile__mobile-btn">
           <AwesomeIcons type="solid" name="bars" />
@@ -71,7 +73,15 @@ export default function Header(): JSX.Element {
           </button>
         </Link>
       </div>
-      {isMenuOpen && <MobileMenu hide={() => setIsMenuOpen(false)} />}
+      {isMenuOpen && (
+        <MobileMenu
+          hide={() => {
+            setIsMenuOpen(false);
+          }}
+          btnRef={menuBtnRef}
+        />
+      )}
+      {/* <MobileMenu hide={() => setIsMenuOpen(false)} /> */}
     </header>
   );
 }
