@@ -81,7 +81,6 @@ export default function Header(): JSX.Element {
           btnRef={menuBtnRef}
         />
       )}
-      {/* <MobileMenu hide={() => setIsMenuOpen(false)} /> */}
     </header>
   );
 }

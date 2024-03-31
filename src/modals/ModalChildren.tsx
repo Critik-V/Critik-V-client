@@ -1,14 +1,26 @@
 import AwesomeIcons from "@components/AwesomeIcons";
 import "./styles/Modal.scss";
 import { modalContext } from "@context/store";
-import preventDefault from "@utils/preventDefault";
+import { ChangeEvent, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { EditPostInputType } from "@types";
+import { JobtypeSelect, LevelSelect } from "@utils";
 
 export function EditModal() {
+  const [isTitleCorrect, setIsTitleCorrect] = useState<boolean>(true);
+  const [isDescriptionCorrect, setIsDescriptionCorrect] =
+    useState<boolean>(true);
   const { hide } = modalContext((state) => state);
+
+  const { register, handleSubmit } = useForm<EditPostInputType>();
+
+  const onSubmit: SubmitHandler<EditPostInputType> = (data) => {
+    isTitleCorrect && isDescriptionCorrect && console.log(data);
+  };
 
   return (
     <div className="modal-form">
-      <form onSubmit={preventDefault}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <button onClick={hide}>
           <AwesomeIcons type="solid" name="xmark" />
         </button>
@@ -16,8 +28,13 @@ export function EditModal() {
           Titre <span>*</span>
         </label>
         <input
+          className={isTitleCorrect ? "" : "invalid-input"}
+          required
           type="text"
-          name="new-post-title"
+          {...register("title", {
+            onChange: (e: ChangeEvent<HTMLInputElement>) =>
+              setIsTitleCorrect(e.target.value.length > 0),
+          })}
           id="new-post-title"
           maxLength={100}
           placeholder="Titre de votre post"
@@ -26,8 +43,13 @@ export function EditModal() {
           Description <span>*</span>
         </label>
         <textarea
+          className={isDescriptionCorrect ? "" : "invalid-input"}
+          required
           placeholder="Description de votre post"
-          name="new-post-description"
+          {...register("description", {
+            onChange: (e: ChangeEvent<HTMLTextAreaElement>) =>
+              setIsDescriptionCorrect(e.target.value.length > 10),
+          })}
           id="new-post-description"
           cols={30}
           rows={4}
@@ -35,42 +57,28 @@ export function EditModal() {
         <label htmlFor="new-post-job-type">
           Type d'emploi <span>*</span>
         </label>
-        <select name="new-post-job-type" id="new-post-job-type">
-          <option selected disabled>
+        <select defaultValue="" {...register("jobType")} id="new-post-job-type">
+          <option value="" disabled>
             Type d'emploi
           </option>
-          <option value="APPRENTICESHIP">Alternance</option>
-          <option value="FULL-TIME">CDI</option>
-          <option value="PART-TIME">CDD</option>
-          <option value="INTERNSHIP">Stage</option>
-        </select>
-        <label htmlFor="new-post-job-domain">Domaine</label>
-        <select name="new-post-job-domain" id="new-post-job-domain">
-          <option selected disabled>
-            Domaine
-          </option>
-          <option value="DEVELOPMENT">Développement</option>
-          <option value="DESIGN">Design</option>
-          <option value="MARKETING">Marketing</option>
-          <option value="SALES">Vente</option>
-          <option value="CUSTOMER-SERVICE">Service client</option>
-          <option value="FINANCE">Finance</option>
-          <option value="HUMAN-RESOURCES">Ressources humaines</option>
-          <option value="LEGAL">Juridique</option>
-          <option value="ADMINISTRATIVE">Administratif</option>
-          <option value="MANAGEMENT">Management</option>
-          <option value="OTHER">Autre</option>
+          {JobtypeSelect.map((jobtype) => (
+            <option key={jobtype.value} value={jobtype.value}>
+              {jobtype.label}
+            </option>
+          ))}
         </select>
         <label htmlFor="new-post-level">
           Niveau <span>*</span>
         </label>
-        <select name="new-post-level" id="new-post-level">
-          <option selected disabled>
+        <select defaultValue="" {...register("level")} id="new-post-level">
+          <option value="" disabled>
             Niveau
           </option>
-          <option value="JUNIOR">Junior</option>
-          <option value="SENIOR">Senior</option>
-          <option value="EXPERT">Expert</option>
+          {LevelSelect.map((level) => (
+            <option key={level.value} value={level.value}>
+              {level.label}
+            </option>
+          ))}
         </select>
         <button type="submit">
           <AwesomeIcons name="pencil" type="solid" /> Modifier

@@ -1,7 +1,6 @@
 import AwesomeIcons from "@components/AwesomeIcons";
 import "./styles/SinglePost.scss";
 import resumeExeImg from "@assets/resume.jpg";
-import preventDefault from "@utils/preventDefault";
 
 export function PostDescription(): JSX.Element {
   return (
@@ -99,7 +98,7 @@ export default function SinglePost(): JSX.Element {
           <Comment />
           {/* <NoComment /> */}
         </div>
-        <form onSubmit={preventDefault}>
+        <form onSubmit={(e) => e.preventDefault()}>
           <input type="text" placeholder="faire un commentaire..." />
           <button>
             <AwesomeIcons name="paper-plane" type="solid" />

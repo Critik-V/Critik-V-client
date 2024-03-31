@@ -8,6 +8,7 @@
   flex-wrap: wrap;
   font-size: 0.9rem;
   gap: 0.5rem;
+
   & > * {
     display: flex;
     align-items: center;
@@ -24,11 +25,16 @@
       &:not(button) {
         font-style: italic;
         color: $secondary-black;
+        border: 1px solid $primary-grey;
       }
       &:focus:not(button) {
         outline: 1.5px dashed $primary-green;
       }
     }
+  }
+
+  & input[type="search"] {
+    min-width: 12rem;
   }
 
   button[type="submit"] {

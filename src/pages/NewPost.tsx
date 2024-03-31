@@ -4,9 +4,10 @@ import Dropzone from "react-dropzone";
 import { Fragment } from "react/jsx-runtime";
 import { toast } from "react-hot-toast";
 import { FileRejectedToast } from "@components/CustomToasts";
-import { useState } from "react";
+import { ChangeEvent, FocusEvent, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { NewPostInputType } from "@types";
+import { JobtypeSelect, LevelSelect } from "@utils";
 
 type IsUploadedProps = { name: string; weight: number };
 
@@ -45,15 +46,20 @@ export function IsUploaded({ name, weight }: IsUploadedProps): JSX.Element {
 }
 
 export default function NewPost(): JSX.Element {
-  const { register, handleSubmit } = useForm<NewPostInputType>();
   const [file, setFile] = useState<File | null>(null);
+  const [isTitleCorrect, setIsTitleCorrect] = useState<boolean>(true);
+  const [isDescriptionCorrect, setIsDescriptionCorrect] =
+    useState<boolean>(true);
+
+  const { register, handleSubmit } = useForm<NewPostInputType>();
+
   const onSubmit: SubmitHandler<NewPostInputType> = (data) => {
     data.file = file;
     if (!data.file) {
       toast.error("Veuillez ajouter un fichier PDF");
       return;
     }
-    console.log(data);
+    isTitleCorrect && isDescriptionCorrect && console.log(data);
   };
   return (
     <main id="new-post">
@@ -63,19 +69,35 @@ export default function NewPost(): JSX.Element {
           Titre <span>*</span>
         </label>
         <input
+          className={isTitleCorrect ? "" : "invalid-input"}
           type="text"
           id="new-post-title"
           required
           maxLength={100}
           placeholder="Titre de votre post"
-          {...register("title")}
+          {...register("title", {
+            onChange: (e: ChangeEvent<HTMLInputElement>) =>
+              setIsTitleCorrect(
+                e.target.value.length === 0 || e.target.value.length > 5
+              ),
+            onBlur: (e: FocusEvent<HTMLInputElement>) => e.target.value.trim(),
+          })}
         />
         <label htmlFor="new-post-description">
           Description <span>*</span>
         </label>
         <textarea
+          className={isDescriptionCorrect ? "" : "invalid-input"}
           required
-          {...register("description")}
+          {...(register("description"),
+          {
+            onChange: (e: ChangeEvent<HTMLTextAreaElement>) =>
+              setIsDescriptionCorrect(
+                e.target.value.length === 0 || e.target.value.length > 20
+              ),
+            onBlur: (e: FocusEvent<HTMLTextAreaElement>) =>
+              e.target.value.trim(),
+          })}
           placeholder="Description de votre post"
           id="new-post-description"
           cols={30}
@@ -91,31 +113,11 @@ export default function NewPost(): JSX.Element {
           <option value="" disabled>
             Type d'emploi
           </option>
-          <option value="APPRENTICESHIP">Alternance</option>
-          <option value="FULL-TIME">CDI</option>
-          <option value="PART-TIME">CDD</option>
-          <option value="INTERNSHIP">Stage</option>
-        </select>
-        <label htmlFor="new-post-job-domain">Domaine</label>
-        <select
-          required
-          defaultValue=""
-          {...register("domain")}
-          id="new-post-job-domain">
-          <option value="" disabled>
-            Domaine
-          </option>
-          <option value="DEVELOPMENT">Développement</option>
-          <option value="DESIGN">Design</option>
-          <option value="MARKETING">Marketing</option>
-          <option value="SALES">Vente</option>
-          <option value="CUSTOMER-SERVICE">Service client</option>
-          <option value="FINANCE">Finance</option>
-          <option value="HUMAN-RESOURCES">Ressources humaines</option>
-          <option value="LEGAL">Juridique</option>
-          <option value="ADMINISTRATIVE">Administratif</option>
-          <option value="MANAGEMENT">Management</option>
-          <option value="OTHER">Autre</option>
+          {JobtypeSelect.map((jobtype) => (
+            <option key={jobtype.value} value={jobtype.value}>
+              {jobtype.label}
+            </option>
+          ))}
         </select>
         <label htmlFor="new-post-level">
           Niveau <span>*</span>
@@ -128,9 +130,11 @@ export default function NewPost(): JSX.Element {
           <option value="" disabled>
             Niveau
           </option>
-          <option value="JUNIOR">Junior</option>
-          <option value="SENIOR">Senior</option>
-          <option value="EXPERT">Expert</option>
+          {LevelSelect.map((level) => (
+            <option key={level.value} value={level.value}>
+              {level.label}
+            </option>
+          ))}
         </select>
         <label htmlFor="upload-field">
           CV <span>*</span>

@@ -65,6 +65,7 @@
     margin: 1.5rem;
     border-radius: 10px;
     font-size: 0.9rem;
+    min-width: 20rem;
 
     & input::placeholder,
     & textarea::placeholder {
@@ -87,7 +88,7 @@
       color: $primary-black;
     }
     & > *:not(label, button) {
-      border: 1px solid #d9d9d9a7;
+      border: 1px solid $primary-grey;
     }
 
     & select {
@@ -116,6 +117,7 @@
         font-weight: 500;
       }
     }
+
     & button[type="submit"] {
       margin: 1rem 0;
       padding: 0.7rem 1rem;

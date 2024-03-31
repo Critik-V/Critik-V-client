@@ -1,9 +1,9 @@
-import preventDefault from "@utils/preventDefault";
 import "./styles/SearchBar.scss";
+import { JobtypeSelect, LevelSelect } from "@utils";
 
 export function SearchBar(): JSX.Element {
   return (
-    <form onSubmit={preventDefault} className="search">
+    <form onSubmit={(e) => e.preventDefault()} className="search">
       <div className="search__first">
         <input
           placeholder="Rechercher un CV"
@@ -11,27 +11,30 @@ export function SearchBar(): JSX.Element {
           name="search"
           id="search"
         />
-        <select name="job-type" id="job-type">
-          <option selected disabled>
+        <select defaultValue="" name="job-type" id="job-type">
+          <option value="" disabled>
             Type d'emploi
           </option>
-          <option value="APPRENTICESHIP">Alternance</option>
-          <option value="FULL-TIME">CDI</option>
-          <option value="PART-TIME">CDD</option>
-          <option value="INTERNSHIP">Stage</option>
+          {JobtypeSelect.map((jobtype) => (
+            <option key={jobtype.value} value={jobtype.value}>
+              {jobtype.label}
+            </option>
+          ))}
         </select>
       </div>
       <div className="search__secondary">
-        <select name="level" id="level">
-          <option selected disabled>
+        <select defaultValue="" name="level" id="level">
+          <option value="" disabled>
             Niveau
           </option>
-          <option value="JUNIOR">Junior</option>
-          <option value="SENIRO">Senior</option>
-          <option value="EXPERT">Expert</option>
+          {LevelSelect.map((level) => (
+            <option key={level.value} value={level.value}>
+              {level.label}
+            </option>
+          ))}
         </select>
-        <select name="etablishement" id="etablishement">
-          <option selected disabled>
+        {/* <select defaultValue="" name="etablishement" id="etablishement">
+          <option value="" disabled>
             Etablissement
           </option>
           <optgroup label="Ecole / Université">
@@ -43,7 +46,7 @@ export function SearchBar(): JSX.Element {
             <option value="">Meta</option>
             <option value="COMPANY">Autre</option>
           </optgroup>
-        </select>
+        </select> */}
         <button type="submit">Rechercher</button>
       </div>
     </form>
@@ -52,7 +55,7 @@ export function SearchBar(): JSX.Element {
 
 export function FavSearchBar(): JSX.Element {
   return (
-    <form onSubmit={preventDefault} className="search">
+    <form onSubmit={(e) => e.preventDefault()} className="search">
       <div className="search__first">
         <input
           placeholder="Rechercher un CV"
@@ -60,27 +63,30 @@ export function FavSearchBar(): JSX.Element {
           name="search"
           id="search"
         />
-        <select name="job-type" id="job-type">
-          <option selected disabled>
+        <select defaultValue="" name="job-type" id="job-type">
+          <option value="" disabled>
             Type d'emploi
           </option>
-          <option value="APPRENTICESHIP">Alternance</option>
-          <option value="FULL-TIME">CDI</option>
-          <option value="PART-TIME">CDD</option>
-          <option value="INTERNSHIP">Stage</option>
+          {JobtypeSelect.map((jobtype) => (
+            <option key={jobtype.value} value={jobtype.value}>
+              {jobtype.label}
+            </option>
+          ))}
         </select>
       </div>
       <div className="search__secondary">
-        <select name="level" id="level">
-          <option selected disabled>
+        <select defaultValue="" name="level" id="level">
+          <option value="" disabled>
             Niveau
           </option>
-          <option value="JUNIOR">Junior</option>
-          <option value="SENIRO">Senior</option>
-          <option value="EXPERT">Expert</option>
+          {LevelSelect.map((level) => (
+            <option key={level.value} value={level.value}>
+              {level.label}
+            </option>
+          ))}
         </select>
-        <select name="etablishement" id="etablishement">
-          <option selected disabled>
+        {/* <select defaultValue="" name="etablishement" id="etablishement">
+          <option value="" disabled>
             Etablissement
           </option>
           <optgroup label="Ecole / Université">
@@ -92,7 +98,7 @@ export function FavSearchBar(): JSX.Element {
             <option value="">Meta</option>
             <option value="COMPANY">Autre</option>
           </optgroup>
-        </select>
+        </select> */}
         <button type="submit">Rechercher</button>
       </div>
     </form>

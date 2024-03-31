@@ -2,7 +2,7 @@ import AwesomeIcons from "@components/AwesomeIcons";
 import "./styles/Profile.scss";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ProfilInputType } from "@types";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { githubRegex, linkedinRegex, otherLinkRegex } from "@utils";
 
 const linkedinPlaceholder = "https://www.linkedin.com/in/username";
@@ -25,24 +25,11 @@ export default function Profile(): JSX.Element {
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="profile-name">Nom & prénom</label>
         <input
-          required
           disabled
           type="text"
-          name=""
-          id=""
-          value={"user name"}
+          id="profile-name"
+          defaultValue={"user name"}
         />
-        <label htmlFor="profile-description">Description</label>
-        <textarea
-          {...register("description", {
-            onBlur: (e: React.FocusEvent<HTMLInputElement>) =>
-              e.target.value.trim(),
-          })}
-          placeholder="Decrivez-vous en quelques mots..."
-          id="profile-description"
-          cols={30}
-          rows={3}
-          maxLength={50}></textarea>
         <label htmlFor="profile-linkedin">Linkedin</label>
         <input
           className={isLinkedinCorrect ? "" : "invalid-input"}
@@ -65,13 +52,12 @@ export default function Profile(): JSX.Element {
           className={isGithubCorrect ? "" : "invalid-input"}
           {...(register("github"),
           {
-            onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+            onChange: (e: ChangeEvent<HTMLInputElement>) => {
               setIsGithubCorrect(
                 githubRegex.test(e.target.value) || e.target.value === ""
               );
             },
-            onBlur: (e: React.FocusEvent<HTMLInputElement>) =>
-              e.target.value.trim(),
+            onBlur: (e: React.FocusEvent<HTMLInputElement>) => e.target.value.trim(),
           })}
           type="text"
           id="profile-github"
