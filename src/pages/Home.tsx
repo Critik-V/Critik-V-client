@@ -25,6 +25,12 @@ export default function Home(): JSX.Element {
         <PostCard />
         <PostCard />
         <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
       </section>
       <Pagination />
     </main>

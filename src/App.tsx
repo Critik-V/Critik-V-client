@@ -16,6 +16,7 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Fragment } from "react/jsx-runtime";
 import Modal from "@modals/Modal";
 import { modalContext } from "@context/store";
+import Login from "@pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,7 @@ const router = createBrowserRouter([
       { path: "profile", element: <Profile /> },
     ],
   },
+  { path: "login", element: <Login /> },
   { path: "*", element: <NotFound /> },
 ]);
 
