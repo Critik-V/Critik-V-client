@@ -1,20 +1,25 @@
+import { SubmitHandler, useForm } from "react-hook-form";
 import "./styles/SearchBar.scss";
 import { JobtypeSelect, LevelSelect } from "@utils";
+import { SearchInputType } from "@types";
 
 export function SearchBar(): JSX.Element {
+  const { register, handleSubmit } = useForm<SearchInputType>();
+  const onSubmit: SubmitHandler<SearchInputType> = (data) => {
+    console.log(data);
+  };
+
   return (
-    <form onSubmit={(e) => e.preventDefault()} className="search">
+    <form onSubmit={handleSubmit(onSubmit)} className="search">
       <div className="search__first">
         <input
+          {...register("search")}
           placeholder="Rechercher un CV"
           type="search"
-          name="search"
           id="search"
         />
-        <select defaultValue="" name="job-type" id="job-type">
-          <option value="" disabled>
-            Type d'emploi
-          </option>
+        <select defaultValue="" {...register("jobType")} id="job-type">
+          <option value="">Tous les emplois</option>
           {JobtypeSelect.map((jobtype) => (
             <option key={jobtype.value} value={jobtype.value}>
               {jobtype.label}
@@ -23,30 +28,15 @@ export function SearchBar(): JSX.Element {
         </select>
       </div>
       <div className="search__secondary">
-        <select defaultValue="" name="level" id="level">
-          <option value="" disabled>
-            Niveau
-          </option>
+        <select defaultValue="" {...register("level")} id="level">
+          <option value="">Tous niveaux</option>
           {LevelSelect.map((level) => (
             <option key={level.value} value={level.value}>
               {level.label}
             </option>
           ))}
         </select>
-        {/* <select defaultValue="" name="etablishement" id="etablishement">
-          <option value="" disabled>
-            Etablissement
-          </option>
-          <optgroup label="Ecole / Université">
-            <option value="SCHOOL">ESATIC</option>
-            <option value="SCHOOL">INPHB</option>
-            <option value="SCHOOL">Autre</option>
-          </optgroup>
-          <optgroup label="Entreprise">
-            <option value="">Meta</option>
-            <option value="COMPANY">Autre</option>
-          </optgroup>
-        </select> */}
+
         <button type="submit">Rechercher</button>
       </div>
     </form>
@@ -54,19 +44,22 @@ export function SearchBar(): JSX.Element {
 }
 
 export function FavSearchBar(): JSX.Element {
+  const { register, handleSubmit } = useForm<SearchInputType>();
+  const onSubmit: SubmitHandler<SearchInputType> = (data) => {
+    console.log(data);
+  };
+
   return (
-    <form onSubmit={(e) => e.preventDefault()} className="search">
+    <form onSubmit={handleSubmit(onSubmit)} className="search">
       <div className="search__first">
         <input
+          {...register("search")}
           placeholder="Rechercher un CV"
           type="search"
-          name="search"
           id="search"
         />
-        <select defaultValue="" name="job-type" id="job-type">
-          <option value="" disabled>
-            Type d'emploi
-          </option>
+        <select defaultValue="" {...register("jobType")} id="job-type">
+          <option value="">Tous les emplois</option>
           {JobtypeSelect.map((jobtype) => (
             <option key={jobtype.value} value={jobtype.value}>
               {jobtype.label}
@@ -75,30 +68,15 @@ export function FavSearchBar(): JSX.Element {
         </select>
       </div>
       <div className="search__secondary">
-        <select defaultValue="" name="level" id="level">
-          <option value="" disabled>
-            Niveau
-          </option>
+        <select defaultValue="" {...register("level")} id="level">
+          <option value="">Tous niveaux</option>
           {LevelSelect.map((level) => (
             <option key={level.value} value={level.value}>
               {level.label}
             </option>
           ))}
         </select>
-        {/* <select defaultValue="" name="etablishement" id="etablishement">
-          <option value="" disabled>
-            Etablissement
-          </option>
-          <optgroup label="Ecole / Université">
-            <option value="SCHOOL">ESATIC</option>
-            <option value="SCHOOL">INPHB</option>
-            <option value="SCHOOL">Autre</option>
-          </optgroup>
-          <optgroup label="Entreprise">
-            <option value="">Meta</option>
-            <option value="COMPANY">Autre</option>
-          </optgroup>
-        </select> */}
+
         <button type="submit">Rechercher</button>
       </div>
     </form>

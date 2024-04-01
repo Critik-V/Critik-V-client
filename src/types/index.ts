@@ -1,3 +1,12 @@
+type JobType =
+  | "FULLTIME"
+  | "PARTTIME"
+  | "INTERNSHIP"
+  | "APPRENTICESHIP"
+  | "FREELANCE";
+
+type Level = "ENTRY_LEVEL" | "JUNIOR" | "MID" | "SENIOR";
+
 export type ProfilInputType = {
   linkedin?: string;
   github?: string;
@@ -8,14 +17,20 @@ export type ProfilInputType = {
 export type NewPostInputType = {
   title: string;
   description: string;
-  jobType: string;
-  level: string;
+  jobType: JobType;
+  level: Level;
   file: File | null;
 };
 
 export type EditPostInputType = {
   title: string;
   description: string;
-  jobType: string;
-  level: string;
+  jobType: JobType;
+  level: Level;
+};
+
+export type SearchInputType = {
+  search: string;
+  jobType: JobType | "";
+  level: Level | "";
 };
