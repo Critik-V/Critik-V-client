@@ -1,6 +1,6 @@
 import "./styles/Favorite.scss";
 import SubHeader from "@layouts/SubHeader";
-import { FavSearchBar } from "@components/SearchBar";
+import { FavSearchBar } from "@components/SearchBars";
 import { FavCard } from "@components/PostsCards";
 import { Fragment } from "react/jsx-runtime";
 import Empty from "@layouts/Empty";
