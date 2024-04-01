@@ -4,6 +4,7 @@ import { SearchBar } from "@components/SearchBars";
 import SubHeader from "@layouts/SubHeader";
 import { PostCard } from "@components/PostsCards";
 import { Link } from "react-router-dom";
+import Pagination from "@components/Pagination";
 
 export default function Home(): JSX.Element {
   return (
@@ -25,6 +26,7 @@ export default function Home(): JSX.Element {
         <PostCard />
         <PostCard />
       </section>
+      <Pagination />
     </main>
   );
 }

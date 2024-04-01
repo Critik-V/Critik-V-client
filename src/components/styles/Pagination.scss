@@ -1,0 +1,21 @@
+@import "@sass/main";
+
+.pagination {
+  @include full;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  margin: 2rem 0;
+  & button {
+    background: white;
+    border-radius: 5px;
+    padding: 0.5rem 0.7rem;
+    @include btn-effect;
+  }
+
+  & .active {
+    background: $secondary-green;
+    color: white;
+  }
+}
