@@ -9,10 +9,9 @@ export default function Login() {
         <img src={logoImg} alt="Critik-V logo" />
         <h2>Se connecter à son compte</h2>
         <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio id
-          esse omnis quisquam illum neque nulla placeat excepturi consectetur
-          illo exercitationem repellat, itaque nisi. Placeat ex eos
-          exercitationem autem quo.
+          Bienvenue sur Critik-V, une application de review de CV anonyme par
+          d'autres utilisateurs. Obtenez des commentaires constructifs pour
+          améliorer votre CV.
         </p>
         <button>
           <img src={googleLogoImg} alt="Google logo" />
