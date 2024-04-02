@@ -37,19 +37,21 @@
       font-weight: 400;
     }
     & button {
+      margin: 1rem auto;
       text-align: center;
-      width: 100%;
       background: rgb(241, 239, 239);
-      padding: 1rem;
+      padding: 0.5rem 2rem;
       border-radius: 10px;
       @include btn-effect;
       display: flex;
-      align-items: center;
       justify-content: center;
-      // gap: 0.5rem;
+      align-items: center;
+      gap: 0.5rem;
+      outline: none;
       & img {
-        width: 10px;
-        height: 10px;
+        width: 20px;
+        height: 20px;
+        margin-right: 0.5rem;
       }
     }
   }

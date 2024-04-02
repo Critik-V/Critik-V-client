@@ -1,6 +1,6 @@
 import "./styles/Login.scss";
 import logoImg from "@assets/logo.svg";
-// import googleLogoImg from "@assets/google-logo.png";
+import googleLogoImg from "@assets/logo-google.png";
 
 export default function Login() {
   return (
@@ -15,8 +15,8 @@ export default function Login() {
           exercitationem autem quo.
         </p>
         <button>
-          {/* <img src={googleLogoImg} alt="google logo" /> */}
-          Continue with Google
+          <img src={googleLogoImg} alt="Google logo" />
+          Se connecter avec Google
         </button>
       </div>
     </main>
