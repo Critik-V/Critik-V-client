@@ -5,6 +5,8 @@
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 0.5rem;
 
+  @include full;
+
   &-resume {
     overflow: hidden;
     @include full;
@@ -14,8 +16,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgb(224, 224, 224);
-      overflow: auto;
       & img {
         height: 100%;
         width: 100%;
