@@ -1,16 +1,17 @@
 import axios, { AxiosResponse } from "axios";
-import { CreateCommentType, LikeCommentActionType, UpdateCommentType } from "./types";
+import { CreateCommentType, LikeCommentActionType, Methods, UpdateCommentType } from "./types";
 
 const commentsUrl = import.meta.env.VITE_COMMENTS_URL;
 
 export const createComment = async (
-  Data: CreateCommentType
+  data: CreateCommentType
 ): Promise<AxiosResponse | undefined> => {
+  const method: Methods = Methods.POST;
+  const url: string = commentsUrl;
+
   try {
-    const { data } = await axios.post(commentsUrl, {
-      data: Data
-    });
-    return data;
+    const { data: res } = await axios<AxiosResponse>({ method, url, data });
+    return res;
   } catch (error) {
     console.log(error);
   }
@@ -18,14 +19,15 @@ export const createComment = async (
 
 export const updateComment = async (
   Id: string,
-  Data: UpdateCommentType
+  data: UpdateCommentType
 ): Promise<AxiosResponse | undefined> => {
   const restPath: string = "/";
+  const method: Methods = Methods.PATCH;
+  const url: string = commentsUrl + restPath + Id;
+
   try {
-    const { data } = await axios.patch(commentsUrl + restPath + Id, {
-      data: Data
-    });
-    return data;
+    const { data: res } = await axios<AxiosResponse>({ method, url, data });
+    return res;
   } catch (error) {
     console.log(error);
   }
@@ -36,20 +38,25 @@ export const deleteComment = async (
   authorId: string
 ): Promise<AxiosResponse | undefined> => {
   const restPath: string = "/";
+  const url: string = commentsUrl + restPath + Id;
+  const data = { authorId };
+  const method: Methods = Methods.DELETE;
 
   try {
-    const { data } = await axios.delete(commentsUrl + restPath + Id, {
-      data: { authorId }
-    });
-    return data;
+    const { data: res } = await axios<AxiosResponse>({ method, url, data });
+    return res;
   } catch (error) {
     console.log(error);
   }
 };
 
 export const getPostComments = async (postId: string): Promise<AxiosResponse | undefined> => {
+  const restPath: string = "/post/";
+  const method: Methods = Methods.GET;
+  const url: string = commentsUrl + restPath + postId;
+
   try {
-    const { data } = await axios.get(commentsUrl, { data: { postId } });
+    const { data } = await axios<AxiosResponse>({ method, url });
     return data;
   } catch (error) {
     console.log(error);
@@ -62,17 +69,14 @@ export const upLikeComment = async (
   action: LikeCommentActionType
 ): Promise<AxiosResponse | undefined> => {
   const restPath: string = "/like/";
+  const method: Methods = Methods.PATCH;
+  const url: string = commentsUrl + restPath + Id;
+  const data = { userId };
+  const params = { action };
 
   try {
-    const { data } = await axios({
-      method: "patch",
-      url: commentsUrl + restPath + Id,
-      data: {
-        userId
-      },
-      params: { action }
-    });
-    return data;
+    const { data: res } = await axios<AxiosResponse>({ method, url, data, params });
+    return res;
   } catch (error) {
     console.log(error);
   }
@@ -83,17 +87,15 @@ export const downLikeComment = async (
   userId: string,
   action: LikeCommentActionType
 ): Promise<AxiosResponse | undefined> => {
+  const method: Methods = Methods.PATCH;
   const restPath: string = "/dislike/";
+  const url: string = commentsUrl + restPath + Id;
+  const data = { userId };
+  const params = { action };
+
   try {
-    const { data } = await axios({
-      method: "patch",
-      url: commentsUrl + restPath + Id,
-      data: {
-        userId
-      },
-      params: { action }
-    });
-    return data;
+    const { data: res } = await axios<AxiosResponse>({ method, url, data, params });
+    return res;
   } catch (error) {
     console.log(error);
   }
