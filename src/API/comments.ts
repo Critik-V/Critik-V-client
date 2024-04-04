@@ -1,17 +1,13 @@
 import axios from "axios";
+import {
+  CreateCommentType,
+  LikeCommentActionType,
+  UpdateCommentType,
+} from "./types";
 
 const commentsUrl = import.meta.env.VITE_COMMENTS_URL;
 
-enum LikeCommentAction {
-  TRUE = "true",
-  FALSE = "false",
-}
-
-export const createComment = async (Data: {
-  content: string;
-  postId: string;
-  authorId: string;
-}) => {
+export const createComment = async (Data: CreateCommentType) => {
   try {
     const { data } = await axios.post(commentsUrl, {
       data: Data,
@@ -22,12 +18,10 @@ export const createComment = async (Data: {
   }
 };
 
-export const updateComment = async (
-  Id: string,
-  Data: { content: string; authorId: string }
-) => {
+export const updateComment = async (Id: string, Data: UpdateCommentType) => {
+  const restPath: string = "/";
   try {
-    const { data } = await axios.patch(commentsUrl + "/" + Id, {
+    const { data } = await axios.patch(commentsUrl + restPath + Id, {
       data: Data,
     });
     return data;
@@ -37,8 +31,10 @@ export const updateComment = async (
 };
 
 export const deleteComment = async (Id: string, authorId: string) => {
+  const restPath: string = "/";
+
   try {
-    const { data } = await axios.delete(commentsUrl + "/" + Id, {
+    const { data } = await axios.delete(commentsUrl + restPath + Id, {
       data: { authorId },
     });
     return data;
@@ -59,12 +55,14 @@ export const getPostComments = async (postId: string) => {
 export const upLikeComment = async (
   Id: string,
   userId: string,
-  action: LikeCommentAction
+  action: LikeCommentActionType
 ) => {
+  const restPath: string = "/like/";
+
   try {
     const { data } = await axios({
       method: "patch",
-      url: commentsUrl + "/like/" + Id,
+      url: commentsUrl + restPath + Id,
       data: {
         userId,
       },
@@ -79,12 +77,13 @@ export const upLikeComment = async (
 export const downLikeComment = async (
   Id: string,
   userId: string,
-  action: LikeCommentAction
+  action: LikeCommentActionType
 ) => {
+  const restPath: string = "/dislike/";
   try {
     const { data } = await axios({
       method: "patch",
-      url: commentsUrl + "/dislike/" + Id,
+      url: commentsUrl + restPath + Id,
       data: {
         userId,
       },

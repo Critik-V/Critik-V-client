@@ -26,7 +26,7 @@ export type EditPostInputType = {
   title: string;
   description: string;
   jobType: JobType;
-  level: Level;
+  level: Level; 
 };
 
 export type SearchInputType = {
