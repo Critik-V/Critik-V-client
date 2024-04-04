@@ -1,11 +1,11 @@
-type JobType =
+export type JobType =
   | "FULLTIME"
   | "PARTTIME"
   | "INTERNSHIP"
   | "APPRENTICESHIP"
   | "FREELANCE";
 
-type Level = "ENTRY_LEVEL" | "JUNIOR" | "MID" | "SENIOR";
+export type Level = "ENTRY_LEVEL" | "JUNIOR" | "MID" | "SENIOR";
 
 export type ProfilInputType = {
   linkedin?: string;

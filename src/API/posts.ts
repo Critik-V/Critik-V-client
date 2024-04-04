@@ -1,24 +1,12 @@
 import axios from "axios";
+import {
+  CreatePostType,
+  FavActionType,
+  SinglePostType,
+  UpdatePostType,
+} from "./types";
 
 const postsUrl: string = import.meta.env.VITE_POSTS_URL;
-enum JobType {
-  INTERNSHIP = "INTERNSHIP",
-  APPRENTICESHIP = "APPRENTICESHIP",
-  FULLTIME = "FULLTIME",
-  PARTTIME = "PARTTIME",
-  FREELANCE = "FREELANCE",
-}
-enum ExprerienceLevel {
-  ENTRY_LEVEL = "ENTRY_LEVEL",
-  JUNIOR = "JUNIOR",
-  MID = "MID",
-  SENIOR = "SENIOR",
-}
-
-enum FavActionType {
-  ADD = "add",
-  REMOVE = "remove",
-}
 
 export const getPosts = async () => {
   try {
@@ -29,16 +17,7 @@ export const getPosts = async () => {
   }
 };
 
-export const createPost = async (Data: {
-  resume: File;
-  title: string;
-  description: string;
-  jobType: JobType;
-  experienceLevel: ExprerienceLevel;
-  establishmentName?: string;
-  domain?: string;
-  authorId: string;
-}) => {
+export const createPost = async (Data: CreatePostType) => {
   try {
     const { data } = await axios.post(postsUrl, {
       data: Data,
@@ -49,19 +28,11 @@ export const createPost = async (Data: {
   }
 };
 
-export const updatePost = async (
-  Id: string,
-  Data: {
-    title?: string;
-    description?: string;
-    jobType?: JobType;
-    experienceLevel?: ExprerienceLevel;
-    establishmentName?: string;
-    domain?: string;
-  }
-) => {
+export const updatePost = async (Id: string, Data: UpdatePostType) => {
+  const restPath: string = "/";
+
   try {
-    const { data } = await axios.patch(postsUrl + "/" + Id, {
+    const { data } = await axios.patch(postsUrl + restPath + Id, {
       data: Data,
     });
     return data;
@@ -71,21 +42,20 @@ export const updatePost = async (
 };
 
 export const deletePost = async (Id: string) => {
+  const restPath: string = "/";
   try {
-    const { data } = await axios.delete(postsUrl + "/" + Id);
+    const { data } = await axios.delete(postsUrl + restPath + Id);
     return data;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getArchivedPost = async (
-  Id: string,
-  Data: { authorId: string }
-) => {
+export const getArchivedPost = async (Id: string, Data: SinglePostType) => {
+  const restPath: string = "/archive";
   try {
     const { data } = await axios({
-      url: postsUrl + "/archive/" + Id,
+      url: postsUrl + restPath + Id,
       data: Data,
     });
     return data;
@@ -94,9 +64,10 @@ export const getArchivedPost = async (
   }
 };
 
-export const archivePost = async (Id: string, Data: { authorId: string }) => {
+export const archivePost = async (Id: string, Data: SinglePostType) => {
+  const restPath: string = "/archive";
   try {
-    const { data } = await axios.patch(postsUrl + "/archive/" + Id, {
+    const { data } = await axios.patch(postsUrl + restPath + Id, {
       Data,
     });
     return data;
@@ -106,10 +77,11 @@ export const archivePost = async (Id: string, Data: { authorId: string }) => {
 };
 
 export const getMyPosts = async (authorId: string) => {
+  const restPath: string = "/mine";
   try {
     const { data } = await axios({
       method: "get",
-      url: postsUrl + "/mine",
+      url: postsUrl + restPath,
       data: {
         authorId,
       },
@@ -121,10 +93,11 @@ export const getMyPosts = async (authorId: string) => {
 };
 
 export const getArchivedPosts = async (authorId: string) => {
+  const restPath: string = "/archived";
   try {
     const { data } = await axios({
       method: "get",
-      url: postsUrl + "/archived",
+      url: postsUrl + restPath,
       data: {
         authorId,
       },
@@ -139,8 +112,9 @@ export const favoritePost = async (
   Data: { id: string; userId: string },
   action: FavActionType
 ) => {
+  const restPath: string = "/fav?action=";
   try {
-    const { data } = await axios.patch(postsUrl + "/fav?action=" + action, {
+    const { data } = await axios.patch(postsUrl + restPath + action, {
       data: Data,
     });
     return data;
@@ -150,8 +124,9 @@ export const favoritePost = async (
 };
 
 export const getPost = async (Id: string) => {
+  const restPath: string = "/";
   try {
-    const { data } = await axios.get(postsUrl + "/" + Id);
+    const { data } = await axios.get(postsUrl + restPath + Id);
     return data;
   } catch (error) {
     console.log(error);
