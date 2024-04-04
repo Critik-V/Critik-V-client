@@ -51,11 +51,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: fit-content;
+    margin: 0 auto;
+    gap: 1rem;
 
     img {
       display: inline;
       text-align: left;
-      width: 4rem;
+      height: 2rem;
+      width: auto;
       margin: 2rem auto;
       filter: grayscale(100%) contrast(3);
     }
