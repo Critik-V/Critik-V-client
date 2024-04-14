@@ -21,36 +21,28 @@ export default function Header(): JSX.Element {
           <button>
             <NavLink
               to={"/my-posts"}
-              className={({ isActive }) =>
-                isActive ? cssMenuActive : undefined
-              }>
+              className={({ isActive }) => (isActive ? cssMenuActive : undefined)}>
               Mes Posts
             </NavLink>
           </button>
           <button>
             <NavLink
               to={"/favorites"}
-              className={({ isActive }) =>
-                isActive ? cssMenuActive : undefined
-              }>
+              className={({ isActive }) => (isActive ? cssMenuActive : undefined)}>
               Favoris
             </NavLink>
           </button>
           <button>
             <NavLink
               to={"/guide"}
-              className={({ isActive }) =>
-                isActive ? cssMenuActive : undefined
-              }>
+              className={({ isActive }) => (isActive ? cssMenuActive : undefined)}>
               CV guide
             </NavLink>
           </button>
           <button>
             <NavLink
               to={"/about-us"}
-              className={({ isActive }) =>
-                isActive ? cssMenuActive : undefined
-              }>
+              className={({ isActive }) => (isActive ? cssMenuActive : undefined)}>
               A propos
             </NavLink>
           </button>
@@ -59,7 +51,7 @@ export default function Header(): JSX.Element {
       <div className="profile">
         <button
           ref={menuBtnRef}
-          onClick={() => setIsMenuOpen((prev) => !prev)}
+          onClick={() => setIsMenuOpen(prev => !prev)}
           className="profile__mobile-btn">
           <AwesomeIcons type="solid" name="bars" />
         </button>
@@ -72,6 +64,9 @@ export default function Header(): JSX.Element {
             />
           </button>
         </Link>
+        <button onClick={() => console.log("disconnected...")} id="disconnect-btn">
+          <AwesomeIcons type="solid" name="right-from-bracket" />
+        </button>
       </div>
       {isMenuOpen && (
         <MobileMenu

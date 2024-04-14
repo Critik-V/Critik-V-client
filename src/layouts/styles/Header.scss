@@ -77,6 +77,13 @@ header .profile {
       display: none;
     }
   }
+
+  & #disconnect-btn {
+    margin-left: 1rem;
+    @include tablet-portrait {
+      display: none;
+    }
+  }
 }
 
 .active-menu-header {

@@ -32,10 +32,7 @@ export default function MobileMenu({ hide, btnRef }: PropsTypes): JSX.Element {
   return (
     <div className="mb-menu" ref={menuRef}>
       <div className="mb-menu__img">
-        <img
-          src="https://xsgames.co/randomusers/avatar.php?g=male"
-          alt="photo de profile"
-        />
+        <img src="https://xsgames.co/randomusers/avatar.php?g=male" alt="photo de profile" />
         <p>User full name</p>
       </div>
       <div className="mb-menu__menu">
@@ -61,8 +58,11 @@ export default function MobileMenu({ hide, btnRef }: PropsTypes): JSX.Element {
         </button>
         <button>
           <NavLink onClick={hide} to={"/about-us"}>
-            About Us
+            A propos
           </NavLink>
+        </button>
+        <button onClick={() => console.log("disconnected...")} style={{ color: "#ff5252" }}>
+          Se déconnecter
         </button>
       </div>
       <div className="mb-menu__setting">
