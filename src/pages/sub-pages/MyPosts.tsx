@@ -30,7 +30,7 @@ export default function MyPosts(): JSX.Element {
           />
         ))}
       </section>
-      <Pagination />
+      <Pagination totalPages={Number(data.totalPage)} />
     </Fragment>
   );
 }

@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import "./styles/Pagination.scss";
 import AwesomeIcons from "./AwesomeIcons";
 
-export default function Pagination() {
-  const lastPage = 20;
+export default function Pagination({ totalPages }: { totalPages: number }) {
+  const lastPage = totalPages;
   const division = 4;
   const plusInterval = 3;
 
@@ -20,9 +20,7 @@ export default function Pagination() {
     }
     if (lastPage > division + plusInterval) {
       if (currentPage <= division) {
-        setFirstPartArray(
-          Array.from({ length: division + 1 }, (_, i) => i + 1)
-        );
+        setFirstPartArray(Array.from({ length: division + 1 }, (_, i) => i + 1));
         setSecondPartArray([]);
         setLastPartArray([lastPage]);
       }
@@ -34,24 +32,17 @@ export default function Pagination() {
       if (currentPage > lastPage - division) {
         setFirstPartArray([1]);
         setSecondPartArray([]);
-        setLastPartArray(
-          Array.from(
-            { length: division + 1 },
-            (_, i) => i + lastPage - division
-          )
-        );
+        setLastPartArray(Array.from({ length: division + 1 }, (_, i) => i + lastPage - division));
       }
     }
-  }, [currentPage]);
+  }, [currentPage, lastPage]);
 
   return (
     <div className="pagination">
-      <button
-        onClick={() => setCurrentPage((prev) => --prev)}
-        disabled={currentPage == 1}>
+      <button onClick={() => setCurrentPage(prev => --prev)} disabled={currentPage == 1}>
         <AwesomeIcons type="solid" name="chevron-left" />
       </button>
-      {firstPartArray.map((page) => (
+      {firstPartArray.map(page => (
         <button
           key={page}
           className={currentPage === page ? "active" : ""}
@@ -60,7 +51,7 @@ export default function Pagination() {
         </button>
       ))}
       {secondPartArray.length > 0 && <span>...</span>}
-      {secondPartArray.map((page) => (
+      {secondPartArray.map(page => (
         <button
           key={page}
           className={currentPage === page ? "active" : ""}
@@ -69,7 +60,7 @@ export default function Pagination() {
         </button>
       ))}
       {lastPartArray.length > 0 && <span>...</span>}
-      {lastPartArray.map((page) => (
+      {lastPartArray.map(page => (
         <button
           key={page}
           className={currentPage === page ? "active" : ""}
@@ -77,9 +68,7 @@ export default function Pagination() {
           {page}
         </button>
       ))}
-      <button
-        onClick={() => setCurrentPage((prev) => ++prev)}
-        disabled={currentPage == lastPage}>
+      <button onClick={() => setCurrentPage(prev => ++prev)} disabled={currentPage == lastPage}>
         <AwesomeIcons type="solid" name="chevron-right" />
       </button>
     </div>

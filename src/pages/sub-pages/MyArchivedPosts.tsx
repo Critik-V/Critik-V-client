@@ -29,7 +29,7 @@ export default function MyArchivedPosts(): JSX.Element {
           />
         ))}
       </section>
-      <Pagination />
+      <Pagination totalPages={Number(data.totalPage)} />
     </Fragment>
   );
 }

@@ -35,7 +35,7 @@ export default function Favorite(): JSX.Element {
             ))}
           </section>
         )}
-        {data && data?.data?.length > 0 && <Pagination />}
+        {data && data?.data?.length > 0 && <Pagination totalPages={Number(data.totalPage)} />}
       </main>
     </Fragment>
   );

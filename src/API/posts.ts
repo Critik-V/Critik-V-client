@@ -11,6 +11,7 @@ type PostResponse<T = Post | Post[] | undefined> = T extends undefined
       message: string;
       data: T;
       status: number;
+      totalPage?: number;
     };
 
 const postsUrl: string = import.meta.env.VITE_POSTS_URL;
