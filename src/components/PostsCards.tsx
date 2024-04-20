@@ -3,12 +3,16 @@ import AwesomeIcons from "./AwesomeIcons";
 import "./styles/PostsCards.scss";
 
 const NewCardTag: JSX.Element = <span className="new">new</span>;
-const UnreviewedCardTag: JSX.Element = (
-  <span className="unreviewed">unreviewed</span>
-);
+const UnreviewedCardTag: JSX.Element = <span className="unreviewed">unreviewed</span>;
 
-export function MyPostCard(): JSX.Element {
-  const { show } = modalContext((state) => state);
+type PostCardProps = {
+  title: string;
+  description: string;
+  bookmarkCount: number;
+};
+
+export function MyPostCard({ title, description, bookmarkCount }: PostCardProps): JSX.Element {
+  const { show } = modalContext(state => state);
 
   return (
     <div className="card">
@@ -17,24 +21,14 @@ export function MyPostCard(): JSX.Element {
         {UnreviewedCardTag}
       </div>
       <div className="card__title">
-        <p>
-          Titre du post qui est un peu long et qui va être coupé à un moment
-        </p>
+        <p>{title}</p>
       </div>
       <div className="card__description">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae ratione
-          ullam adipisci perspiciatis, eveniet optio, magnam sint laudantium
-          repellendus porro, commodi nisi ea illum voluptatum quasi? Atque iure
-          vero cumque. Ipsum dolores officia animi et hic laudantium quas dolor,
-          blanditiis quo expedita, quibusdam quia quam facere aliquam
-          praesentium eius id perferendis, nesciunt provident porro commodi
-          saepe magni! Quas, ab et!
-        </p>
+        <p>{description}</p>
       </div>
       <div className="card__menu">
         <div className="card__menu-number">
-          <span>12</span>
+          <span>{bookmarkCount}</span>
           <AwesomeIcons type="regular" name="bookmark" />
         </div>
         <button
@@ -66,8 +60,8 @@ export function MyPostCard(): JSX.Element {
   );
 }
 
-export function ArchivedCard(): JSX.Element {
-  const { show } = modalContext((state) => state);
+export function ArchivedCard({ title, description, bookmarkCount }: PostCardProps): JSX.Element {
+  const { show } = modalContext(state => state);
 
   return (
     <div className="card">
@@ -75,24 +69,14 @@ export function ArchivedCard(): JSX.Element {
         <span>2 jours</span>
       </div>
       <div className="card__title">
-        <p>
-          Titre du post qui est un peu long et qui va être coupé à un moment
-        </p>
+        <p>{title}</p>
       </div>
       <div className="card__description">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae ratione
-          ullam adipisci perspiciatis, eveniet optio, magnam sint laudantium
-          repellendus porro, commodi nisi ea illum voluptatum quasi? Atque iure
-          vero cumque. Ipsum dolores officia animi et hic laudantium quas dolor,
-          blanditiis quo expedita, quibusdam quia quam facere aliquam
-          praesentium eius id perferendis, nesciunt provident porro commodi
-          saepe magni! Quas, ab et!
-        </p>
+        <p>{description}</p>
       </div>
       <div className="card__menu">
         <div className="card__menu-number">
-          <span>12</span>
+          <span>{bookmarkCount}</span>
           <AwesomeIcons type="regular" name="bookmark" />
         </div>
         <button
@@ -117,7 +101,7 @@ export function ArchivedCard(): JSX.Element {
   );
 }
 
-export function PostCard(): JSX.Element {
+export function PostCard({ title, description, bookmarkCount }: PostCardProps): JSX.Element {
   return (
     <div className="card">
       <div className="card__tags">
@@ -125,24 +109,14 @@ export function PostCard(): JSX.Element {
         {UnreviewedCardTag}
       </div>
       <div className="card__title">
-        <h2>
-          Titre du post qui est un peu long et qui va être coupé à un moment
-        </h2>
+        <h2>{title}</h2>
       </div>
       <div className="card__description">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae ratione
-          ullam adipisci perspiciatis, eveniet optio, magnam sint laudantium
-          repellendus porro, commodi nisi ea illum voluptatum quasi? Atque iure
-          vero cumque. Ipsum dolores officia animi et hic laudantium quas dolor,
-          blanditiis quo expedita, quibusdam quia quam facere aliquam
-          praesentium eius id perferendis, nesciunt provident porro commodi
-          saepe magni! Quas, ab et!
-        </p>
+        <p>{description}</p>
       </div>
       <div className="card__menu">
         <div className="card__menu-number">
-          <span>12</span>
+          <span>{bookmarkCount}</span>
           <AwesomeIcons type="regular" name="bookmark" />
         </div>
         <button className="see-more">
@@ -153,7 +127,7 @@ export function PostCard(): JSX.Element {
   );
 }
 
-export function FavCard(): JSX.Element {
+export function FavCard({ title, description, bookmarkCount }: PostCardProps): JSX.Element {
   return (
     <div className="card">
       <div className="card__tags">
@@ -161,24 +135,14 @@ export function FavCard(): JSX.Element {
         {UnreviewedCardTag}
       </div>
       <div className="card__title">
-        <h2>
-          Titre du post qui est un peu long et qui va être coupé à un moment
-        </h2>
+        <h2>{title}</h2>
       </div>
       <div className="card__description">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae ratione
-          ullam adipisci perspiciatis, eveniet optio, magnam sint laudantium
-          repellendus porro, commodi nisi ea illum voluptatum quasi? Atque iure
-          vero cumque. Ipsum dolores officia animi et hic laudantium quas dolor,
-          blanditiis quo expedita, quibusdam quia quam facere aliquam
-          praesentium eius id perferendis, nesciunt provident porro commodi
-          saepe magni! Quas, ab et!
-        </p>
+        <p>{description}</p>
       </div>
       <div className="card__menu">
         <button className="unfav">
-          <span>18</span> <AwesomeIcons type="solid" name="bookmark" />
+          <span>{bookmarkCount}</span> <AwesomeIcons type="solid" name="bookmark" />
         </button>
       </div>
     </div>

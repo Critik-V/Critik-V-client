@@ -1,12 +1,15 @@
 import "./styles/Empty.scss";
 import emptyImg from "@assets/empty.png";
 
-export default function Empty(): JSX.Element {
+export default function Empty({
+  title = "Oops !",
+  subtitle = "Aucune donnée trouvée"
+}): JSX.Element {
   return (
-    <main id="empty">
+    <section id="empty">
       <img src={emptyImg} alt="empty reference" />
-      <p id="empty-title">Oops !</p>
-      <p id="empty-message">Aucune donnée trouvée</p>
-    </main>
+      <p id="empty-title">{title}</p>
+      <p id="empty-message">{subtitle}</p>
+    </section>
   );
 }

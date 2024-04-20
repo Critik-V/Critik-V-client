@@ -17,6 +17,11 @@ import { Fragment } from "react/jsx-runtime";
 import Modal from "@modals/Modal";
 import { modalContext } from "@context/store";
 import Login from "@pages/Login";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const AppQueryClient = new QueryClient({
+  defaultOptions: {}
+});
 
 const router = createBrowserRouter([
   {
@@ -35,28 +40,28 @@ const router = createBrowserRouter([
         element: <Posts />,
         children: [
           { path: "", element: <MyPosts /> },
-          { path: "archived", element: <MyArchivedPosts /> },
-        ],
+          { path: "archived", element: <MyArchivedPosts /> }
+        ]
       },
       { path: "new-post", element: <NewPost /> },
       { path: "favorites", element: <Favorite /> },
       { path: "guide", element: <Guide /> },
       { path: "about-us", element: <AboutUs /> },
-      { path: "profile", element: <Profile /> },
-    ],
+      { path: "profile", element: <Profile /> }
+    ]
   },
   { path: "login", element: <Login /> },
-  { path: "*", element: <NotFound /> },
+  { path: "*", element: <NotFound /> }
 ]);
 
 export default function App(): JSX.Element {
-  const modalVisibilty = modalContext((state) => state.visible);
+  const modalVisibilty = modalContext(state => state.visible);
 
   return (
-    <Fragment>
+    <QueryClientProvider client={AppQueryClient}>
       <Toaster position="top-center" gutter={64} />
       {modalVisibilty && <Modal />}
       <RouterProvider router={router} />
-    </Fragment>
+    </QueryClientProvider>
   );
 }

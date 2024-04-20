@@ -5,8 +5,17 @@ import SubHeader from "@layouts/SubHeader";
 import { PostCard } from "@components/PostsCards";
 import { Link } from "react-router-dom";
 import Pagination from "@components/Pagination";
+import { useQuery } from "@tanstack/react-query";
+import { getPosts } from "../API";
+import Empty from "@layouts/Empty";
+import Spinner from "@layouts/Spinner";
 
 export default function Home(): JSX.Element {
+  const { data, isLoading } = useQuery({
+    queryKey: ["posts"],
+    queryFn: () => getPosts()
+  });
+
   return (
     <main id="Home">
       <SubHeader>
@@ -18,21 +27,21 @@ export default function Home(): JSX.Element {
           </button>
         </Link>
       </SubHeader>
-      <section id="all-posts">
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
-      </section>
-      <Pagination />
+      {isLoading && <Spinner />}
+      {!isLoading && data?.data.length == 0 && <Empty subtitle="Aucun CV n'a été encore posté" />}
+      {data && data?.data?.length > 0 && (
+        <section id="all-posts">
+          {data.data.map(post => (
+            <PostCard
+              key={post.id}
+              title={post.title}
+              description={post.description}
+              bookmarkCount={post.totalFav}
+            />
+          ))}
+        </section>
+      )}
+      {data && data?.data?.length > 0 && <Pagination />}
     </main>
   );
 }
