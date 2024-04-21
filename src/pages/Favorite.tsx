@@ -9,11 +9,15 @@ import { useQuery } from "@tanstack/react-query";
 import { getFavoritePosts } from "../API";
 import Pagination from "@components/Pagination";
 import Failed from "@layouts/Failed";
+import { Navigate, useSearchParams } from "react-router-dom";
 
 export default function Favorite(): JSX.Element {
+  const [queries] = useSearchParams();
+  const page = queries.get("page") || 1;
+
   const { data, isLoading } = useQuery({
-    queryKey: ["my-favorites-posts"],
-    queryFn: () => getFavoritePosts("authorID")
+    queryKey: ["my-favorites-posts", page],
+    queryFn: () => getFavoritePosts("authorID", +page)
   });
 
   if (isLoading) return <Spinner />;
@@ -23,6 +27,7 @@ export default function Favorite(): JSX.Element {
   if (data)
     return (
       <Fragment>
+        <Navigate to={"/favorites?page=" + page} replace={true} />
         <main id="favorite">
           <SubHeader>
             <FavSearchBar />

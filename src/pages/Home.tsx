@@ -3,18 +3,22 @@ import "./styles/Home.scss";
 import { SearchBar } from "@components/SearchBars";
 import SubHeader from "@layouts/SubHeader";
 import { PostCard } from "@components/PostsCards";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useSearchParams } from "react-router-dom";
 import Pagination from "@components/Pagination";
 import { useQuery } from "@tanstack/react-query";
 import { getPosts } from "../API";
 import Empty from "@layouts/Empty";
 import Spinner from "@layouts/Spinner";
 import Failed from "@layouts/Failed";
+import { Fragment } from "react/jsx-runtime";
 
 export default function Home(): JSX.Element {
+  const [queries] = useSearchParams();
+  const page = queries.get("page") || 1;
+
   const { data, isLoading } = useQuery({
     queryKey: ["posts"],
-    queryFn: () => getPosts()
+    queryFn: () => getPosts(+page)
   });
 
   if (isLoading) return <Spinner />;
@@ -25,6 +29,7 @@ export default function Home(): JSX.Element {
   if (data)
     return (
       <main id="Home">
+        <Navigate to={"?page=" + page} replace={true} />
         <SubHeader>
           <SearchBar />
           <Link to="/new-post">
@@ -52,5 +57,9 @@ export default function Home(): JSX.Element {
       </main>
     );
 
-  return <Failed />;
+  return (
+    <Fragment>
+      <Failed />
+    </Fragment>
+  );
 }

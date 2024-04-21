@@ -28,23 +28,37 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <Fragment>
+        {/* <Navigate to="resumes" relative="route" replace={false} /> */}
         <Header />
         <Outlet />
       </Fragment>
     ),
     children: [
-      { path: "", element: <Home /> },
+      {
+        path: "",
+        element: <Home />,
+        index: true
+      },
       { path: "posts/:id", element: <SinglePost /> },
       {
         path: "my-posts",
         element: <Posts />,
         children: [
-          { path: "", element: <MyPosts /> },
-          { path: "archived", element: <MyArchivedPosts /> }
+          {
+            path: "",
+            element: <MyPosts />
+          },
+          {
+            path: "archived",
+            element: <MyArchivedPosts />
+          }
         ]
       },
       { path: "new-post", element: <NewPost /> },
-      { path: "favorites", element: <Favorite /> },
+      {
+        path: "favorites",
+        element: <Favorite />
+      },
       { path: "guide", element: <Guide /> },
       { path: "about-us", element: <AboutUs /> },
       { path: "profile", element: <Profile /> }

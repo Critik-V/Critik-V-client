@@ -14,7 +14,7 @@ export default function Header(): JSX.Element {
   return (
     <header>
       <div className="menu">
-        <NavLink to={"/"}>
+        <NavLink to={"/?page=1"}>
           <img src={CritikVLogo} title="Logo Critik-V" alt="Logo Critik-V" />
         </NavLink>
         <div className="menu__items">
@@ -27,7 +27,7 @@ export default function Header(): JSX.Element {
           </button>
           <button>
             <NavLink
-              to={"/favorites"}
+              to={"/favorites?page=1"}
               className={({ isActive }) => (isActive ? cssMenuActive : undefined)}>
               Favoris
             </NavLink>

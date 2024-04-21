@@ -16,12 +16,13 @@ type PostResponse<T = Post | Post[] | undefined> = T extends undefined
 
 const postsUrl: string = import.meta.env.VITE_POSTS_URL;
 
-export const getPosts = async () => {
+export const getPosts = async (page: number) => {
   const method: Methods = Methods.GET;
   const url: string = postsUrl;
+  const params = { page };
 
   try {
-    const { data: res } = await axios<PostResponse<Post[]>>({ method, url });
+    const { data: res } = await axios<PostResponse<Post[]>>({ method, url, params });
     return res;
   } catch (error) {
     console.log(error);
@@ -65,12 +66,14 @@ export const deletePost = async (Id: string) => {
   }
 };
 
-export const getArchivedPost = async (Id: string, data: SinglePostType) => {
+export const getArchivedPost = async (Id: string, authorId: string, page: number) => {
   const restPath: string = "/archive";
   const url: string = postsUrl + restPath + Id;
+  const data = { authorId };
   const method: Methods = Methods.GET;
+  const params = { page };
   try {
-    const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data });
+    const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data, params });
     return res;
   } catch (error) {
     console.log(error);
@@ -89,37 +92,42 @@ export const archivePost = async (Id: string, data: SinglePostType) => {
   }
 };
 
-export const getMyPosts = async (authorId: string) => {
+export const getMyPosts = async (authorId: string, page: number) => {
   const restPath: string = "/mine";
   const url: string = postsUrl + restPath;
   const method: Methods = Methods.GET;
   const data = { authorId };
+  const params = { page };
   try {
-    const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data });
+    const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data, params });
     return res;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getArchivedPosts = async (authorId: string) => {
+export const getArchivedPosts = async (authorId: string, page: number) => {
   const restPath: string = "/archived";
   const url: string = postsUrl + restPath;
+  const data = { authorId };
   const method: Methods = Methods.GET;
+  const params = { page };
   try {
-    const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data: { authorId } });
+    const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data, params });
     return res;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getFavoritePosts = async (userId: string) => {
+export const getFavoritePosts = async (userId: string, page: number) => {
   const restPath: string = "/fav";
   const url: string = postsUrl + restPath;
   const method: Methods = Methods.GET;
+  const data = { userId };
+  const params = { page };
   try {
-    const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data: { userId } });
+    const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data, params });
     return res;
   } catch (error) {
     console.log(error);

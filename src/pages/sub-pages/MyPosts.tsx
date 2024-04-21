@@ -7,11 +7,15 @@ import { useQuery } from "@tanstack/react-query";
 import Spinner from "@layouts/Spinner";
 import Empty from "@layouts/Empty";
 import Failed from "@layouts/Failed";
+import { Navigate, useSearchParams } from "react-router-dom";
 
 export default function MyPosts(): JSX.Element {
+  const [queries] = useSearchParams();
+  const page = queries.get("page") || 1;
+
   const { data, isLoading } = useQuery({
-    queryKey: ["my-posts"],
-    queryFn: () => getMyPosts("authorID")
+    queryKey: ["my-posts", page],
+    queryFn: () => getMyPosts("authorID", +page)
   });
 
   if (isLoading) return <Spinner />;
@@ -22,6 +26,7 @@ export default function MyPosts(): JSX.Element {
   if (data)
     return (
       <Fragment>
+        <Navigate to={"/my-posts?page=" + page} replace={true} />
         <section id="my-posts">
           {data.data.map(post => (
             <MyPostCard
