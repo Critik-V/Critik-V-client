@@ -2,7 +2,7 @@ import "./styles/Empty.scss";
 import emptyImg from "@assets/empty.png";
 
 export default function Empty({
-  title = "Oops !",
+  title = "Ah mince !",
   subtitle = "Aucune donnée trouvée"
 }): JSX.Element {
   return (

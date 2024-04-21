@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getPosts } from "../API";
 import Empty from "@layouts/Empty";
 import Spinner from "@layouts/Spinner";
+import Failed from "@layouts/Failed";
 
 export default function Home(): JSX.Element {
   const { data, isLoading } = useQuery({
@@ -16,32 +17,38 @@ export default function Home(): JSX.Element {
     queryFn: () => getPosts()
   });
 
-  return (
-    <main id="Home">
-      <SubHeader>
-        <SearchBar />
-        <Link to="/new-post">
-          <button id="make-post-btn">
-            <AwesomeIcons type="regular" name="file" />
-            Poster son CV
-          </button>
-        </Link>
-      </SubHeader>
-      {isLoading && <Spinner />}
-      {!isLoading && data?.data.length == 0 && <Empty subtitle="Aucun CV n'a été encore posté" />}
-      {data && data?.data?.length > 0 && (
-        <section id="all-posts">
-          {data.data.map(post => (
-            <PostCard
-              key={post.id}
-              title={post.title}
-              description={post.description}
-              bookmarkCount={post.totalFav}
-            />
-          ))}
-        </section>
-      )}
-      {data && data?.data?.length > 0 && <Pagination totalPages={Number(data?.totalPage)} />}
-    </main>
-  );
+  if (isLoading) return <Spinner />;
+
+  if (data && data?.data?.length === 0)
+    return <Empty subtitle="Aucun CV n'a été posté pour le moment" />;
+
+  if (data)
+    return (
+      <main id="Home">
+        <SubHeader>
+          <SearchBar />
+          <Link to="/new-post">
+            <button id="make-post-btn">
+              <AwesomeIcons type="regular" name="file" />
+              Poster son CV
+            </button>
+          </Link>
+        </SubHeader>
+        {data && data?.data?.length > 0 && (
+          <section id="all-posts">
+            {data.data.map(post => (
+              <PostCard
+                key={post.id}
+                title={post.title}
+                description={post.description}
+                bookmarkCount={post.totalFav}
+              />
+            ))}
+          </section>
+        )}
+        {data && data?.data?.length > 0 && <Pagination totalPages={Number(data?.totalPage)} />}
+      </main>
+    );
+
+  return <Failed />;
 }
