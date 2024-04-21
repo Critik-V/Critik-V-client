@@ -24,10 +24,12 @@ export default function MyArchivedPosts(): JSX.Element {
         <section id="my-archived-posts">
           {data.data.map(post => (
             <ArchivedCard
-              key={post.id}
-              title={post.title}
-              description={post.description}
-              bookmarkCount={post.totalFav}
+            key={post.id}
+            id={post.id}
+            title={post.title}
+            description={post.description}
+            bookmarkCount={post.totalFav}
+            date={new Date(post.createdAt)}
             />
           ))}
         </section>

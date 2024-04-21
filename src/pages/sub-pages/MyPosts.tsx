@@ -26,9 +26,11 @@ export default function MyPosts(): JSX.Element {
           {data.data.map(post => (
             <MyPostCard
               key={post.id}
+              id={post.id}
               title={post.title}
               description={post.description}
               bookmarkCount={post.totalFav}
+              date={new Date(post.createdAt)}
             />
           ))}
         </section>

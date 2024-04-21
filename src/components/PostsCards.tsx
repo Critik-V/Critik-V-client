@@ -1,17 +1,22 @@
 import { modalContext } from "@context/store";
 import AwesomeIcons from "./AwesomeIcons";
 import "./styles/PostsCards.scss";
+import { useNavigate } from "react-router-dom";
+import TagDate from "./TagDate";
 
 const NewCardTag: JSX.Element = <span className="new">new</span>;
 const UnreviewedCardTag: JSX.Element = <span className="unreviewed">unreviewed</span>;
 
 type PostCardProps = {
+  id: string;
   title: string;
   description: string;
   bookmarkCount: number;
+  date: Date;
 };
 
-export function MyPostCard({ title, description, bookmarkCount }: PostCardProps): JSX.Element {
+export function MyPostCard({ id, title, description, bookmarkCount }: PostCardProps): JSX.Element {
+  const navigate = useNavigate();
   const { show } = modalContext(state => state);
 
   return (
@@ -52,7 +57,7 @@ export function MyPostCard({ title, description, bookmarkCount }: PostCardProps)
           className="delete">
           <AwesomeIcons type="solid" name="trash-can" />
         </button>
-        <button className="see-more">
+        <button className="see-more" onClick={() => navigate(`/posts/${id}`)}>
           Voir plus <AwesomeIcons type="solid" name="arrow-right" />
         </button>
       </div>
@@ -60,14 +65,19 @@ export function MyPostCard({ title, description, bookmarkCount }: PostCardProps)
   );
 }
 
-export function ArchivedCard({ title, description, bookmarkCount }: PostCardProps): JSX.Element {
+export function ArchivedCard({
+  id,
+  title,
+  description,
+  bookmarkCount,
+  date
+}: PostCardProps): JSX.Element {
+  const navigate = useNavigate();
   const { show } = modalContext(state => state);
 
   return (
     <div className="card">
-      <div className="card__tags">
-        <span>2 jours</span>
-      </div>
+      <div className="card__tags">{TagDate(date)}</div>
       <div className="card__title">
         <p>{title}</p>
       </div>
@@ -93,7 +103,7 @@ export function ArchivedCard({ title, description, bookmarkCount }: PostCardProp
           className="delete">
           <AwesomeIcons type="solid" name="trash-can" />
         </button>
-        <button className="see-more">
+        <button className="see-more" onClick={() => navigate(`/posts/${id}`)}>
           Voir plus <AwesomeIcons type="solid" name="arrow-right" />
         </button>
       </div>
@@ -101,11 +111,18 @@ export function ArchivedCard({ title, description, bookmarkCount }: PostCardProp
   );
 }
 
-export function PostCard({ title, description, bookmarkCount }: PostCardProps): JSX.Element {
+export function PostCard({
+  id,
+  title,
+  description,
+  bookmarkCount,
+  date
+}: PostCardProps): JSX.Element {
+  const navigate = useNavigate();
   return (
     <div className="card">
       <div className="card__tags">
-        {NewCardTag}
+        {TagDate(date)}
         {UnreviewedCardTag}
       </div>
       <div className="card__title">
@@ -119,7 +136,7 @@ export function PostCard({ title, description, bookmarkCount }: PostCardProps): 
           <span>{bookmarkCount}</span>
           <AwesomeIcons type="regular" name="bookmark" />
         </div>
-        <button className="see-more">
+        <button className="see-more" onClick={() => navigate(`/posts/${id}`)}>
           Voir plus <AwesomeIcons type="solid" name="arrow-right" />
         </button>
       </div>
@@ -127,11 +144,11 @@ export function PostCard({ title, description, bookmarkCount }: PostCardProps): 
   );
 }
 
-export function FavCard({ title, description, bookmarkCount }: PostCardProps): JSX.Element {
+export function FavCard({ title, description, bookmarkCount, date }: PostCardProps): JSX.Element {
   return (
     <div className="card">
       <div className="card__tags">
-        {NewCardTag}
+        {TagDate(date)}
         {UnreviewedCardTag}
       </div>
       <div className="card__title">

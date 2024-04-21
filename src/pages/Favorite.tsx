@@ -32,9 +32,11 @@ export default function Favorite(): JSX.Element {
               {data.data.map(post => (
                 <FavCard
                   key={post.id}
+                  id={post.id}
                   title={post.title}
                   description={post.description}
                   bookmarkCount={post.totalFav}
+                  date={new Date(post.createdAt)}
                 />
               ))}
             </section>

@@ -53,24 +53,10 @@ export const deleteComment = async (Id: string, authorId: string) => {
   }
 };
 
-export const getMyPostComments = async (postId: string, userId: string) => {
-  const restPath: string = "/mine";
-  const method: Methods = Methods.GET;
-  const url: string = commentsUrl + restPath;
-  const data = { postId, userId };
-
-  try {
-    const { data: res } = await axios<CommentResponse<Comment[]>>({ method, url, data });
-    return res;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const getPostComments = async (postId: string, userId: string) => {
+export const getPostComments = async (postId: string) => {
   const method: Methods = Methods.GET;
   const url: string = commentsUrl;
-  const data = { postId, userId };
+  const data = { postId };
 
   try {
     const { data: res } = await axios<CommentResponse<Comment[]>>({ method, url, data });
