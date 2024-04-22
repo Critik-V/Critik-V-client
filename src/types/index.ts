@@ -1,9 +1,4 @@
-export type JobType =
-  | "FULLTIME"
-  | "PARTTIME"
-  | "INTERNSHIP"
-  | "APPRENTICESHIP"
-  | "FREELANCE";
+export type JobType = "FULLTIME" | "PARTTIME" | "INTERNSHIP" | "APPRENTICESHIP" | "FREELANCE";
 
 export type Level = "ENTRY_LEVEL" | "JUNIOR" | "MID" | "SENIOR";
 
@@ -18,7 +13,7 @@ export type NewPostInputType = {
   title: string;
   description: string;
   jobType: JobType;
-  level: Level;
+  experienceLevel: Level;
   file: File | null;
 };
 
@@ -26,11 +21,11 @@ export type EditPostInputType = {
   title: string;
   description: string;
   jobType: JobType;
-  level: Level; 
+  experienceLevel: Level;
 };
 
 export type SearchInputType = {
   search: string;
   jobType: JobType | "";
-  level: Level | "";
+  experienceLevel: Level | "";
 };

@@ -1,6 +1,7 @@
 import axios from "axios";
-import { CreatePostType, FavActionType, Methods, SinglePostType, UpdatePostType } from "./types";
+import { CreatePostType, FavActionType, Methods, UpdatePostType } from "./types";
 import { Post } from "../types/Prisma";
+import toast from "react-hot-toast";
 
 type PostResponse<T = Post | Post[] | undefined> = T extends undefined
   ? {
@@ -25,7 +26,7 @@ export const getPosts = async (page: number) => {
     const { data: res } = await axios<PostResponse<Post[]>>({ method, url, params });
     return res;
   } catch (error) {
-    console.log(error);
+    toast.error("Une erreur s'est produite");
   }
 };
 
@@ -35,9 +36,10 @@ export const createPost = async (data: CreatePostType) => {
 
   try {
     const { data: res } = await axios<PostResponse<Post>>({ method, url, data });
+    toast.success("Post créé avec succès");
     return res;
   } catch (error) {
-    console.log(error);
+    toast.error("le post n'a pas pu être créé");
   }
 };
 
@@ -48,9 +50,10 @@ export const updatePost = async (Id: string, data: UpdatePostType) => {
 
   try {
     const { data: res } = await axios<PostResponse>({ method, url, data });
+    toast.success("Post modifié avec succès");
     return res;
   } catch (error) {
-    console.log(error);
+    toast.error("le post n'a pas pu être modifié");
   }
 };
 
@@ -60,9 +63,10 @@ export const deletePost = async (Id: string) => {
   const url: string = postsUrl + restPath + Id;
   try {
     const { data: res } = await axios<PostResponse>({ method, url });
+    toast.success("Post supprimé avec succès");
     return res;
   } catch (error) {
-    console.log(error);
+    toast.error("le post n'a pas pu être supprimé");
   }
 };
 
@@ -76,19 +80,35 @@ export const getArchivedPost = async (Id: string, authorId: string, page: number
     const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data, params });
     return res;
   } catch (error) {
-    console.log(error);
+    toast.error("Une erreur s'est produite");
   }
 };
 
-export const archivePost = async (Id: string, data: SinglePostType) => {
-  const restPath: string = "/archive";
-  const url: string = postsUrl + restPath + Id;
+export const archivePost = async (postId: string, authorId: string) => {
+  const restPath: string = "/archive/";
+  const url: string = postsUrl + restPath + postId;
+  const data = { authorId };
   const method: Methods = Methods.PATCH;
   try {
     const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data });
+    toast.success("Post archivé avec succès");
     return res;
   } catch (error) {
-    console.log(error);
+    toast.error("le post n'a pas pu être archivé");
+  }
+};
+
+export const unarchivePost = async (postId: string, authorId: string) => {
+  const restPath: string = "/unarchive/";
+  const url: string = postsUrl + restPath + postId;
+  const data = { authorId };
+  const method: Methods = Methods.PATCH;
+  try {
+    const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data });
+    toast.success("Post désarchivé avec succès");
+    return res;
+  } catch (error) {
+    toast.error("le post n'a pas pu être désarchivé");
   }
 };
 
@@ -102,7 +122,7 @@ export const getMyPosts = async (authorId: string, page: number) => {
     const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data, params });
     return res;
   } catch (error) {
-    console.log(error);
+    toast.error("Une erreur s'est produite");
   }
 };
 
@@ -116,7 +136,7 @@ export const getArchivedPosts = async (authorId: string, page: number) => {
     const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data, params });
     return res;
   } catch (error) {
-    console.log(error);
+    toast.error("Une erreur s'est produite");
   }
 };
 
@@ -130,7 +150,7 @@ export const getFavoritePosts = async (userId: string, page: number) => {
     const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data, params });
     return res;
   } catch (error) {
-    console.log(error);
+    toast.error("Une erreur s'est produite");
   }
 };
 
@@ -145,9 +165,10 @@ export const favoritePost = async (data: { id: string; userId: string }, action:
       url,
       data
     });
+    toast.success("Post ajouté à vos favoris");
     return res;
   } catch (error) {
-    console.log(error);
+    toast.error("Une erreur s'est produite");
   }
 };
 
@@ -159,6 +180,6 @@ export const getPost = async (Id: string) => {
     const { data: res } = await axios<PostResponse<Post>>({ method, url });
     return res;
   } catch (error) {
-    console.log(error);
+    toast.error("Une erreur s'est produite");
   }
 };

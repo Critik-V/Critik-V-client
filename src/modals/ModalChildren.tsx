@@ -5,17 +5,24 @@ import { ChangeEvent, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { EditPostInputType } from "@types";
 import { JobtypeSelect, LevelSelect } from "@utils";
+import { useMutation } from "@tanstack/react-query";
+import { archivePost, deletePost, unarchivePost, updatePost } from "../API";
 
 export function EditModal() {
   const [isTitleCorrect, setIsTitleCorrect] = useState<boolean>(true);
-  const [isDescriptionCorrect, setIsDescriptionCorrect] =
-    useState<boolean>(true);
-  const { hide } = modalContext((state) => state);
+  const [isDescriptionCorrect, setIsDescriptionCorrect] = useState<boolean>(true);
+  const { hide, data: post } = modalContext(state => state);
+
+  const mutation = useMutation({
+    mutationKey: ["edit-post", post?.id],
+    mutationFn: (data: EditPostInputType) => updatePost(post?.id ?? "", data),
+    onSuccess: () => hide()
+  });
 
   const { register, handleSubmit } = useForm<EditPostInputType>();
 
-  const onSubmit: SubmitHandler<EditPostInputType> = (data) => {
-    isTitleCorrect && isDescriptionCorrect && console.log(data);
+  const onSubmit: SubmitHandler<EditPostInputType> = data => {
+    if (isTitleCorrect && isDescriptionCorrect) return mutation.mutate(data);
   };
 
   return (
@@ -29,11 +36,12 @@ export function EditModal() {
         </label>
         <input
           className={isTitleCorrect ? "" : "invalid-input"}
+          defaultValue={post?.title}
           required
           type="text"
           {...register("title", {
             onChange: (e: ChangeEvent<HTMLInputElement>) =>
-              setIsTitleCorrect(e.target.value.length > 0),
+              setIsTitleCorrect(e.target.value.length > 0)
           })}
           id="new-post-title"
           maxLength={100}
@@ -44,11 +52,12 @@ export function EditModal() {
         </label>
         <textarea
           className={isDescriptionCorrect ? "" : "invalid-input"}
+          defaultValue={post?.description}
           required
           placeholder="Description de votre post"
           {...register("description", {
             onChange: (e: ChangeEvent<HTMLTextAreaElement>) =>
-              setIsDescriptionCorrect(e.target.value.length > 10),
+              setIsDescriptionCorrect(e.target.value.length > 10)
           })}
           id="new-post-description"
           cols={30}
@@ -57,11 +66,11 @@ export function EditModal() {
         <label htmlFor="new-post-job-type">
           Type d'emploi <span>*</span>
         </label>
-        <select defaultValue="" {...register("jobType")} id="new-post-job-type">
+        <select defaultValue={post?.jobType} {...register("jobType")} id="new-post-job-type">
           <option value="" disabled>
             Type d'emploi
           </option>
-          {JobtypeSelect.map((jobtype) => (
+          {JobtypeSelect.map(jobtype => (
             <option key={jobtype.value} value={jobtype.value}>
               {jobtype.label}
             </option>
@@ -70,11 +79,14 @@ export function EditModal() {
         <label htmlFor="new-post-level">
           Niveau <span>*</span>
         </label>
-        <select defaultValue="" {...register("level")} id="new-post-level">
+        <select
+          defaultValue={post?.experienceLevel}
+          {...register("experienceLevel")}
+          id="new-post-level">
           <option value="" disabled>
             Niveau
           </option>
-          {LevelSelect.map((level) => (
+          {LevelSelect.map(level => (
             <option key={level.value} value={level.value}>
               {level.label}
             </option>
@@ -89,7 +101,15 @@ export function EditModal() {
 }
 
 export function ArchiveModal() {
-  const { hide } = modalContext((state) => state);
+  const { hide, data } = modalContext(state => state);
+
+  const mutation = useMutation({
+    mutationKey: ["archive-post", data?.postId],
+    mutationFn: () => archivePost(data?.postId ?? "", "authorID"),
+    onSuccess: () => hide()
+  });
+
+  const handleArchivePost = () => mutation.mutate();
 
   return (
     <div className="modal">
@@ -104,17 +124,27 @@ export function ArchiveModal() {
           <AwesomeIcons type="regular" name="eye-slash" />
         </div>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
-          dignissimos enim est, commodi
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit dignissimos enim est,
+          commodi
         </p>
-        <button data-type="archive">Archiver</button>
+        <button onClick={handleArchivePost} data-type="archive">
+          Archiver
+        </button>
       </div>
     </div>
   );
 }
 
 export function DeleteModal() {
-  const { hide } = modalContext((state) => state);
+  const { hide, data } = modalContext(state => state);
+
+  const mutation = useMutation({
+    mutationKey: ["delete-post", data?.postId],
+    mutationFn: () => deletePost(data?.postId ?? ""),
+    onSuccess: () => hide()
+  });
+
+  const handleDeletePost = () => mutation.mutate();
 
   return (
     <div className="modal">
@@ -129,17 +159,27 @@ export function DeleteModal() {
           <AwesomeIcons type="solid" name="trash-can" />
         </div>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
-          dignissimos enim est, commodi
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit dignissimos enim est,
+          commodi
         </p>
-        <button data-type="delete">Supprimer</button>
+        <button onClick={handleDeletePost} data-type="delete">
+          Supprimer
+        </button>
       </div>
     </div>
   );
 }
 
 export function UnArchiveModal() {
-  const { hide } = modalContext((state) => state);
+  const { hide, data } = modalContext(state => state);
+
+  const mutation = useMutation({
+    mutationKey: ["unarchive-post", data?.postId],
+    mutationFn: () => unarchivePost(data?.postId ?? "", "authorID"),
+    onSuccess: () => hide()
+  });
+
+  const handleUnArchivePost = () => mutation.mutate();
 
   return (
     <div className="modal">
@@ -154,10 +194,12 @@ export function UnArchiveModal() {
           <AwesomeIcons type="regular" name="eye" />
         </div>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
-          dignissimos enim est, commodi
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit dignissimos enim est,
+          commodi
         </p>
-        <button data-type="unarchive">Désarchiver</button>
+        <button onClick={handleUnArchivePost} data-type="unarchive">
+          Désarchiver
+        </button>
       </div>
     </div>
   );

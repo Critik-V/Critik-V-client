@@ -1,7 +1,8 @@
 import { create } from "zustand";
+import { Post } from "../types/Prisma";
 
 type LayoutType = "ARCHIVE" | "DELETE" | "UNARCHIVE" | "EDIT" | null;
-type DataType = { [key: string]: unknown } | null;
+type DataType = (Post & { postId: string }) | null;
 
 type State = {
   visible: boolean;
@@ -14,7 +15,7 @@ type Action = {
   show: (input: { layout: LayoutType; data: DataType }) => void;
 };
 
-export const modalContext = create<State & Action>((set) => ({
+export const modalContext = create<State & Action>(set => ({
   visible: false,
   layout: null,
   data: null,
@@ -23,6 +24,6 @@ export const modalContext = create<State & Action>((set) => ({
     set(() => ({
       visible: true,
       layout: input.layout,
-      data: input.data,
-    })),
+      data: input.data
+    }))
 }));
