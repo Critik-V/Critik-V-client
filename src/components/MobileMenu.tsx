@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import "./styles/MobileMenu.scss";
 import AwesomeIcons from "./AwesomeIcons";
+import { login } from "../API";
 
 type PropsTypes = {
   hide: () => void;
@@ -10,6 +11,11 @@ type PropsTypes = {
 
 export default function MobileMenu({ hide, btnRef }: PropsTypes): JSX.Element {
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const navigate = useNavigate();
+  const handleLogin = async () => {
+    await login().then(() => navigate("/?page=1"));
+  };
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -61,7 +67,7 @@ export default function MobileMenu({ hide, btnRef }: PropsTypes): JSX.Element {
             A propos
           </NavLink>
         </button>
-        <button onClick={() => console.log("disconnected...")} style={{ color: "#ff5252" }}>
+        <button onClick={handleLogin} style={{ color: "#ff5252" }}>
           Se déconnecter
         </button>
       </div>

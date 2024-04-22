@@ -1,15 +1,22 @@
 import { useRef, useState } from "react";
 import "./styles/Header.scss";
 import CritikVLogo from "@assets/logo.svg";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import AwesomeIcons from "@components/AwesomeIcons";
 import MobileMenu from "@components/MobileMenu";
+import { logout } from "../API";
 
 const cssMenuActive: string = "active-menu-header";
 
 export default function Header(): JSX.Element {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const menuBtnRef = useRef<HTMLButtonElement>(null);
+
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout().then(() => navigate("/login"));
+  };
 
   return (
     <header>
@@ -64,7 +71,7 @@ export default function Header(): JSX.Element {
             />
           </button>
         </Link>
-        <button onClick={() => console.log("disconnected...")} id="disconnect-btn">
+        <button onClick={handleLogout} id="disconnect-btn">
           <AwesomeIcons type="solid" name="right-from-bracket" />
         </button>
       </div>
