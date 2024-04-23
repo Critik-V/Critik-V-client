@@ -2,12 +2,13 @@ import axios, { AxiosResponse } from "axios";
 import { Methods } from "./types";
 import toast from "react-hot-toast";
 
-export const login = async (): Promise<void> => {
+export const login = async (): Promise<AxiosResponse | undefined> => {
   const url: string = import.meta.env.VITE_API_URL + "/login";
   const method: Methods = Methods.GET;
 
   try {
-    await axios<void>({ method, url });
+    const res = await axios<AxiosResponse>({ method, url });
+    return res;
   } catch (error) {
     toast.error("Une erreur s'est produite");
   }

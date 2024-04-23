@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import "./styles/MobileMenu.scss";
 import AwesomeIcons from "./AwesomeIcons";
-import { login } from "../API";
+import { logout } from "../API";
 
 type PropsTypes = {
   hide: () => void;
@@ -13,8 +13,13 @@ export default function MobileMenu({ hide, btnRef }: PropsTypes): JSX.Element {
   const menuRef = useRef<HTMLDivElement>(null);
 
   const navigate = useNavigate();
-  const handleLogin = async () => {
-    await login().then(() => navigate("/?page=1"));
+
+  const handleLogout = async () => {
+    await logout().then(data => {
+      if (data?.status === 200) {
+        navigate("/login");
+      }
+    });
   };
 
   useEffect(() => {
@@ -67,7 +72,7 @@ export default function MobileMenu({ hide, btnRef }: PropsTypes): JSX.Element {
             A propos
           </NavLink>
         </button>
-        <button onClick={handleLogin} style={{ color: "#ff5252" }}>
+        <button onClick={handleLogout} style={{ color: "#ff5252" }}>
           Se déconnecter
         </button>
       </div>
