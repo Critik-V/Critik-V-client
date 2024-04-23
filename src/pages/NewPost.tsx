@@ -6,10 +6,139 @@ import { toast } from "react-hot-toast";
 import { FileRejectedToast } from "@components/CustomToasts";
 import { ChangeEvent, FocusEvent, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { NewPostInputType } from "@types";
 import { JobtypeSelect, LevelSelect } from "@utils";
+import { useMutation } from "@tanstack/react-query";
+import { createPost } from "@api/index";
+import { CreatePostType } from "@api/types";
 
 type IsUploadedProps = { name: string; weight: number };
+
+export default function NewPost(): JSX.Element {
+  const [file, setFile] = useState<File | null>(null);
+  const [isTitleCorrect, setIsTitleCorrect] = useState<boolean>(true);
+  const [isDescriptionCorrect, setIsDescriptionCorrect] = useState<boolean>(true);
+
+  const mutation = useMutation({
+    mutationKey: ["new-post"],
+    mutationFn: (data: CreatePostType) => createPost(data)
+  });
+
+  const { register, handleSubmit } = useForm<CreatePostType>();
+
+  const onSubmit: SubmitHandler<CreatePostType> = data => {
+    data.resume = file as File;
+    data.authorId = "1";
+    if (!data.resume) {
+      toast.error("Veuillez ajouter un fichier PDF");
+      return;
+    }
+    if (isTitleCorrect && isDescriptionCorrect) return mutation.mutate(data);
+  };
+  return (
+    <main id="new-post">
+      <h1>Nouveau post</h1>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor="new-post-title">
+          Titre <span>*</span>
+        </label>
+        <input
+          className={isTitleCorrect ? "" : "invalid-input"}
+          type="text"
+          id="new-post-title"
+          required
+          maxLength={100}
+          placeholder="Titre de votre post"
+          {...register("title", {
+            onChange: (e: ChangeEvent<HTMLInputElement>) =>
+              setIsTitleCorrect(e.target.value.length === 0 || e.target.value.length > 5),
+            onBlur: (e: FocusEvent<HTMLInputElement>) => e.target.value.trim()
+          })}
+        />
+        <label htmlFor="new-post-description">
+          Description <span>*</span>
+        </label>
+        <textarea
+          className={isDescriptionCorrect ? "" : "invalid-input"}
+          required
+          {...(register("description"),
+          {
+            onChange: (e: ChangeEvent<HTMLTextAreaElement>) =>
+              setIsDescriptionCorrect(e.target.value.length === 0 || e.target.value.length > 20),
+            onBlur: (e: FocusEvent<HTMLTextAreaElement>) => e.target.value.trim()
+          })}
+          placeholder="Description de votre post"
+          id="new-post-description"
+          cols={30}
+          rows={4}></textarea>
+        <label htmlFor="new-post-job-type">
+          Type d'emploi <span>*</span>
+        </label>
+        <select required defaultValue="" {...register("jobType")} id="new-post-job-type">
+          <option value="" disabled>
+            Type d'emploi
+          </option>
+          {JobtypeSelect.map(jobtype => (
+            <option key={jobtype.value} value={jobtype.value}>
+              {jobtype.label}
+            </option>
+          ))}
+        </select>
+        <label htmlFor="new-post-level">
+          Niveau <span>*</span>
+        </label>
+        <select required defaultValue="" {...register("experienceLevel")} id="new-post-level">
+          <option value="" disabled>
+            Niveau
+          </option>
+          {LevelSelect.map(level => (
+            <option key={level.value} value={level.value}>
+              {level.label}
+            </option>
+          ))}
+        </select>
+        <label htmlFor="upload-field">
+          CV <span>*</span>
+        </label>
+        <Dropzone
+          maxFiles={1}
+          maxSize={3 * 1024 * 1024}
+          accept={{ "application/pdf": [".pdf"] }}
+          onDropAccepted={files => setFile(files[0])}
+          onFileDialogOpen={() => setFile(null)}
+          onDropRejected={() => {
+            setFile(null);
+            toast(t => <FileRejectedToast dismiss={() => toast.dismiss(t.id)} />, {
+              duration: 5000,
+              style: {
+                background: "#f7ede2"
+              }
+            });
+          }}>
+          {({ getRootProps, getInputProps, acceptedFiles, isDragActive }) => (
+            <div
+              {...getRootProps()}
+              style={
+                isDragActive ? { borderColor: "#07beb8", backgroundColor: "#07beb84c" } : undefined
+              }>
+              <input {...getInputProps({})} />
+              {isDragActive && <IsUploading />}
+              {acceptedFiles[0] && !isDragActive && (
+                <IsUploaded name={acceptedFiles[0].name} weight={acceptedFiles[0].size} />
+              )}
+              {!acceptedFiles[0] && !isDragActive && <NofileUpload />}
+            </div>
+          )}
+        </Dropzone>
+        <button type="submit">
+          <AwesomeIcons name="upload" type="solid" />
+          Poster
+        </button>
+      </form>
+    </main>
+  );
+}
+
+// SUB COMPONENTS
 
 export function NofileUpload(): JSX.Element {
   return (
@@ -42,146 +171,5 @@ export function IsUploaded({ name, weight }: IsUploadedProps): JSX.Element {
         <span>{(weight / (1024 * 1024)).toFixed(2)} Mo</span>
       </p>
     </Fragment>
-  );
-}
-
-export default function NewPost(): JSX.Element {
-  const [file, setFile] = useState<File | null>(null);
-  const [isTitleCorrect, setIsTitleCorrect] = useState<boolean>(true);
-  const [isDescriptionCorrect, setIsDescriptionCorrect] =
-    useState<boolean>(true);
-
-  const { register, handleSubmit } = useForm<NewPostInputType>();
-
-  const onSubmit: SubmitHandler<NewPostInputType> = (data) => {
-    data.file = file;
-    if (!data.file) {
-      toast.error("Veuillez ajouter un fichier PDF");
-      return;
-    }
-    isTitleCorrect && isDescriptionCorrect && console.log(data);
-  };
-  return (
-    <main id="new-post">
-      <h1>Nouveau post</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="new-post-title">
-          Titre <span>*</span>
-        </label>
-        <input
-          className={isTitleCorrect ? "" : "invalid-input"}
-          type="text"
-          id="new-post-title"
-          required
-          maxLength={100}
-          placeholder="Titre de votre post"
-          {...register("title", {
-            onChange: (e: ChangeEvent<HTMLInputElement>) =>
-              setIsTitleCorrect(
-                e.target.value.length === 0 || e.target.value.length > 5
-              ),
-            onBlur: (e: FocusEvent<HTMLInputElement>) => e.target.value.trim(),
-          })}
-        />
-        <label htmlFor="new-post-description">
-          Description <span>*</span>
-        </label>
-        <textarea
-          className={isDescriptionCorrect ? "" : "invalid-input"}
-          required
-          {...(register("description"),
-          {
-            onChange: (e: ChangeEvent<HTMLTextAreaElement>) =>
-              setIsDescriptionCorrect(
-                e.target.value.length === 0 || e.target.value.length > 20
-              ),
-            onBlur: (e: FocusEvent<HTMLTextAreaElement>) =>
-              e.target.value.trim(),
-          })}
-          placeholder="Description de votre post"
-          id="new-post-description"
-          cols={30}
-          rows={4}></textarea>
-        <label htmlFor="new-post-job-type">
-          Type d'emploi <span>*</span>
-        </label>
-        <select
-          required
-          defaultValue=""
-          {...register("jobType")}
-          id="new-post-job-type">
-          <option value="" disabled>
-            Type d'emploi
-          </option>
-          {JobtypeSelect.map((jobtype) => (
-            <option key={jobtype.value} value={jobtype.value}>
-              {jobtype.label}
-            </option>
-          ))}
-        </select>
-        <label htmlFor="new-post-level">
-          Niveau <span>*</span>
-        </label>
-        <select
-          required
-          defaultValue=""
-          {...register("level")}
-          id="new-post-level">
-          <option value="" disabled>
-            Niveau
-          </option>
-          {LevelSelect.map((level) => (
-            <option key={level.value} value={level.value}>
-              {level.label}
-            </option>
-          ))}
-        </select>
-        <label htmlFor="upload-field">
-          CV <span>*</span>
-        </label>
-        <Dropzone
-          maxFiles={1}
-          maxSize={3 * 1024 * 1024}
-          accept={{ "application/pdf": [".pdf"] }}
-          onDropAccepted={(files) => setFile(files[0])}
-          onFileDialogOpen={() => setFile(null)}
-          onDropRejected={() => {
-            setFile(null);
-            toast(
-              (t) => <FileRejectedToast dismiss={() => toast.dismiss(t.id)} />,
-              {
-                duration: 5000,
-                style: {
-                  background: "#f7ede2",
-                },
-              }
-            );
-          }}>
-          {({ getRootProps, getInputProps, acceptedFiles, isDragActive }) => (
-            <div
-              {...getRootProps()}
-              style={
-                isDragActive
-                  ? { borderColor: "#07beb8", backgroundColor: "#07beb84c" }
-                  : undefined
-              }>
-              <input {...getInputProps({})} />
-              {isDragActive && <IsUploading />}
-              {acceptedFiles[0] && !isDragActive && (
-                <IsUploaded
-                  name={acceptedFiles[0].name}
-                  weight={acceptedFiles[0].size}
-                />
-              )}
-              {!acceptedFiles[0] && !isDragActive && <NofileUpload />}
-            </div>
-          )}
-        </Dropzone>
-        <button type="submit">
-          <AwesomeIcons name="upload" type="solid" />
-          Poster
-        </button>
-      </form>
-    </main>
   );
 }

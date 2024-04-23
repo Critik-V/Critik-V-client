@@ -5,7 +5,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react(), ViteImageOptimizer({})],
   build: {
-    cssMinify: "lightningcss",
+    cssMinify: "lightningcss"
   },
   resolve: {
     alias: {
@@ -20,6 +20,7 @@ export default defineConfig({
       "@layouts": "/src/layouts",
       "@modals": "/src/modals",
       "@types": "/src/types",
-    },
-  },
+      "@api": "/src/api"
+    }
+  }
 });

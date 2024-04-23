@@ -6,7 +6,7 @@ import { PostCard } from "@components/PostsCards";
 import { Link, Navigate, useSearchParams } from "react-router-dom";
 import Pagination from "@components/Pagination";
 import { useQuery } from "@tanstack/react-query";
-import { getPosts } from "../API";
+import { getPosts } from "@api/index";
 import Empty from "@layouts/Empty";
 import Spinner from "@layouts/Spinner";
 import Failed from "@layouts/Failed";
@@ -42,14 +42,7 @@ export default function Home(): JSX.Element {
         {data && data?.data?.length > 0 && (
           <section id="all-posts">
             {data.data.map(post => (
-              <PostCard
-                key={post.id}
-                id={post.id}
-                title={post.title}
-                description={post.description}
-                bookmarkCount={post.totalFav}
-                date={new Date(post.createdAt)}
-              />
+              <PostCard key={post.id} data={post} />
             ))}
           </section>
         )}

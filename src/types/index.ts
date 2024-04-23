@@ -9,14 +9,6 @@ export type ProfilInputType = {
   ln: "FR" | "EN";
 };
 
-export type NewPostInputType = {
-  title: string;
-  description: string;
-  jobType: JobType;
-  experienceLevel: Level;
-  file: File | null;
-};
-
 export type EditPostInputType = {
   title: string;
   description: string;

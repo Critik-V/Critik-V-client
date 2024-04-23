@@ -4,7 +4,7 @@ import CritikVLogo from "@assets/logo.svg";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import AwesomeIcons from "@components/AwesomeIcons";
 import MobileMenu from "@components/MobileMenu";
-import { logout } from "../API";
+import { logout } from "@api/index";
 
 const cssMenuActive: string = "active-menu-header";
 

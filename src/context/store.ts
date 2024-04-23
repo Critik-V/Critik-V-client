@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { Post } from "../types/Prisma";
 
 type LayoutType = "ARCHIVE" | "DELETE" | "UNARCHIVE" | "EDIT" | null;
-type DataType = (Post & { postId: string }) | null;
+type DataType = Post | null;
 
 type State = {
   visible: boolean;

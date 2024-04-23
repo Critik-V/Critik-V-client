@@ -2,7 +2,7 @@ import { Fragment } from "react/jsx-runtime";
 import "./styles/MyPosts.scss";
 import { MyPostCard } from "@components/PostsCards";
 import Pagination from "@components/Pagination";
-import { getMyPosts } from "../../API";
+import { getMyPosts } from "@api/index";
 import { useQuery } from "@tanstack/react-query";
 import Spinner from "@layouts/Spinner";
 import Empty from "@layouts/Empty";
@@ -29,14 +29,7 @@ export default function MyPosts(): JSX.Element {
         <Navigate to={"/my-posts?page=" + page} replace={true} />
         <section id="my-posts">
           {data.data.map(post => (
-            <MyPostCard
-              key={post.id}
-              id={post.id}
-              title={post.title}
-              description={post.description}
-              bookmarkCount={post.totalFav}
-              date={new Date(post.createdAt)}
-            />
+            <MyPostCard key={post.id} data={post} />
           ))}
         </section>
         <Pagination totalPages={Number(data.totalPage)} />

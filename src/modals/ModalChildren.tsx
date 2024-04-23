@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { EditPostInputType } from "@types";
 import { JobtypeSelect, LevelSelect } from "@utils";
 import { useMutation } from "@tanstack/react-query";
-import { archivePost, deletePost, unarchivePost, updatePost } from "../API";
+import { archivePost, deletePost, unarchivePost, updatePost } from "@api/index";
 
 export function EditModal() {
   const [isTitleCorrect, setIsTitleCorrect] = useState<boolean>(true);
@@ -104,8 +104,8 @@ export function ArchiveModal() {
   const { hide, data } = modalContext(state => state);
 
   const mutation = useMutation({
-    mutationKey: ["archive-post", data?.postId],
-    mutationFn: () => archivePost(data?.postId ?? "", "authorID"),
+    mutationKey: ["archive-post", data?.id],
+    mutationFn: () => archivePost(data?.id ?? "", "authorID"),
     onSuccess: () => hide()
   });
 
@@ -139,8 +139,8 @@ export function DeleteModal() {
   const { hide, data } = modalContext(state => state);
 
   const mutation = useMutation({
-    mutationKey: ["delete-post", data?.postId],
-    mutationFn: () => deletePost(data?.postId ?? ""),
+    mutationKey: ["delete-post", data?.id],
+    mutationFn: () => deletePost(data?.id ?? ""),
     onSuccess: () => hide()
   });
 
@@ -174,8 +174,8 @@ export function UnArchiveModal() {
   const { hide, data } = modalContext(state => state);
 
   const mutation = useMutation({
-    mutationKey: ["unarchive-post", data?.postId],
-    mutationFn: () => unarchivePost(data?.postId ?? "", "authorID"),
+    mutationKey: ["unarchive-post", data?.id],
+    mutationFn: () => unarchivePost(data?.id ?? "", "authorID"),
     onSuccess: () => hide()
   });
 

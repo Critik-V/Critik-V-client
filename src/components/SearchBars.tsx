@@ -5,22 +5,17 @@ import { SearchInputType } from "@types";
 
 export function SearchBar(): JSX.Element {
   const { register, handleSubmit } = useForm<SearchInputType>();
-  const onSubmit: SubmitHandler<SearchInputType> = (data) => {
+  const onSubmit: SubmitHandler<SearchInputType> = data => {
     console.log(data);
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="search">
       <div className="search__first">
-        <input
-          {...register("search")}
-          placeholder="Rechercher un CV"
-          type="search"
-          id="search"
-        />
+        <input {...register("search")} placeholder="Rechercher un CV" type="search" id="search" />
         <select defaultValue="" {...register("jobType")} id="job-type">
           <option value="">Tous les emplois</option>
-          {JobtypeSelect.map((jobtype) => (
+          {JobtypeSelect.map(jobtype => (
             <option key={jobtype.value} value={jobtype.value}>
               {jobtype.label}
             </option>
@@ -28,9 +23,9 @@ export function SearchBar(): JSX.Element {
         </select>
       </div>
       <div className="search__secondary">
-        <select defaultValue="" {...register("level")} id="level">
+        <select defaultValue="" {...register("experienceLevel")} id="level">
           <option value="">Tous niveaux</option>
-          {LevelSelect.map((level) => (
+          {LevelSelect.map(level => (
             <option key={level.value} value={level.value}>
               {level.label}
             </option>
@@ -45,22 +40,17 @@ export function SearchBar(): JSX.Element {
 
 export function FavSearchBar(): JSX.Element {
   const { register, handleSubmit } = useForm<SearchInputType>();
-  const onSubmit: SubmitHandler<SearchInputType> = (data) => {
+  const onSubmit: SubmitHandler<SearchInputType> = data => {
     console.log(data);
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="search">
       <div className="search__first">
-        <input
-          {...register("search")}
-          placeholder="Rechercher un CV"
-          type="search"
-          id="search"
-        />
+        <input {...register("search")} placeholder="Rechercher un CV" type="search" id="search" />
         <select defaultValue="" {...register("jobType")} id="job-type">
           <option value="">Tous les emplois</option>
-          {JobtypeSelect.map((jobtype) => (
+          {JobtypeSelect.map(jobtype => (
             <option key={jobtype.value} value={jobtype.value}>
               {jobtype.label}
             </option>
@@ -68,9 +58,9 @@ export function FavSearchBar(): JSX.Element {
         </select>
       </div>
       <div className="search__secondary">
-        <select defaultValue="" {...register("level")} id="level">
+        <select defaultValue="" {...register("experienceLevel")} id="level">
           <option value="">Tous niveaux</option>
-          {LevelSelect.map((level) => (
+          {LevelSelect.map(level => (
             <option key={level.value} value={level.value}>
               {level.label}
             </option>

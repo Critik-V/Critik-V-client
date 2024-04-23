@@ -3,19 +3,16 @@ import AwesomeIcons from "./AwesomeIcons";
 import "./styles/PostsCards.scss";
 import { useNavigate } from "react-router-dom";
 import TagDate from "./TagDate";
+import { Post } from "../types/Prisma";
 
 const NewCardTag: JSX.Element = <span className="new">new</span>;
 const UnreviewedCardTag: JSX.Element = <span className="unreviewed">unreviewed</span>;
 
 type PostCardProps = {
-  id: string;
-  title: string;
-  description: string;
-  bookmarkCount: number;
-  date: Date;
+  data: Post;
 };
 
-export function MyPostCard({ id, title, description, bookmarkCount }: PostCardProps): JSX.Element {
+export function MyPostCard({ data }: PostCardProps): JSX.Element {
   const navigate = useNavigate();
   const { show } = modalContext(state => state);
 
@@ -26,38 +23,38 @@ export function MyPostCard({ id, title, description, bookmarkCount }: PostCardPr
         {UnreviewedCardTag}
       </div>
       <div className="card__title">
-        <p>{title}</p>
+        <p>{data.title}</p>
       </div>
       <div className="card__description">
-        <p>{description}</p>
+        <p>{data.title}</p>
       </div>
       <div className="card__menu">
         <div className="card__menu-number">
-          <span>{bookmarkCount}</span>
+          <span>{data.totalFav}</span>
           <AwesomeIcons type="regular" name="bookmark" />
         </div>
         <button
           onClick={() => {
-            show({ layout: "ARCHIVE", data: {} });
+            show({ layout: "ARCHIVE", data });
           }}
           className="archive">
           <AwesomeIcons type="regular" name="eye-slash" />
         </button>
         <button
           onClick={() => {
-            show({ layout: "EDIT", data: {} });
+            show({ layout: "EDIT", data });
           }}
           className="edit">
           <AwesomeIcons type="solid" name="pencil" />
         </button>
         <button
           onClick={() => {
-            show({ layout: "DELETE", data: {} });
+            show({ layout: "DELETE", data });
           }}
           className="delete">
           <AwesomeIcons type="solid" name="trash-can" />
         </button>
-        <button className="see-more" onClick={() => navigate(`/posts/${id}`)}>
+        <button className="see-more" onClick={() => navigate(`/posts/${data.id}`)}>
           Voir plus <AwesomeIcons type="solid" name="arrow-right" />
         </button>
       </div>
@@ -65,45 +62,39 @@ export function MyPostCard({ id, title, description, bookmarkCount }: PostCardPr
   );
 }
 
-export function ArchivedCard({
-  id,
-  title,
-  description,
-  bookmarkCount,
-  date
-}: PostCardProps): JSX.Element {
+export function ArchivedCard({ data }: PostCardProps): JSX.Element {
   const navigate = useNavigate();
   const { show } = modalContext(state => state);
 
   return (
     <div className="card">
-      <div className="card__tags">{TagDate(date)}</div>
+      <div className="card__tags">{TagDate(data.createdAt)}</div>
       <div className="card__title">
-        <p>{title}</p>
+        <p>{data.title}</p>
       </div>
       <div className="card__description">
-        <p>{description}</p>
+        <p>{data.description}</p>
       </div>
       <div className="card__menu">
         <div className="card__menu-number">
-          <span>{bookmarkCount}</span>
+          <span>{data.totalFav}</span>
           <AwesomeIcons type="regular" name="bookmark" />
         </div>
         <button
           onClick={() => {
-            show({ layout: "UNARCHIVE", data: {} });
+            show({ layout: "UNARCHIVE", data });
           }}
           className="archive">
           <AwesomeIcons type="regular" name="eye" />
         </button>
         <button
           onClick={() => {
-            show({ layout: "DELETE", data: {} });
+            show({ layout: "DELETE", data });
           }}
           className="delete">
           <AwesomeIcons type="solid" name="trash-can" />
         </button>
-        <button className="see-more" onClick={() => navigate(`/posts/${id}`)}>
+        <button className="see-more" onClick={() => navigate(`/posts/${data.id}`)}>
           Voir plus <AwesomeIcons type="solid" name="arrow-right" />
         </button>
       </div>
@@ -111,32 +102,26 @@ export function ArchivedCard({
   );
 }
 
-export function PostCard({
-  id,
-  title,
-  description,
-  bookmarkCount,
-  date
-}: PostCardProps): JSX.Element {
+export function PostCard({ data }: PostCardProps): JSX.Element {
   const navigate = useNavigate();
   return (
     <div className="card">
       <div className="card__tags">
-        {TagDate(date)}
+        {TagDate(data.createdAt)}
         {UnreviewedCardTag}
       </div>
       <div className="card__title">
-        <h2>{title}</h2>
+        <h2>{data.title}</h2>
       </div>
       <div className="card__description">
-        <p>{description}</p>
+        <p>{data.description}</p>
       </div>
       <div className="card__menu">
         <div className="card__menu-number">
-          <span>{bookmarkCount}</span>
+          <span>{data.totalFav}</span>
           <AwesomeIcons type="regular" name="bookmark" />
         </div>
-        <button className="see-more" onClick={() => navigate(`/posts/${id}`)}>
+        <button className="see-more" onClick={() => navigate(`/posts/${data.id}`)}>
           Voir plus <AwesomeIcons type="solid" name="arrow-right" />
         </button>
       </div>
@@ -144,22 +129,22 @@ export function PostCard({
   );
 }
 
-export function FavCard({ title, description, bookmarkCount, date }: PostCardProps): JSX.Element {
+export function FavCard({ data }: PostCardProps): JSX.Element {
   return (
     <div className="card">
       <div className="card__tags">
-        {TagDate(date)}
+        {TagDate(data.createdAt)}
         {UnreviewedCardTag}
       </div>
       <div className="card__title">
-        <h2>{title}</h2>
+        <h2>{data.title}</h2>
       </div>
       <div className="card__description">
-        <p>{description}</p>
+        <p>{data.description}</p>
       </div>
       <div className="card__menu">
         <button className="unfav">
-          <span>{bookmarkCount}</span> <AwesomeIcons type="solid" name="bookmark" />
+          <span>{data.totalFav}</span> <AwesomeIcons type="solid" name="bookmark" />
         </button>
       </div>
     </div>

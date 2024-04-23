@@ -26,7 +26,7 @@ export const getPosts = async (page: number) => {
     const { data: res } = await axios<PostResponse<Post[]>>({ method, url, params });
     return res;
   } catch (error) {
-    toast.error("Une erreur s'est produite");
+    // toast.error("Une erreur s'est produite");
   }
 };
 
@@ -80,7 +80,7 @@ export const getArchivedPost = async (Id: string, authorId: string, page: number
     const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data, params });
     return res;
   } catch (error) {
-    toast.error("Une erreur s'est produite");
+    // toast.error("Une erreur s'est produite");
   }
 };
 
@@ -122,7 +122,7 @@ export const getMyPosts = async (authorId: string, page: number) => {
     const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data, params });
     return res;
   } catch (error) {
-    toast.error("Une erreur s'est produite");
+    // toast.error("Une erreur s'est produite");
   }
 };
 
@@ -136,7 +136,7 @@ export const getArchivedPosts = async (authorId: string, page: number) => {
     const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data, params });
     return res;
   } catch (error) {
-    toast.error("Une erreur s'est produite");
+    // toast.error("Une erreur s'est produite");
   }
 };
 
@@ -150,7 +150,7 @@ export const getFavoritePosts = async (userId: string, page: number) => {
     const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data, params });
     return res;
   } catch (error) {
-    toast.error("Une erreur s'est produite");
+    // toast.error("Une erreur s'est produite");
   }
 };
 
@@ -180,6 +180,6 @@ export const getPost = async (Id: string) => {
     const { data: res } = await axios<PostResponse<Post>>({ method, url });
     return res;
   } catch (error) {
-    toast.error("Une erreur s'est produite");
+    // toast.error("Une erreur s'est produite");
   }
 };

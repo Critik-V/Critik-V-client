@@ -6,7 +6,7 @@ import { Fragment } from "react/jsx-runtime";
 import Empty from "@layouts/Empty";
 import Spinner from "@layouts/Spinner";
 import { useQuery } from "@tanstack/react-query";
-import { getFavoritePosts } from "../API";
+import { getFavoritePosts } from "@api/index";
 import Pagination from "@components/Pagination";
 import Failed from "@layouts/Failed";
 import { Navigate, useSearchParams } from "react-router-dom";
@@ -35,14 +35,7 @@ export default function Favorite(): JSX.Element {
           {data && data?.data?.length > 0 && (
             <section id="favorite-posts">
               {data.data.map(post => (
-                <FavCard
-                  key={post.id}
-                  id={post.id}
-                  title={post.title}
-                  description={post.description}
-                  bookmarkCount={post.totalFav}
-                  date={new Date(post.createdAt)}
-                />
+                <FavCard key={post.id} data={post} />
               ))}
             </section>
           )}

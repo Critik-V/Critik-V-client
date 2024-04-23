@@ -6,7 +6,6 @@ export type CreatePostType = {
   description: string;
   jobType: JobType;
   experienceLevel: Level;
-  establishmentName?: string;
   authorId: string;
 };
 
@@ -15,12 +14,9 @@ export type UpdatePostType = {
   description?: string;
   jobType?: JobType;
   experienceLevel?: Level;
-  establishmentName?: string;
 };
-
-export type SinglePostType = { authorId: string };
 
 export enum FavActionType {
   ADD = "add",
-  REMOVE = "remove",
+  REMOVE = "remove"
 }

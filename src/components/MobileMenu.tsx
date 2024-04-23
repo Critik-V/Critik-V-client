@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import "./styles/MobileMenu.scss";
 import AwesomeIcons from "./AwesomeIcons";
-import { logout } from "../API";
+import { logout } from "@api/index";
 
 type PropsTypes = {
   hide: () => void;
