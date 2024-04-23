@@ -18,6 +18,7 @@ import Modal from "@modals/Modal";
 import { modalContext } from "@context/store";
 import Login from "@pages/Login";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ProtectedRoute from "./guard/ProtectedRoute";
 
 const AppQueryClient = new QueryClient({
   defaultOptions: {}
@@ -36,32 +37,32 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Home />,
+        element: <ProtectedRoute component={<Home />} />,
         index: true
       },
-      { path: "posts/:id", element: <SinglePost /> },
+      { path: "posts/:id", element: <ProtectedRoute component={<SinglePost />} /> },
       {
         path: "my-posts",
         element: <Posts />,
         children: [
           {
             path: "",
-            element: <MyPosts />
+            element: <ProtectedRoute component={<MyPosts />} />
           },
           {
             path: "archived",
-            element: <MyArchivedPosts />
+            element: <ProtectedRoute component={<MyArchivedPosts />} />
           }
         ]
       },
-      { path: "new-post", element: <NewPost /> },
+      { path: "new-post", element: <ProtectedRoute component={<NewPost />} /> },
       {
         path: "favorites",
-        element: <Favorite />
+        element: <ProtectedRoute component={<Favorite />} />
       },
-      { path: "guide", element: <Guide /> },
-      { path: "about-us", element: <AboutUs /> },
-      { path: "profile", element: <Profile /> }
+      { path: "guide", element: <ProtectedRoute component={<Guide />} />},
+      { path: "about-us", element: <ProtectedRoute component={<AboutUs />} /> },
+      { path: "profile", element: <ProtectedRoute component={<Profile />} /> }
     ]
   },
   { path: "login", element: <Login /> },

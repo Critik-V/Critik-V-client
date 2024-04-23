@@ -15,7 +15,11 @@ export default function Header(): JSX.Element {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    await logout().then(() => navigate("/login"));
+    await logout().then(data => {
+      if (data?.status === 200) {
+        navigate("/login");
+      }
+    });
   };
 
   return (

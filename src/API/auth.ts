@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { Methods } from "./types";
 import toast from "react-hot-toast";
 
@@ -13,12 +13,13 @@ export const login = async (): Promise<void> => {
   }
 };
 
-export const logout = async (): Promise<void> => {
+export const logout = async (): Promise<AxiosResponse | undefined> => {
   const url: string = import.meta.env.VITE_API_URL + "/logout";
   const method: Methods = Methods.GET;
 
   try {
-    await axios<void>({ method, url });
+    const res = await axios<AxiosResponse>({ method, url });
+    return res;
   } catch (error) {
     toast.error("Une erreur s'est produite");
   }
