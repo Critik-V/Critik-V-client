@@ -33,10 +33,15 @@ export const getPosts = async (page: number) => {
 export const createPost = async (data: CreatePostType) => {
   const method: Methods = Methods.POST;
   const url: string = postsUrl;
-
+  const headers = { "Content-Type": "multipart/form-data" };
 
   try {
-    const { data: res } = await axios<PostResponse<Post>>({ method, url, data });
+    const { data: res } = await axios<PostResponse<Post>>({
+      method,
+      url,
+      data,
+      headers
+    });
     toast.success("Post créé avec succès");
     return res;
   } catch (error) {

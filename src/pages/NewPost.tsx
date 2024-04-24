@@ -25,7 +25,7 @@ export default function NewPost(): JSX.Element {
 
   const { register, handleSubmit } = useForm<CreatePostType & { file: File }>();
 
-  const onSubmit: SubmitHandler<CreatePostType & { file: File }> = data => {
+  const onSubmit: SubmitHandler<CreatePostType> = data => {
     data.file = file as File;
     data.authorId = "aa1021e1-8230-4f98-aaf1-5eaed7fafe2a";
 
