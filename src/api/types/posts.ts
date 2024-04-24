@@ -1,7 +1,7 @@
 import { JobType, Level } from "@types";
 
 export type CreatePostType = {
-  resume: File;
+  // file: File;
   title: string;
   description: string;
   jobType: JobType;

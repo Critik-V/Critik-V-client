@@ -23,12 +23,13 @@ export default function NewPost(): JSX.Element {
     mutationFn: (data: CreatePostType) => createPost(data)
   });
 
-  const { register, handleSubmit } = useForm<CreatePostType>();
+  const { register, handleSubmit } = useForm<CreatePostType & { file: File }>();
 
-  const onSubmit: SubmitHandler<CreatePostType> = data => {
-    data.resume = file as File;
-    data.authorId = "1";
-    if (!data.resume) {
+  const onSubmit: SubmitHandler<CreatePostType & { file: File }> = data => {
+    data.file = file as File;
+    data.authorId = "aa1021e1-8230-4f98-aaf1-5eaed7fafe2a";
+
+    if (!data.file) {
       toast.error("Veuillez ajouter un fichier PDF");
       return;
     }
@@ -58,16 +59,16 @@ export default function NewPost(): JSX.Element {
           Description <span>*</span>
         </label>
         <textarea
-          className={isDescriptionCorrect ? "" : "invalid-input"}
-          required
-          {...(register("description"),
-          {
-            onChange: (e: ChangeEvent<HTMLTextAreaElement>) =>
-              setIsDescriptionCorrect(e.target.value.length === 0 || e.target.value.length > 20),
-            onBlur: (e: FocusEvent<HTMLTextAreaElement>) => e.target.value.trim()
-          })}
-          placeholder="Description de votre post"
+          className={isTitleCorrect ? "" : "invalid-input"}
           id="new-post-description"
+          required
+          maxLength={100}
+          placeholder="Description de votre post"
+          {...register("description", {
+            onChange: (e: ChangeEvent<HTMLInputElement>) =>
+              setIsDescriptionCorrect(e.target.value.length === 0 || e.target.value.length > 5),
+            onBlur: (e: FocusEvent<HTMLInputElement>) => e.target.value.trim()
+          })}
           cols={30}
           rows={4}></textarea>
         <label htmlFor="new-post-job-type">

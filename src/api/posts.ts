@@ -34,11 +34,13 @@ export const createPost = async (data: CreatePostType) => {
   const method: Methods = Methods.POST;
   const url: string = postsUrl;
 
+
   try {
     const { data: res } = await axios<PostResponse<Post>>({ method, url, data });
     toast.success("Post créé avec succès");
     return res;
   } catch (error) {
+    console.error(error);
     toast.error("le post n'a pas pu être créé");
   }
 };
