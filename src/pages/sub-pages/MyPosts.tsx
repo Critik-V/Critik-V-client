@@ -15,7 +15,7 @@ export default function MyPosts(): JSX.Element {
 
   const { data, isLoading } = useQuery({
     queryKey: ["my-posts", page],
-    queryFn: () => getMyPosts("authorID", +page)
+    queryFn: () => getMyPosts("aa1021e1-8230-4f98-aaf1-5eaed7fafe2a", +page)
   });
 
   if (isLoading) return <Spinner />;
@@ -32,7 +32,7 @@ export default function MyPosts(): JSX.Element {
             <MyPostCard key={post.id} data={post} />
           ))}
         </section>
-        <Pagination totalPages={Number(data.totalPage)} />
+        <Pagination totalPages={Number(data.totalPages)} />
       </Fragment>
     );
 

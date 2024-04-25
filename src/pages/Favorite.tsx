@@ -39,7 +39,7 @@ export default function Favorite(): JSX.Element {
               ))}
             </section>
           )}
-          {data && data?.data?.length > 0 && <Pagination totalPages={Number(data.totalPage)} />}
+          {data && data?.data?.length > 0 && <Pagination totalPages={Number(data.totalPages)} />}
         </main>
       </Fragment>
     );

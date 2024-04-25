@@ -31,7 +31,7 @@ export default function MyArchivedPosts(): JSX.Element {
             <ArchivedCard key={post.id} data={post} />
           ))}
         </section>
-        <Pagination totalPages={Number(data.totalPage)} />
+        <Pagination totalPages={Number(data.totalPages)} />
       </Fragment>
     );
 
