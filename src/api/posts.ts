@@ -6,13 +6,15 @@ import toast from "react-hot-toast";
 type PostResponse<T = Post | Post[] | undefined> = T extends undefined
   ? {
       message: string;
-      status: number;
+      status: string;
+      statusCode: number;
     }
   : {
       message: string;
       data: T;
-      status: number;
-      totalPage?: number;
+      status: string;
+      statusCode: number;
+      totalPages?: number;
     };
 
 const postsUrl: string = import.meta.env.VITE_POSTS_URL;

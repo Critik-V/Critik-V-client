@@ -1,6 +1,6 @@
 const TagDate = (date: Date): JSX.Element => {
   const now = new Date();
-  const diff = now.getTime() - date.getTime();
+  const diff = now.getTime() - new Date(date).getTime();
   const diffInDays = Math.floor(diff / (1000 * 60 * 60 * 24));
   const diffInHours = Math.floor(diff / (1000 * 60 * 60));
 

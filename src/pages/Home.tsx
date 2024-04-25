@@ -46,7 +46,7 @@ export default function Home(): JSX.Element {
             ))}
           </section>
         )}
-        {data && data?.data?.length > 0 && <Pagination totalPages={Number(data?.totalPage)} />}
+        {data && data?.data?.length > 0 && <Pagination totalPages={Number(data?.totalPages)} />}
       </main>
     );
 
