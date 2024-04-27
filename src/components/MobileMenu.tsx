@@ -2,7 +2,9 @@ import { useEffect, useRef } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import "./styles/MobileMenu.scss";
 import AwesomeIcons from "./AwesomeIcons";
-import { logout } from "@api/index";
+import { getMe, logout } from "@api/index";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 type PropsTypes = {
   hide: () => void;
@@ -12,15 +14,25 @@ type PropsTypes = {
 export default function MobileMenu({ hide, btnRef }: PropsTypes): JSX.Element {
   const menuRef = useRef<HTMLDivElement>(null);
 
+  const { data: user } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => getMe(),
+    staleTime: 1000 * 60 * 5
+  });
+
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    await logout().then(data => {
-      if (data?.status === 200) {
+  const mutation = useMutation({
+    mutationFn: logout,
+    onSuccess: () => {
+      toast.success("Vous êtes déconnecté");
+      setTimeout(() => {
         navigate("/login");
-      }
-    });
-  };
+      }, 3000);
+    }
+  });
+
+  const handleLogout = () => mutation.mutate();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -43,8 +55,8 @@ export default function MobileMenu({ hide, btnRef }: PropsTypes): JSX.Element {
   return (
     <div className="mb-menu" ref={menuRef}>
       <div className="mb-menu__img">
-        <img src="https://xsgames.co/randomusers/avatar.php?g=male" alt="photo de profile" />
-        <p>User full name</p>
+        <img src={user?.profilePic} alt="photo de profile" />
+        <p>{user?.fullname}</p>
       </div>
       <div className="mb-menu__menu">
         <button>

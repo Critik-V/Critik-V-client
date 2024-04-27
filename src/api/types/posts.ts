@@ -10,6 +10,7 @@ export type CreatePostType = {
 };
 
 export type UpdatePostType = {
+  authorId: string;
   title?: string;
   description?: string;
   jobType?: JobType;

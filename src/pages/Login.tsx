@@ -1,18 +1,11 @@
 import "./styles/Login.scss";
 import logoImg from "@assets/logo.svg";
 import googleLogoImg from "@assets/logo-google.png";
-import { useNavigate } from "react-router-dom";
 import { login } from "@api/index";
 
 export default function Login() {
-  const navigate = useNavigate();
-
   const handleLogin = async () => {
-    await login().then(data => {
-      if (data?.status === 200) {
-        navigate("/?page=1");
-      }
-    });
+    login();
   };
 
   return (

@@ -3,10 +3,11 @@ import "./styles/Modal.scss";
 import { modalContext } from "@context/store";
 import { ChangeEvent, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { EditPostInputType } from "@types";
 import { JobtypeSelect, LevelSelect } from "@utils";
 import { useMutation } from "@tanstack/react-query";
 import { archivePost, deletePost, unarchivePost, updatePost } from "@api/index";
+import { AppQueryClient } from "../App";
+import { UpdatePostType } from "@api/types";
 
 export function EditModal() {
   const [isTitleCorrect, setIsTitleCorrect] = useState<boolean>(true);
@@ -15,13 +16,22 @@ export function EditModal() {
 
   const mutation = useMutation({
     mutationKey: ["edit-post", post?.id],
-    mutationFn: (data: EditPostInputType) => updatePost(post?.id ?? "", data),
-    onSuccess: () => hide()
+    mutationFn: (data: UpdatePostType) => updatePost(post?.id ?? "", data),
+    onSuccess: () => {
+      AppQueryClient.invalidateQueries({
+        queryKey: ["my-posts"]
+      });
+      AppQueryClient.invalidateQueries({
+        queryKey: ["posts"]
+      });
+      hide();
+    }
   });
 
-  const { register, handleSubmit } = useForm<EditPostInputType>();
+  const { register, handleSubmit } = useForm<UpdatePostType>();
 
-  const onSubmit: SubmitHandler<EditPostInputType> = data => {
+  const onSubmit: SubmitHandler<UpdatePostType> = data => {
+    data.authorId = "aa1021e1-8230-4f98-aaf1-5eaed7fafe2a";
     if (isTitleCorrect && isDescriptionCorrect) return mutation.mutate(data);
   };
 
@@ -105,8 +115,13 @@ export function ArchiveModal() {
 
   const mutation = useMutation({
     mutationKey: ["archive-post", data?.id],
-    mutationFn: () => archivePost(data?.id ?? "", "authorID"),
-    onSuccess: () => hide()
+    mutationFn: () => archivePost(data?.id ?? "", "aa1021e1-8230-4f98-aaf1-5eaed7fafe2a"),
+    onSuccess: () => {
+      hide();
+      AppQueryClient.invalidateQueries({
+        queryKey: ["my-posts"]
+      });
+    }
   });
 
   const handleArchivePost = () => mutation.mutate();
@@ -141,7 +156,12 @@ export function DeleteModal() {
   const mutation = useMutation({
     mutationKey: ["delete-post", data?.id],
     mutationFn: () => deletePost(data?.id ?? ""),
-    onSuccess: () => hide()
+    onSuccess: () => {
+      hide();
+      AppQueryClient.invalidateQueries({
+        queryKey: ["my-posts"]
+      });
+    }
   });
 
   const handleDeletePost = () => mutation.mutate();
@@ -175,8 +195,13 @@ export function UnArchiveModal() {
 
   const mutation = useMutation({
     mutationKey: ["unarchive-post", data?.id],
-    mutationFn: () => unarchivePost(data?.id ?? "", "authorID"),
-    onSuccess: () => hide()
+    mutationFn: () => unarchivePost(data?.id ?? "", "aa1021e1-8230-4f98-aaf1-5eaed7fafe2a"),
+    onSuccess: () => {
+      hide();
+      AppQueryClient.invalidateQueries({
+        queryKey: ["my-archived-posts"]
+      });
+    }
   });
 
   const handleUnArchivePost = () => mutation.mutate();

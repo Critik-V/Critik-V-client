@@ -4,7 +4,9 @@ import CritikVLogo from "@assets/logo.svg";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import AwesomeIcons from "@components/AwesomeIcons";
 import MobileMenu from "@components/MobileMenu";
-import { logout } from "@api/index";
+import { getMe, logout } from "@api/index";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 const cssMenuActive: string = "active-menu-header";
 
@@ -12,15 +14,25 @@ export default function Header(): JSX.Element {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const menuBtnRef = useRef<HTMLButtonElement>(null);
 
+  const { data: user } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => getMe(),
+    staleTime: 1000 * 60 * 5
+  });
+
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    await logout().then(data => {
-      if (data?.status === 200) {
+  const mutation = useMutation({
+    mutationFn: logout,
+    onSuccess: () => {
+      toast.success("Vous êtes déconnecté");
+      setTimeout(() => {
         navigate("/login");
-      }
-    });
-  };
+      }, 3000);
+    }
+  });
+
+  const handleLogout = () => mutation.mutate();
 
   return (
     <header>
@@ -68,11 +80,7 @@ export default function Header(): JSX.Element {
         </button>
         <Link to={"profile"}>
           <button className="profile__img">
-            <img
-              src="https://xsgames.co/randomusers/avatar.php?g=male"
-              alt="Profile"
-              title="Profile"
-            />
+            <img src={user?.profilePic} alt="Profile" title="Profile" />
           </button>
         </Link>
         <button onClick={handleLogout} id="disconnect-btn">

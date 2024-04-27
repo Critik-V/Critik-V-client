@@ -2,20 +2,6 @@ export type JobType = "FULLTIME" | "PARTTIME" | "INTERNSHIP" | "APPRENTICESHIP" 
 
 export type Level = "ENTRY_LEVEL" | "JUNIOR" | "MID" | "SENIOR";
 
-export type ProfilInputType = {
-  linkedin?: string;
-  github?: string;
-  otherLink?: string;
-  ln: "FR" | "EN";
-};
-
-export type EditPostInputType = {
-  title: string;
-  description: string;
-  jobType: JobType;
-  experienceLevel: Level;
-};
-
 export type SearchInputType = {
   search: string;
   jobType: JobType | "";

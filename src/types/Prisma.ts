@@ -30,6 +30,7 @@ export type User = {
   description?: string;
   linkedinLink?: string;
   githubLink?: string;
+  otherLink?: string;
   myPosts: Post[];
   favPosts: Post[];
   comments: Comment[];
@@ -39,6 +40,7 @@ export type User = {
   createdAt: Date;
   language: language;
   theme: theme;
+  profilePic?: string;
 };
 
 export type Post = {

@@ -20,8 +20,13 @@ import Login from "@pages/Login";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ProtectedRoute from "./guard/ProtectedRoute";
 
-const AppQueryClient = new QueryClient({
-  defaultOptions: {}
+export const AppQueryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: true,
+      staleTime: 1000 * 60 * 5,
+    }
+  }
 });
 
 const router = createBrowserRouter([
@@ -60,7 +65,7 @@ const router = createBrowserRouter([
         path: "favorites",
         element: <ProtectedRoute component={<Favorite />} />
       },
-      { path: "guide", element: <ProtectedRoute component={<Guide />} />},
+      { path: "guide", element: <ProtectedRoute component={<Guide />} /> },
       { path: "about-us", element: <ProtectedRoute component={<AboutUs />} /> },
       { path: "profile", element: <ProtectedRoute component={<Profile />} /> }
     ]

@@ -18,16 +18,26 @@ type PostResponse<T = Post | Post[] | undefined> = T extends undefined
     };
 
 const postsUrl: string = import.meta.env.VITE_POSTS_URL;
+const AppEnv: "development" | "production" = import.meta.env.VITE_ENV;
 
 export const getPosts = async (page: number) => {
   const method: Methods = Methods.GET;
   const url: string = postsUrl;
   const params = { page };
+  const withCredentials = true;
 
   try {
-    const { data: res } = await axios<PostResponse<Post[]>>({ method, url, params });
+    const { data: res } = await axios<PostResponse<Post[]>>({
+      method,
+      url,
+      params,
+      withCredentials
+    });
     return res;
   } catch (error) {
+    if (AppEnv !== "production") {
+      console.error(error);
+    }
     // toast.error("Une erreur s'est produite");
   }
 };
@@ -36,18 +46,22 @@ export const createPost = async (data: CreatePostType) => {
   const method: Methods = Methods.POST;
   const url: string = postsUrl;
   const headers = { "Content-Type": "multipart/form-data" };
+  const withCredentials = true;
 
   try {
     const { data: res } = await axios<PostResponse<Post>>({
       method,
       url,
       data,
-      headers
+      headers,
+      withCredentials
     });
     toast.success("Post créé avec succès");
     return res;
   } catch (error) {
-    console.error(error);
+    if (AppEnv !== "production") {
+      console.error(error);
+    }
     toast.error("le post n'a pas pu être créé");
   }
 };
@@ -56,12 +70,14 @@ export const updatePost = async (Id: string, data: UpdatePostType) => {
   const restPath: string = "/";
   const method: Methods = Methods.PATCH;
   const url: string = postsUrl + restPath + Id;
+  const withCredentials = true;
 
   try {
-    const { data: res } = await axios<PostResponse>({ method, url, data });
+    const { data: res } = await axios<PostResponse>({ method, url, data, withCredentials });
     toast.success("Post modifié avec succès");
     return res;
   } catch (error) {
+    console.log(error);
     toast.error("le post n'a pas pu être modifié");
   }
 };
@@ -70,11 +86,15 @@ export const deletePost = async (Id: string) => {
   const restPath: string = "/";
   const method: Methods = Methods.DELETE;
   const url: string = postsUrl + restPath + Id;
+  const withCredentials = true;
   try {
-    const { data: res } = await axios<PostResponse>({ method, url });
+    const { data: res } = await axios<PostResponse>({ method, url, withCredentials });
     toast.success("Post supprimé avec succès");
     return res;
   } catch (error) {
+    if (AppEnv !== "production") {
+      console.error(error);
+    }
     toast.error("le post n'a pas pu être supprimé");
   }
 };
@@ -85,10 +105,21 @@ export const getArchivedPost = async (Id: string, authorId: string, page: number
   const data = { authorId };
   const method: Methods = Methods.GET;
   const params = { page };
+  const withCredentials = true;
+
   try {
-    const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data, params });
+    const { data: res } = await axios<PostResponse<Post[]>>({
+      method,
+      url,
+      data,
+      params,
+      withCredentials
+    });
     return res;
   } catch (error) {
+    if (AppEnv !== "production") {
+      console.error(error);
+    }
     // toast.error("Une erreur s'est produite");
   }
 };
@@ -98,8 +129,10 @@ export const archivePost = async (postId: string, authorId: string) => {
   const url: string = postsUrl + restPath + postId;
   const data = { authorId };
   const method: Methods = Methods.PATCH;
+  const withCredentials = true;
+
   try {
-    const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data });
+    const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data, withCredentials });
     toast.success("Post archivé avec succès");
     return res;
   } catch (error) {
@@ -112,11 +145,16 @@ export const unarchivePost = async (postId: string, authorId: string) => {
   const url: string = postsUrl + restPath + postId;
   const data = { authorId };
   const method: Methods = Methods.PATCH;
+  const withCredentials = true;
+
   try {
-    const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data });
+    const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data, withCredentials });
     toast.success("Post désarchivé avec succès");
     return res;
   } catch (error) {
+    if (AppEnv !== "production") {
+      console.error(error);
+    }
     toast.error("le post n'a pas pu être désarchivé");
   }
 };
@@ -127,10 +165,21 @@ export const getMyPosts = async (authorId: string, page: number) => {
   const method: Methods = Methods.GET;
   const data = { authorId };
   const params = { page };
+  const withCredentials = true;
+
   try {
-    const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data, params });
+    const { data: res } = await axios<PostResponse<Post[]>>({
+      method,
+      url,
+      data,
+      params,
+      withCredentials
+    });
     return res;
   } catch (error) {
+    if (AppEnv !== "production") {
+      console.error(error);
+    }
     // toast.error("Une erreur s'est produite");
   }
 };
@@ -141,10 +190,21 @@ export const getArchivedPosts = async (authorId: string, page: number) => {
   const data = { authorId };
   const method: Methods = Methods.GET;
   const params = { page };
+  const withCredentials = true;
+
   try {
-    const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data, params });
+    const { data: res } = await axios<PostResponse<Post[]>>({
+      method,
+      url,
+      data,
+      params,
+      withCredentials
+    });
     return res;
   } catch (error) {
+    if (AppEnv !== "production") {
+      console.error(error);
+    }
     // toast.error("Une erreur s'est produite");
   }
 };
@@ -155,10 +215,21 @@ export const getFavoritePosts = async (userId: string, page: number) => {
   const method: Methods = Methods.GET;
   const data = { userId };
   const params = { page };
+  const withCredentials = true;
+
   try {
-    const { data: res } = await axios<PostResponse<Post[]>>({ method, url, data, params });
+    const { data: res } = await axios<PostResponse<Post[]>>({
+      method,
+      url,
+      data,
+      params,
+      withCredentials
+    });
     return res;
   } catch (error) {
+    if (AppEnv !== "production") {
+      console.error(error);
+    }
     // toast.error("Une erreur s'est produite");
   }
 };
@@ -167,16 +238,22 @@ export const favoritePost = async (data: { id: string; userId: string }, action:
   const restPath: string = "/fav";
   const url: string = postsUrl + restPath;
   const method: Methods = Methods.PATCH;
+  const withCredentials = true;
+
   try {
     const { data: res } = await axios<PostResponse<Post[]>>({
       method,
       params: { action },
       url,
-      data
+      data,
+      withCredentials
     });
     toast.success("Post ajouté à vos favoris");
     return res;
   } catch (error) {
+    if (AppEnv !== "production") {
+      console.error(error);
+    }
     toast.error("Une erreur s'est produite");
   }
 };
@@ -185,10 +262,15 @@ export const getPost = async (Id: string) => {
   const restPath: string = "/";
   const url: string = postsUrl + restPath + Id;
   const method: Methods = Methods.GET;
+  const withCredentials = true;
+
   try {
-    const { data: res } = await axios<PostResponse<Post>>({ method, url });
+    const { data: res } = await axios<PostResponse<Post>>({ method, url, withCredentials });
     return res;
   } catch (error) {
+    if (AppEnv !== "production") {
+      console.error(error);
+    }
     // toast.error("Une erreur s'est produite");
   }
 };

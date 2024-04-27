@@ -23,10 +23,10 @@ export function MyPostCard({ data }: PostCardProps): JSX.Element {
         {UnreviewedCardTag}
       </div>
       <div className="card__title">
-        <p>{data.title}</p>
+        <h2>{data.title}</h2>
       </div>
       <div className="card__description">
-        <p>{data.title}</p>
+        <p>{data.description}</p>
       </div>
       <div className="card__menu">
         <div className="card__menu-number">
@@ -70,7 +70,7 @@ export function ArchivedCard({ data }: PostCardProps): JSX.Element {
     <div className="card">
       <div className="card__tags">{TagDate(data.createdAt)}</div>
       <div className="card__title">
-        <p>{data.title}</p>
+        <h2>{data.title}</h2>
       </div>
       <div className="card__description">
         <p>{data.description}</p>

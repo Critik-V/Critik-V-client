@@ -37,7 +37,8 @@
   &__title {
     @include full;
     overflow: hidden;
-    p {
+    p,
+    h2 {
       @include full;
       font-size: 0.9rem;
       font-weight: 600;
