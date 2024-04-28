@@ -15,7 +15,7 @@ export default function MyArchivedPosts(): JSX.Element {
 
   const { data, isLoading } = useQuery({
     queryKey: ["my-archived-posts", page],
-    queryFn: () => getArchivedPosts("authorID", +page)
+    queryFn: () => getArchivedPosts(+page)
   });
 
   if (isLoading) return <Spinner />;

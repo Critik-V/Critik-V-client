@@ -54,6 +54,8 @@ export type Post = {
   authorId: string;
   archived: boolean;
   totalFav: number;
+  comments: Comment[];
+  favByUsers: User[];
   resumePath: string | null;
 };
 

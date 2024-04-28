@@ -31,7 +31,6 @@ export function EditModal() {
   const { register, handleSubmit } = useForm<UpdatePostType>();
 
   const onSubmit: SubmitHandler<UpdatePostType> = data => {
-    data.authorId = "aa1021e1-8230-4f98-aaf1-5eaed7fafe2a";
     if (isTitleCorrect && isDescriptionCorrect) return mutation.mutate(data);
   };
 
@@ -115,7 +114,7 @@ export function ArchiveModal() {
 
   const mutation = useMutation({
     mutationKey: ["archive-post", data?.id],
-    mutationFn: () => archivePost(data?.id ?? "", "aa1021e1-8230-4f98-aaf1-5eaed7fafe2a"),
+    mutationFn: () => archivePost(data?.id ?? ""),
     onSuccess: () => {
       hide();
       AppQueryClient.invalidateQueries({
@@ -195,7 +194,7 @@ export function UnArchiveModal() {
 
   const mutation = useMutation({
     mutationKey: ["unarchive-post", data?.id],
-    mutationFn: () => unarchivePost(data?.id ?? "", "aa1021e1-8230-4f98-aaf1-5eaed7fafe2a"),
+    mutationFn: () => unarchivePost(data?.id ?? ""),
     onSuccess: () => {
       hide();
       AppQueryClient.invalidateQueries({

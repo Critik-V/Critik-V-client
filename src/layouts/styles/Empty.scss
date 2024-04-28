@@ -24,7 +24,23 @@
 
   &-message {
     font-size: 1.2rem;
-    margin-top: .5rem;
+    margin-top: 0.5rem;
     color: $primary-grey;
   }
+}
+
+.make-post-btn {
+  i {
+    margin-right: 0.5rem;
+  }
+  margin-top: 1rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 5px;
+  border: 0;
+  background-color: $primary-green;
+  color: $white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  @include btn-effect;
 }

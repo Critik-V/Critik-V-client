@@ -15,7 +15,7 @@ export default function MyPosts(): JSX.Element {
 
   const { data, isLoading } = useQuery({
     queryKey: ["my-posts", page],
-    queryFn: () => getMyPosts("aa1021e1-8230-4f98-aaf1-5eaed7fafe2a", +page)
+    queryFn: () => getMyPosts(+page)
   });
 
   if (isLoading) return <Spinner />;

@@ -23,8 +23,7 @@ import ProtectedRoute from "./guard/ProtectedRoute";
 export const AppQueryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: true,
-      staleTime: 1000 * 60 * 5,
+      refetchOnWindowFocus: true
     }
   }
 });

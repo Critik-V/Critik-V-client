@@ -2,11 +2,8 @@ import { modalContext } from "@context/store";
 import AwesomeIcons from "./AwesomeIcons";
 import "./styles/PostsCards.scss";
 import { useNavigate } from "react-router-dom";
-import TagDate from "./TagDate";
 import { Post } from "../types/Prisma";
-
-const NewCardTag: JSX.Element = <span className="new">new</span>;
-const UnreviewedCardTag: JSX.Element = <span className="unreviewed">unreviewed</span>;
+import { TagDate, UnreviewedCardTag } from "./TagDate";
 
 type PostCardProps = {
   data: Post;
@@ -19,8 +16,8 @@ export function MyPostCard({ data }: PostCardProps): JSX.Element {
   return (
     <div className="card">
       <div className="card__tags">
-        {NewCardTag}
-        {UnreviewedCardTag}
+        {TagDate(data.createdAt)}
+        {UnreviewedCardTag(data.comments)}
       </div>
       <div className="card__title">
         <h2>{data.title}</h2>
@@ -108,7 +105,7 @@ export function PostCard({ data }: PostCardProps): JSX.Element {
     <div className="card">
       <div className="card__tags">
         {TagDate(data.createdAt)}
-        {UnreviewedCardTag}
+        {UnreviewedCardTag(data.comments)}
       </div>
       <div className="card__title">
         <h2>{data.title}</h2>
@@ -134,7 +131,7 @@ export function FavCard({ data }: PostCardProps): JSX.Element {
     <div className="card">
       <div className="card__tags">
         {TagDate(data.createdAt)}
-        {UnreviewedCardTag}
+        {UnreviewedCardTag(data.comments)}
       </div>
       <div className="card__title">
         <h2>{data.title}</h2>

@@ -18,16 +18,16 @@ export default function NewPost(): JSX.Element {
   const [isTitleCorrect, setIsTitleCorrect] = useState<boolean>(true);
   const [isDescriptionCorrect, setIsDescriptionCorrect] = useState<boolean>(true);
 
+  const { register, handleSubmit, reset } = useForm<CreatePostType & { file: File }>();
+
   const mutation = useMutation({
     mutationKey: ["new-post"],
-    mutationFn: (data: CreatePostType) => createPost(data)
+    mutationFn: (data: CreatePostType) => createPost(data),
+    onSuccess: () => reset()
   });
-
-  const { register, handleSubmit } = useForm<CreatePostType & { file: File }>();
 
   const onSubmit: SubmitHandler<CreatePostType> = data => {
     data.file = file as File;
-    data.authorId = "aa1021e1-8230-4f98-aaf1-5eaed7fafe2a";
 
     if (!data.file) {
       toast.error("Veuillez ajouter un fichier PDF");
@@ -59,7 +59,7 @@ export default function NewPost(): JSX.Element {
           Description <span>*</span>
         </label>
         <textarea
-          className={isTitleCorrect ? "" : "invalid-input"}
+          className={isDescriptionCorrect ? "" : "invalid-input"}
           id="new-post-description"
           required
           maxLength={100}
