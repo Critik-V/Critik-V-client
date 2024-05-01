@@ -1,7 +1,10 @@
 import axios from "axios";
 import { CreateCommentType, LikeCommentActionType, Methods, UpdateCommentType } from "./types";
+import { Comment } from "../types/Prisma";
+import toast from "react-hot-toast";
 
 const commentsUrl = import.meta.env.VITE_COMMENTS_URL;
+const AppEnv: "development" | "production" = import.meta.env.VITE_ENV;
 
 type CommentResponse<T = Comment | Comment[] | undefined> = T extends undefined
   ? {
@@ -26,9 +29,13 @@ export const createComment = async (data: CreateCommentType) => {
       data,
       withCredentials
     });
+    toast.success("Commentaire publié avec succès");
     return res;
   } catch (error) {
-    console.log(error);
+    if (AppEnv !== "production") {
+      console.error(error);
+    }
+    toast.error("Erreur lors de la publication du commentaire");
   }
 };
 
@@ -45,9 +52,13 @@ export const updateComment = async (Id: string, data: UpdateCommentType) => {
       data,
       withCredentials
     });
+    toast.success("Commentaire mis à jour avec succès");
     return res;
   } catch (error) {
-    console.log(error);
+    if (AppEnv !== "production") {
+      console.error(error);
+    }
+    toast.error("Erreur lors de la mise à jour du commentaire");
   }
 };
 
@@ -60,9 +71,13 @@ export const deleteComment = async (Id: string, authorId: string) => {
 
   try {
     const { data: res } = await axios<CommentResponse>({ method, url, data, withCredentials });
+    toast.success("Commentaire supprimé avec succès");
     return res;
   } catch (error) {
-    console.log(error);
+    if (AppEnv !== "production") {
+      console.error(error);
+    }
+    toast.error("Erreur lors de la suppression du commentaire");
   }
 };
 
@@ -81,7 +96,9 @@ export const getPostComments = async (postId: string) => {
     });
     return res;
   } catch (error) {
-    console.log(error);
+    if (AppEnv !== "production") {
+      console.error(error);
+    }
   }
 };
 
@@ -103,7 +120,9 @@ export const upLikeComment = async (Id: string, userId: string, action: LikeComm
     });
     return res;
   } catch (error) {
-    console.log(error);
+    if (AppEnv !== "production") {
+      console.error(error);
+    }
   }
 };
 
@@ -129,6 +148,8 @@ export const downLikeComment = async (
     });
     return res;
   } catch (error) {
-    console.log(error);
+    if (AppEnv !== "production") {
+      console.error(error);
+    }
   }
 };
