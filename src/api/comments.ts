@@ -17,9 +17,15 @@ type CommentResponse<T = Comment | Comment[] | undefined> = T extends undefined
 export const createComment = async (data: CreateCommentType) => {
   const method: Methods = Methods.POST;
   const url: string = commentsUrl;
+  const withCredentials = true;
 
   try {
-    const { data: res } = await axios<CommentResponse<Comment>>({ method, url, data });
+    const { data: res } = await axios<CommentResponse<Comment>>({
+      method,
+      url,
+      data,
+      withCredentials
+    });
     return res;
   } catch (error) {
     console.log(error);
@@ -30,9 +36,15 @@ export const updateComment = async (Id: string, data: UpdateCommentType) => {
   const restPath: string = "/";
   const method: Methods = Methods.PATCH;
   const url: string = commentsUrl + restPath + Id;
+  const withCredentials = true;
 
   try {
-    const { data: res } = await axios<CommentResponse<Comment>>({ method, url, data });
+    const { data: res } = await axios<CommentResponse<Comment>>({
+      method,
+      url,
+      data,
+      withCredentials
+    });
     return res;
   } catch (error) {
     console.log(error);
@@ -44,9 +56,10 @@ export const deleteComment = async (Id: string, authorId: string) => {
   const url: string = commentsUrl + restPath + Id;
   const data = { authorId };
   const method: Methods = Methods.DELETE;
+  const withCredentials = true;
 
   try {
-    const { data: res } = await axios<CommentResponse>({ method, url, data });
+    const { data: res } = await axios<CommentResponse>({ method, url, data, withCredentials });
     return res;
   } catch (error) {
     console.log(error);
@@ -57,9 +70,15 @@ export const getPostComments = async (postId: string) => {
   const method: Methods = Methods.GET;
   const url: string = commentsUrl;
   const data = { postId };
+  const withCredentials = true;
 
   try {
-    const { data: res } = await axios<CommentResponse<Comment[]>>({ method, url, data });
+    const { data: res } = await axios<CommentResponse<Comment[]>>({
+      method,
+      url,
+      data,
+      withCredentials
+    });
     return res;
   } catch (error) {
     console.log(error);
@@ -72,9 +91,16 @@ export const upLikeComment = async (Id: string, userId: string, action: LikeComm
   const url: string = commentsUrl + restPath + Id;
   const data = { userId };
   const params = { action };
+  const withCredentials = true;
 
   try {
-    const { data: res } = await axios<CommentResponse>({ method, url, data, params });
+    const { data: res } = await axios<CommentResponse>({
+      method,
+      url,
+      data,
+      params,
+      withCredentials
+    });
     return res;
   } catch (error) {
     console.log(error);
@@ -91,9 +117,16 @@ export const downLikeComment = async (
   const url: string = commentsUrl + restPath + Id;
   const data = { userId };
   const params = { action };
+  const withCredentials = true;
 
   try {
-    const { data: res } = await axios<CommentResponse>({ method, url, data, params });
+    const { data: res } = await axios<CommentResponse>({
+      method,
+      url,
+      data,
+      params,
+      withCredentials
+    });
     return res;
   } catch (error) {
     console.log(error);

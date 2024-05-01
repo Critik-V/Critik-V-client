@@ -38,7 +38,6 @@ export const getPosts = async (page: number) => {
     if (AppEnv !== "production") {
       console.error(error);
     }
-    // toast.error("Une erreur s'est produite");
   }
 };
 
@@ -118,7 +117,6 @@ export const getArchivedPost = async (Id: string, page: number) => {
     if (AppEnv !== "production") {
       console.error(error);
     }
-    // toast.error("Une erreur s'est produite");
   }
 };
 
@@ -175,7 +173,6 @@ export const getMyPosts = async (page: number) => {
     if (AppEnv !== "production") {
       console.error(error);
     }
-    // toast.error("Une erreur s'est produite");
   }
 };
 
@@ -198,7 +195,6 @@ export const getArchivedPosts = async (page: number) => {
     if (AppEnv !== "production") {
       console.error(error);
     }
-    // toast.error("Une erreur s'est produite");
   }
 };
 
@@ -221,7 +217,6 @@ export const getFavoritePosts = async (page: number) => {
     if (AppEnv !== "production") {
       console.error(error);
     }
-    // toast.error("Une erreur s'est produite");
   }
 };
 
@@ -263,6 +258,5 @@ export const getPost = async (Id: string) => {
     if (AppEnv !== "production") {
       console.error(error);
     }
-    // toast.error("Une erreur s'est produite");
   }
 };
