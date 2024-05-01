@@ -3,8 +3,6 @@ export type CreateCommentType = {
   postId: string;
 };
 
-export type UpdateCommentType = { content: string; authorId: string };
-
 export enum LikeCommentActionType {
   TRUE = "true",
   FALSE = "false"

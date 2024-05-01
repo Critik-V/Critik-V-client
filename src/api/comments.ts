@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CreateCommentType, LikeCommentActionType, Methods, UpdateCommentType } from "./types";
+import { CreateCommentType, LikeCommentActionType, Methods } from "./types";
 import { Comment } from "../types/Prisma";
 import toast from "react-hot-toast";
 
@@ -39,10 +39,11 @@ export const createComment = async (data: CreateCommentType) => {
   }
 };
 
-export const updateComment = async (Id: string, data: UpdateCommentType) => {
+export const updateComment = async (Id: string, content: string) => {
   const restPath: string = "/";
   const method: Methods = Methods.PATCH;
   const url: string = commentsUrl + restPath + Id;
+  const data = { content };
   const withCredentials = true;
 
   try {
@@ -62,15 +63,14 @@ export const updateComment = async (Id: string, data: UpdateCommentType) => {
   }
 };
 
-export const deleteComment = async (Id: string, authorId: string) => {
+export const deleteComment = async (Id: string) => {
   const restPath: string = "/";
   const url: string = commentsUrl + restPath + Id;
-  const data = { authorId };
   const method: Methods = Methods.DELETE;
   const withCredentials = true;
 
   try {
-    const { data: res } = await axios<CommentResponse>({ method, url, data, withCredentials });
+    const { data: res } = await axios<CommentResponse>({ method, url, withCredentials });
     toast.success("Commentaire supprimé avec succès");
     return res;
   } catch (error) {
@@ -102,11 +102,10 @@ export const getPostComments = async (postId: string) => {
   }
 };
 
-export const upLikeComment = async (Id: string, userId: string, action: LikeCommentActionType) => {
+export const upLikeComment = async (Id: string, action: LikeCommentActionType) => {
   const restPath: string = "/like/";
   const method: Methods = Methods.PATCH;
   const url: string = commentsUrl + restPath + Id;
-  const data = { userId };
   const params = { action };
   const withCredentials = true;
 
@@ -114,7 +113,6 @@ export const upLikeComment = async (Id: string, userId: string, action: LikeComm
     const { data: res } = await axios<CommentResponse>({
       method,
       url,
-      data,
       params,
       withCredentials
     });
@@ -128,13 +126,11 @@ export const upLikeComment = async (Id: string, userId: string, action: LikeComm
 
 export const downLikeComment = async (
   Id: string,
-  userId: string,
   action: LikeCommentActionType
 ) => {
   const method: Methods = Methods.PATCH;
   const restPath: string = "/dislike/";
   const url: string = commentsUrl + restPath + Id;
-  const data = { userId };
   const params = { action };
   const withCredentials = true;
 
@@ -142,7 +138,6 @@ export const downLikeComment = async (
     const { data: res } = await axios<CommentResponse>({
       method,
       url,
-      data,
       params,
       withCredentials
     });
