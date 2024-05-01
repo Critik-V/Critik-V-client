@@ -1,12 +1,12 @@
 import axios from "axios";
 import { Methods } from "./types";
 import toast from "react-hot-toast";
-import { User } from "../types/Prisma";
+import { updateUserData } from "@types";
 
 const userUrl: string = import.meta.env.VITE_USERS_URL;
 const AppEnv: "development" | "production" = import.meta.env.VITE_ENV;
 
-export const updateUser = async (data: User) => {
+export const updateUser = async (data: updateUserData) => {
   const method: Methods = Methods.PATCH;
   const url: string = userUrl;
   const withCredentials = true;
