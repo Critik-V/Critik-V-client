@@ -57,9 +57,10 @@ export type Post = {
   comments: Comment[];
   favByUsers: User[];
   resumePath: string | null;
+  author: User;
 };
 
-type Comment = {
+export type Comment = {
   id: string;
   content: string;
   author: User;
@@ -74,7 +75,7 @@ type Comment = {
   downLikes: User[];
 };
 
-type Notification = {
+export type Notification = {
   id: string;
   content: string;
   receiver: User;

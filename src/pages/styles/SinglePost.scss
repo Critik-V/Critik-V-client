@@ -2,6 +2,7 @@
 
 #single-post {
   display: grid;
+  scroll-snap-type: y proximity;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 0.5rem;
 
@@ -11,6 +12,7 @@
     overflow: hidden;
     @include full;
     padding: 1rem;
+    scroll-snap-align: start;
 
     & .display {
       display: flex;
@@ -29,8 +31,8 @@
       background: $white;
       border: 1px solid $secondary-grey;
       box-shadow: 0 0.1rem 0.7rem rgba(0, 0, 0, 0.1);
-      padding: 1rem;
-      margin-top: 0.5rem;
+      padding: 0.7rem;
+      margin-bottom: 0.5rem;
       border-radius: 10px;
       cursor: pointer;
       @include btn-effect;
@@ -41,6 +43,7 @@
     }
   }
   &-other {
+    scroll-snap-align: start;
     height: fit-content;
     width: 100%;
     background: white;
@@ -52,7 +55,7 @@
       @include full;
       border-bottom: 1px dashed $primary-grey;
       height: fit-content;
-      max-height: 40dvh;
+      max-height: 45dvh;
       padding: 1rem;
       & h2 {
         font-size: 1.2rem;
@@ -64,6 +67,23 @@
         font-size: 0.85rem;
         line-height: 1.5;
         text-align: justify;
+      }
+      & .types {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1rem;
+        margin: 1rem 0;
+        & span {
+          // padding: 0.5rem 0.7rem;
+          // border-radius: 100px;
+          // background: white;
+          // border: 1px solid #e0e0e0;
+          & i {
+            margin-right: 0.5rem;
+            color: $primary-green;
+          }
+        }
       }
       & .links {
         display: flex;
