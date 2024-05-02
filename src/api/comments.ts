@@ -124,10 +124,7 @@ export const upLikeComment = async (Id: string, action: LikeCommentActionType) =
   }
 };
 
-export const downLikeComment = async (
-  Id: string,
-  action: LikeCommentActionType
-) => {
+export const downLikeComment = async (Id: string, action: LikeCommentActionType) => {
   const method: Methods = Methods.PATCH;
   const restPath: string = "/dislike/";
   const url: string = commentsUrl + restPath + Id;
