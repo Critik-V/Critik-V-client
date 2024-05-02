@@ -9,6 +9,8 @@ import { archivePost, deletePost, unarchivePost, updatePost } from "@api/index";
 import { AppQueryClient } from "../App";
 import { UpdatePostType } from "@api/types";
 
+const textAreaxMaxLength: number = 400;
+
 export function EditModal() {
   const [isTitleCorrect, setIsTitleCorrect] = useState<boolean>(true);
   const [isDescriptionCorrect, setIsDescriptionCorrect] = useState<boolean>(true);
@@ -71,7 +73,7 @@ export function EditModal() {
           id="new-post-description"
           cols={30}
           rows={4}
-          maxLength={300}></textarea>
+          maxLength={textAreaxMaxLength}></textarea>
         <label htmlFor="new-post-job-type">
           Type d'emploi <span>*</span>
         </label>
