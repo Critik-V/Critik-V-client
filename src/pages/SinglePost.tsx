@@ -2,35 +2,75 @@ import AwesomeIcons from "@components/AwesomeIcons";
 import "./styles/SinglePost.scss";
 import resumeExeImg from "@assets/resume.jpg";
 import { useParams } from "react-router-dom";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQueries } from "@tanstack/react-query";
 import { createComment, getPostComments } from "@api/comments";
 import { getPost } from "@api/posts";
 import { ChangeEvent, useState } from "react";
+import { AppQueryClient } from "../App";
+
+function decodeJobType(jobType: string): string {
+  jobType = jobType.toLowerCase();
+  switch (jobType) {
+    case "fulltime":
+      return "Temps plein";
+    case "apprenticeship":
+      return "Alternance";
+    case "parttime":
+      return "Temps partiel";
+    case "internship":
+      return "Stage";
+    case "freelance":
+      return "Freelance";
+    default:
+      return "Non spécifié";
+  }
+}
 
 export default function SinglePost(): JSX.Element {
   const { id: postId } = useParams<{ id: string }>();
   const [newComment, setNewComment] = useState<string>("");
 
-  const { data: comments } = useQuery({
-    queryKey: ["single-post", postId],
-    queryFn: () => getPostComments(postId || "")
+  // const { data: post } = useQuery({
+  //   queryKey: ["single-post", postId],
+  //   queryFn: () => getPost(postId || "")
+  // });
+
+  // const { data: comments } = useQuery({
+  //   queryKey: ["single-post", postId],
+  //   queryFn: () => getPostComments(postId || "")
+  // });
+
+  const fetchData = useQueries({
+    queries: [
+      {
+        queryKey: ["single-post", postId],
+        queryFn: () => getPost(postId || "")
+      },
+      {
+        queryKey: ["single-post-comments", postId],
+        queryFn: () => getPostComments(postId || "")
+      }
+    ]
   });
 
-  const { data: post } = useQuery({
-    queryKey: ["single-post", postId],
-    queryFn: () => getPost(postId || "")
-  });
+  const post = fetchData[0].data;
+  const comments = fetchData[1].data;
 
   const mutation = useMutation({
     mutationKey: ["new-comment"],
-    mutationFn: () => createComment({ postId: postId || "", content: newComment })
+    mutationFn: () => createComment({ postId: postId || "", content: newComment }),
+    onSuccess: () => {
+      AppQueryClient.invalidateQueries({
+        queryKey: ["single-post-comments", postId]
+      });
+      setNewComment("");
+    }
   });
 
   const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (newComment.length > 0) {
       mutation.mutate();
-      setNewComment("");
     }
   };
 
@@ -38,7 +78,7 @@ export default function SinglePost(): JSX.Element {
     <main id="single-post">
       <div id="single-post-resume">
         <button>
-          <span>{post?.data.totalFav}</span>
+          <span>{post?.data?.totalFav}</span>
           <AwesomeIcons type="regular" name="bookmark" />
         </button>
         <div className="display">
@@ -60,7 +100,7 @@ export default function SinglePost(): JSX.Element {
         <div className="comments">
           {comments?.data &&
             comments?.data?.length > 0 &&
-            comments?.data.map(comment => <Comment key={comment.id} />)}
+            comments?.data.map(comment => <Comment key={comment.id} content={comment.content} />)}
           {comments?.data.length === 0 && <NoComment />}
           {!comments && <NoData />}
         </div>
@@ -99,28 +139,28 @@ export function PostDescription({
       <p>{descData.description}</p>
       <div className="types">
         <span>
-          <AwesomeIcons type="solid" name="briefcase" /> {descData.jobtype}
+          <AwesomeIcons type="solid" name="briefcase" /> {decodeJobType(descData.jobtype)}
         </span>
         <span>
           <AwesomeIcons type="solid" name="graduation-cap" />
-          {descData.level}
+          {descData.level.toLowerCase()}
         </span>
       </div>
       <div className="links">
         {descData.linkedinLink.length > 5 && (
-          <a href={descData.linkedinLink}>
+          <a href={descData.linkedinLink} target="_blank">
             <AwesomeIcons name="linkedin" type="brands" />
             Linkedin
           </a>
         )}
         {descData.githubLink.length > 5 && (
-          <a href={descData.githubLink}>
+          <a href={descData.githubLink} target="_blank">
             <AwesomeIcons name="github" type="brands" />
             Github
           </a>
         )}
         {descData.otherLink.length > 5 && (
-          <a href={descData.otherLink}>
+          <a href={descData.otherLink} target="_blank">
             <AwesomeIcons name="link" type="solid" />
             Autre
           </a>
@@ -130,17 +170,10 @@ export function PostDescription({
   );
 }
 
-export function Comment(): JSX.Element {
+export function Comment({ content }: { content: string }): JSX.Element {
   return (
     <div className="comment">
-      <p>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae numquam rerum hic
-        facilis dolores necessitatibus iure corporis, ut perferendis exercitationem at animi et
-        deleniti a enim officia ipsam quae laudantium. Impedit molestiae totam quam id odit, labore
-        rerum pariatur. Nihil reprehenderit, repellat obcaecati labore voluptate nisi illo vitae
-        mollitia amet. Numquam nihil reprehenderit adipisci! Fugiat voluptates cupiditate
-        reprehenderit ipsum magnam.
-      </p>
+      <p>{content}</p>
       <div>
         <button>
           <span>12</span>

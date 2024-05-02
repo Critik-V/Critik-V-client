@@ -12,6 +12,7 @@ import { createPost } from "@api/index";
 import { CreatePostType } from "@api/types";
 
 type IsUploadedProps = { name: string; weight: number };
+const textAreaxMaxLength: number = 400;
 
 export default function NewPost(): JSX.Element {
   const [file, setFile] = useState<File | null>(null);
@@ -62,7 +63,7 @@ export default function NewPost(): JSX.Element {
           className={isDescriptionCorrect ? "" : "invalid-input"}
           id="new-post-description"
           required
-          maxLength={100}
+          maxLength={textAreaxMaxLength}
           placeholder="Description de votre post"
           {...register("description", {
             onChange: (e: ChangeEvent<HTMLInputElement>) =>
