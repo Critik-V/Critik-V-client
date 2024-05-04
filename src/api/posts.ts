@@ -3,7 +3,7 @@ import { CreatePostType, FavActionType, Methods, UpdatePostType } from "./types"
 import { Post } from "../types/Prisma";
 import toast from "react-hot-toast";
 
-type PostResponse<T = Post | Post[] | undefined> = T extends undefined
+type PostResponse<T = Post | Post[] | boolean | undefined> = T extends undefined
   ? {
       message: string;
       status: string;
@@ -223,7 +223,7 @@ export const getFavoritePosts = async (page: number) => {
 export const favoritePost = async (id: string, action: FavActionType) => {
   const restPath: string = "/fav";
   const url: string = postsUrl + restPath;
-  const method: Methods = Methods.PATCH;
+  const method: Methods = Methods.POST;
   const withCredentials = true;
   const data = { id };
 
@@ -235,13 +235,32 @@ export const favoritePost = async (id: string, action: FavActionType) => {
       data,
       withCredentials
     });
-    toast.success("Post ajouté à vos favoris");
     return res;
   } catch (error) {
     if (AppEnv !== "production") {
       console.error(error);
     }
     toast.error("Une erreur s'est produite");
+  }
+};
+
+export const isFavPost = async (id: string) => {
+  const restPath: string = "/isFav/";
+  const url: string = postsUrl + restPath + id;
+  const method: Methods = Methods.GET;
+  const withCredentials = true;
+
+  try {
+    const { data: res } = await axios<PostResponse<boolean>>({
+      method,
+      url,
+      withCredentials
+    });
+    return res;
+  } catch (error) {
+    if (AppEnv !== "production") {
+      console.error(error);
+    }
   }
 };
 

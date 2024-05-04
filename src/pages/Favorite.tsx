@@ -17,7 +17,7 @@ export default function Favorite(): JSX.Element {
 
   const { data, isLoading } = useQuery({
     queryKey: ["my-favorites-posts", page],
-    queryFn: () => getFavoritePosts("authorID", +page)
+    queryFn: () => getFavoritePosts(+page)
   });
 
   if (isLoading) return <Spinner />;

@@ -2,12 +2,13 @@ import AwesomeIcons from "@components/AwesomeIcons";
 import "./styles/SinglePost.scss";
 import resumeExeImg from "@assets/resume.jpg";
 import { useParams } from "react-router-dom";
-import { useMutation, useQueries } from "@tanstack/react-query";
+import { useMutation, useQueries, useQuery } from "@tanstack/react-query";
 import { createComment, getPostComments } from "@api/comments";
-import { getPost } from "@api/posts";
-import { ChangeEvent, useState } from "react";
+import { favoritePost, getPost, isFavPost } from "@api/posts";
+import { ChangeEvent, useEffect, useState } from "react";
 import { AppQueryClient } from "../App";
 import { decodeJobType } from "@utils";
+import { FavActionType } from "@api/types";
 
 export default function SinglePost(): JSX.Element {
   const { id: postId } = useParams<{ id: string }>();
@@ -29,7 +30,7 @@ export default function SinglePost(): JSX.Element {
   const post = fetchData[0].data;
   const comments = fetchData[1].data;
 
-  const newCommentMutation = useMutation({
+  const mutation = useMutation({
     mutationKey: ["new-comment"],
     mutationFn: () => createComment({ postId: postId || "", content: newComment }),
     onSuccess: () => {
@@ -43,21 +44,13 @@ export default function SinglePost(): JSX.Element {
   const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (newComment.length > 0) {
-      newCommentMutation.mutate();
+      mutation.mutate();
     }
   };
 
   return (
     <main id="single-post">
-      <div id="single-post-resume">
-        <button>
-          <span>{post?.data?.totalFav}</span>
-          <AwesomeIcons type="regular" name="bookmark" />
-        </button>
-        <div className="display">
-          <img src={resumeExeImg} alt="resume example" />
-        </div>
-      </div>
+      <PostResume id={postId ?? ""} totalFav={post?.data.totalFav || 0} />
       <div id="single-post-other">
         <PostDescription
           descData={{
@@ -90,6 +83,60 @@ export default function SinglePost(): JSX.Element {
         </form>
       </div>
     </main>
+  );
+}
+
+// COMPONENTS
+
+export function PostResume({ id, totalFav }: { id: string; totalFav: number }): JSX.Element {
+  const [totalFavPost, setTotalFavPost] = useState<number>(0);
+  useEffect(() => {
+    setTotalFavPost(totalFav);
+  }, [totalFav]);
+
+  const { data: isFav } = useQuery({
+    queryKey: ["favorite", id],
+    queryFn: () => isFavPost(id)
+  });
+
+  const onSuccess = (): void => {
+    AppQueryClient.invalidateQueries({
+      queryKey: ["favorite", id]
+    });
+    AppQueryClient.invalidateQueries({
+      queryKey: ["my-favorites-posts", "1"]
+    });
+    setTotalFavPost(prev => (isFav?.data ? prev - 1 : prev + 1));
+  };
+
+  const favMutation = useMutation({
+    mutationFn: () => favoritePost(id, FavActionType.ADD),
+    onSuccess
+  });
+  const favMutationRemove = useMutation({
+    mutationFn: () => favoritePost(id, FavActionType.REMOVE),
+    onSuccess
+  });
+
+  const handleFavorite = () => {
+    if (!isFav?.data) {
+      favMutation.mutate();
+    }
+    if (isFav?.data) {
+      favMutationRemove.mutate();
+    }
+  };
+
+  return (
+    <div id="single-post-resume">
+      <button onClick={handleFavorite}>
+        <span>{totalFavPost}</span>
+        <AwesomeIcons type={isFav?.data ? "solid" : "regular"} name="bookmark" />
+      </button>
+      <div className="display">
+        <img src={resumeExeImg} alt="resume example" />
+      </div>
+    </div>
   );
 }
 
