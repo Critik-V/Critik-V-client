@@ -1,57 +1,106 @@
-@import "@sass/main.scss";
+@import "@sass/main";
 
 #login {
+  background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)),
+    url("./login-background.webp");
+  background-position: center;
+  background-size: cover;
   width: 100%;
-  height: 100dvh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(
-      to right,
-      rgb(7, 190, 184, 0.7),
-      rgb(7, 190, 184, 0.7)
-    ),
-    url("./login-illustration.jpeg");
+  min-height: 100dvh;
+  height: fit-content;
+  display: grid;
+  padding: 1rem;
+  grid-template-rows: 10% 90%;
 
-  &__field {
-    background: white;
-    width: 90%;
-    max-width: 350px;
-    border-radius: 10px;
-    padding: 2rem;
-    & > * {
-      margin: 1.5rem 0;
-      text-align: justify;
-    }
-    & img:first-child {
-      text-align: center;
-      margin: 1rem auto;
-    }
-    & h2 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      text-align: center;
-    }
-    & p {
-      font-size: 0.8rem;
-      font-weight: 400;
-    }
-    & button {
-      margin: 1rem auto;
-      text-align: center;
-      background: rgb(241, 239, 239);
-      padding: 0.5rem 2rem;
-      border-radius: 10px;
-      @include btn-effect;
-      display: flex;
+  & .logo {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+    @include tablet-landscape {
+      width: 100%;
       justify-content: center;
-      align-items: center;
-      gap: 0.5rem;
-      outline: none;
+    }
+    & img {
+      margin: 2rem;
+      height: 70%;
+      width: auto;
+    }
+  }
+
+  & .container {
+    width: 85%;
+    height: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 0.5rem;
+    justify-items: center;
+    & > div {
+      padding: 2rem;
+    }
+
+    @include tablet-landscape {
+      width: 100%;
+    }
+
+    & .left {
+      height: fit-content;
+      width: fit-content;
+      display: flex;
+      flex-direction: column;
+      place-items: center;
+      justify-content: center;
       & img {
-        width: 20px;
-        height: 20px;
-        margin-right: 0.5rem;
+        filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
+      }
+      @include tablet-landscape {
+        & img {
+          width: 90%;
+        }
+      }
+    }
+
+    & .right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      gap: 2rem;
+      & h1 {
+        font-size: calc(1.5rem + 1.2vw);
+        text-transform: uppercase;
+        font-weight: 900;
+        width: 100%;
+        color: $primary-green;
+        @include tablet-portrait {
+          font-size: calc(1rem + 1vw);
+        }
+      }
+
+      & p {
+        color: $primary-black;
+        font-weight: 300;
+      }
+
+      & button {
+        margin: 1rem auto;
+        text-align: center;
+        background: rgb(241, 239, 239);
+        padding: 1.5rem;
+        border-radius: 10px;
+        @include btn-effect;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        outline: none;
+        & img {
+          width: 20px;
+          height: 20px;
+          margin-right: 0.5rem;
+        }
       }
     }
   }
