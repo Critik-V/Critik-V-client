@@ -30,16 +30,6 @@ export default function SinglePost(): JSX.Element {
   const { id: postId } = useParams<{ id: string }>();
   const [newComment, setNewComment] = useState<string>("");
 
-  // const { data: post } = useQuery({
-  //   queryKey: ["single-post", postId],
-  //   queryFn: () => getPost(postId || "")
-  // });
-
-  // const { data: comments } = useQuery({
-  //   queryKey: ["single-post", postId],
-  //   queryFn: () => getPostComments(postId || "")
-  // });
-
   const fetchData = useQueries({
     queries: [
       {
