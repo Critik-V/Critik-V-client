@@ -22,7 +22,7 @@ export default function Favorite(): JSX.Element {
 
   if (isLoading) return <Spinner />;
   if (data && data?.data?.length === 0)
-    return <Empty subtitle="Vous n'avez pas encore de CV favoris" />;
+    return <Empty subtitle="Vous n'avez pas encore de CV favoris" btn={false} />;
 
   if (data)
     return (

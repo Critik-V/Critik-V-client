@@ -6,9 +6,7 @@ import { User } from "../types/Prisma";
 
 const AppEnv: "development" | "production" = import.meta.env.VITE_ENV;
 
-export const login = () => {
-  window.location.href = import.meta.env.VITE_API_GOOGLE + "/login";
-};
+export const login = () => (window.location.href = import.meta.env.VITE_API_GOOGLE + "/login");
 
 export const logout = async (): Promise<AxiosResponse | undefined> => {
   const url: string = import.meta.env.VITE_API_GOOGLE + "/logout";
