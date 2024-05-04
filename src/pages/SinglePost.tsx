@@ -7,24 +7,7 @@ import { createComment, getPostComments } from "@api/comments";
 import { getPost } from "@api/posts";
 import { ChangeEvent, useState } from "react";
 import { AppQueryClient } from "../App";
-
-function decodeJobType(jobType: string): string {
-  jobType = jobType.toLowerCase();
-  switch (jobType) {
-    case "fulltime":
-      return "Temps plein";
-    case "apprenticeship":
-      return "Alternance";
-    case "parttime":
-      return "Temps partiel";
-    case "internship":
-      return "Stage";
-    case "freelance":
-      return "Freelance";
-    default:
-      return "Non spécifié";
-  }
-}
+import { decodeJobType } from "@utils";
 
 export default function SinglePost(): JSX.Element {
   const { id: postId } = useParams<{ id: string }>();
