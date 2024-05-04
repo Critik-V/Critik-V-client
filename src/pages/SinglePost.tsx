@@ -29,7 +29,7 @@ export default function SinglePost(): JSX.Element {
   const post = fetchData[0].data;
   const comments = fetchData[1].data;
 
-  const mutation = useMutation({
+  const newCommentMutation = useMutation({
     mutationKey: ["new-comment"],
     mutationFn: () => createComment({ postId: postId || "", content: newComment }),
     onSuccess: () => {
@@ -43,7 +43,7 @@ export default function SinglePost(): JSX.Element {
   const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (newComment.length > 0) {
-      mutation.mutate();
+      newCommentMutation.mutate();
     }
   };
 
