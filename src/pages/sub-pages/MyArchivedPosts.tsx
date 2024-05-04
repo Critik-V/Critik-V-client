@@ -20,7 +20,8 @@ export default function MyArchivedPosts(): JSX.Element {
 
   if (isLoading) return <Spinner />;
 
-  if (data && data.data?.length === 0) return <Empty subtitle="Vous n'avez arhcivé aucun CV" />;
+  if (data && data.data?.length === 0)
+    return <Empty subtitle="Vous n'avez arhcivé aucun CV" btn={false} />;
 
   if (data)
     return (
