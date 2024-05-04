@@ -33,7 +33,6 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <Fragment>
-        {/* <Navigate to="resumes" relative="route" replace={false} /> */}
         <Header />
         <Outlet />
       </Fragment>
