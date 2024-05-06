@@ -16,6 +16,6 @@ export const TagDate = (date: Date): JSX.Element => {
 };
 
 export const UnreviewedCardTag = (data: Array<unknown>): JSX.Element | null => {
-  if (data && data.length > 0) return <span className="unreviewed">Unreviewed</span>;
+  if (data && data.length === 0) return <span className="unreviewed">Unreviewed</span>;
   return null;
 };
