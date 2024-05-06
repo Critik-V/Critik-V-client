@@ -4,6 +4,10 @@ import "./styles/PostsCards.scss";
 import { useNavigate } from "react-router-dom";
 import { Post } from "../types/Prisma";
 import { TagDate, UnreviewedCardTag } from "./TagDate";
+import { AppQueryClient } from "../App";
+import { favoritePost } from "@api/posts";
+import { FavActionType } from "@api/types";
+import { useMutation } from "@tanstack/react-query";
 
 type PostCardProps = {
   data: Post;
@@ -127,6 +131,21 @@ export function PostCard({ data }: PostCardProps): JSX.Element {
 }
 
 export function FavCard({ data }: PostCardProps): JSX.Element {
+  const navigate = useNavigate();
+
+  const mutate = useMutation({
+    mutationFn: () => favoritePost(data.id, FavActionType.REMOVE),
+    onSuccess: () => {
+      AppQueryClient.invalidateQueries({
+        queryKey: ["my-favorites-posts"]
+      });
+    }
+  });
+
+  const handleFavorite = () => {
+    mutate.mutate();
+  };
+
   return (
     <div className="card">
       <div className="card__tags">
@@ -140,8 +159,11 @@ export function FavCard({ data }: PostCardProps): JSX.Element {
         <p>{data.description}</p>
       </div>
       <div className="card__menu">
-        <button className="unfav">
+        <button onClick={handleFavorite} className="unfav">
           <span>{data.totalFav}</span> <AwesomeIcons type="solid" name="bookmark" />
+        </button>
+        <button className="see-more" onClick={() => navigate(`/posts/${data.id}`)}>
+          Voir plus <AwesomeIcons type="solid" name="arrow-right" />
         </button>
       </div>
     </div>
