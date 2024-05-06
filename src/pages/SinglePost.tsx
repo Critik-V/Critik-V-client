@@ -192,14 +192,6 @@ export function PostDescription({
 }
 
 export function CommentComponent({ data }: { data: Comment }): JSX.Element {
-  // const [isUpliked, setIsUpLiked] = useState<boolean>(false);
-  // const [isDownLiked, setIsDownLiked] = useState<boolean>(false);
-
-  // useEffect(() => {
-  //   data.upLikes.includes(data.authorId) && setIsUpLiked(true);
-  //   data.downLikes.includes(data.authorId) && setIsDownLiked(true);
-  // }, [data]);
-
   const upLikeMutation = useMutation({
     mutationFn: () => upLikeComment(data.id),
     onSuccess: () =>

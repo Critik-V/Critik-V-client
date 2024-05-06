@@ -3,7 +3,7 @@ import { CreateCommentType, Methods } from "./types";
 import { Comment } from "../types/Prisma";
 import toast from "react-hot-toast";
 
-const commentsUrl = import.meta.env.VITE_COMMENTS_URL;
+const commentsUrl: string = import.meta.env.VITE_COMMENTS_URL;
 const AppEnv: "development" | "production" = import.meta.env.VITE_ENV;
 
 type CommentResponse<T = Comment | Comment[] | undefined> = T extends undefined
@@ -83,15 +83,14 @@ export const deleteComment = async (Id: string) => {
 
 export const getPostComments = async (postId: string) => {
   const method: Methods = Methods.GET;
-  const url: string = commentsUrl;
-  const data = { postId };
+  const restPath: string = "/post/";
+  const url: string = commentsUrl + restPath + postId;
   const withCredentials = true;
 
   try {
     const { data: res } = await axios<CommentResponse<Comment[]>>({
       method,
       url,
-      data,
       withCredentials
     });
     return res;

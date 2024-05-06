@@ -24,7 +24,10 @@ export default function NewPost(): JSX.Element {
   const mutation = useMutation({
     mutationKey: ["new-post"],
     mutationFn: (data: CreatePostType) => createPost(data),
-    onSuccess: () => reset()
+    onSuccess: () => {
+      reset();
+      setFile(null);
+    }
   });
 
   const onSubmit: SubmitHandler<CreatePostType> = data => {
