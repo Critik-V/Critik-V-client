@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CreateCommentType, LikeCommentActionType, Methods } from "./types";
+import { CreateCommentType, Methods } from "./types";
 import { Comment } from "../types/Prisma";
 import toast from "react-hot-toast";
 
@@ -102,18 +102,16 @@ export const getPostComments = async (postId: string) => {
   }
 };
 
-export const upLikeComment = async (Id: string, action: LikeCommentActionType) => {
+export const upLikeComment = async (Id: string) => {
   const restPath: string = "/like/";
   const method: Methods = Methods.PATCH;
   const url: string = commentsUrl + restPath + Id;
-  const params = { action };
   const withCredentials = true;
 
   try {
     const { data: res } = await axios<CommentResponse>({
       method,
       url,
-      params,
       withCredentials
     });
     return res;
@@ -124,18 +122,16 @@ export const upLikeComment = async (Id: string, action: LikeCommentActionType) =
   }
 };
 
-export const downLikeComment = async (Id: string, action: LikeCommentActionType) => {
+export const downLikeComment = async (Id: string) => {
   const method: Methods = Methods.PATCH;
   const restPath: string = "/dislike/";
   const url: string = commentsUrl + restPath + Id;
-  const params = { action };
   const withCredentials = true;
 
   try {
     const { data: res } = await axios<CommentResponse>({
       method,
       url,
-      params,
       withCredentials
     });
     return res;

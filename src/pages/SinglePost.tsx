@@ -3,12 +3,13 @@ import "./styles/SinglePost.scss";
 import resumeExeImg from "@assets/resume.jpg";
 import { useParams } from "react-router-dom";
 import { useMutation, useQueries, useQuery } from "@tanstack/react-query";
-import { createComment, getPostComments } from "@api/comments";
+import { createComment, downLikeComment, getPostComments, upLikeComment } from "@api/comments";
 import { favoritePost, getPost, isFavPost } from "@api/posts";
 import { ChangeEvent, useEffect, useState } from "react";
 import { AppQueryClient } from "../App";
 import { decodeJobType } from "@utils";
 import { FavActionType } from "@api/types";
+import { Comment } from "../types/Prisma";
 
 export default function SinglePost(): JSX.Element {
   const { id: postId } = useParams<{ id: string }>();
@@ -66,7 +67,7 @@ export default function SinglePost(): JSX.Element {
         <div className="comments">
           {comments?.data &&
             comments?.data?.length > 0 &&
-            comments?.data.map(comment => <Comment key={comment.id} content={comment.content} />)}
+            comments?.data.map(comment => <CommentComponent key={comment.id} data={comment} />)}
           {comments?.data.length === 0 && <NoComment />}
           {!comments && <NoData />}
         </div>
@@ -190,17 +191,49 @@ export function PostDescription({
   );
 }
 
-export function Comment({ content }: { content: string }): JSX.Element {
+export function CommentComponent({ data }: { data: Comment }): JSX.Element {
+  // const [isUpliked, setIsUpLiked] = useState<boolean>(false);
+  // const [isDownLiked, setIsDownLiked] = useState<boolean>(false);
+
+  // useEffect(() => {
+  //   data.upLikes.includes(data.authorId) && setIsUpLiked(true);
+  //   data.downLikes.includes(data.authorId) && setIsDownLiked(true);
+  // }, [data]);
+
+  const upLikeMutation = useMutation({
+    mutationFn: () => upLikeComment(data.id),
+    onSuccess: () =>
+      AppQueryClient.invalidateQueries({
+        queryKey: ["single-post-comments", data.postId]
+      })
+  });
+
+  const downLikeMutation = useMutation({
+    mutationFn: () => downLikeComment(data.id),
+    onSuccess: () =>
+      AppQueryClient.invalidateQueries({
+        queryKey: ["single-post-comments", data.postId]
+      })
+  });
+
+  const handleUpLike = () => {
+    upLikeMutation.mutate();
+  };
+
+  const handleDownLike = () => {
+    downLikeMutation.mutate();
+  };
+
   return (
     <div className="comment">
-      <p>{content}</p>
+      <p>{data.content}</p>
       <div>
-        <button>
-          <span>12</span>
+        <button onClick={handleUpLike}>
+          <span>{data.totalUpLikes}</span>
           <AwesomeIcons name="thumbs-up" type="regular" />
         </button>
-        <button>
-          <span>0</span>
+        <button onClick={handleDownLike}>
+          <span>{data.totalDownLikes}</span>
           <AwesomeIcons name="thumbs-up fa-flip-vertical" type="regular" />
         </button>
       </div>

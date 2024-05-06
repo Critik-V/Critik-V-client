@@ -3,7 +3,3 @@ export type CreateCommentType = {
   postId: string;
 };
 
-export enum LikeCommentActionType {
-  TRUE = "true",
-  FALSE = "false"
-}
