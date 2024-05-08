@@ -2,19 +2,25 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import "./styles/SearchBar.scss";
 import { JobtypeSelect, LevelSelect } from "@utils";
 import { SearchInputType } from "@types";
-// import { useMutation } from "@tanstack/react-query";
-// import { getPosts } from "@api/posts";
+
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 export function SearchBar(): JSX.Element {
-  const { register, handleSubmit } = useForm<SearchInputType>();
-  const onSubmit: SubmitHandler<SearchInputType> = data => {
-    console.log(data);
-  };
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [queries] = useSearchParams();
+  const page = queries.get("page") || "1";
 
-  // const mutation = useMutation({
-  //   mutationKey: ["search"],
-  //   mutationFn: () => getPosts(1)
-  // });
+  const { register, handleSubmit } = useForm<SearchInputType>();
+
+  const onSubmit: SubmitHandler<SearchInputType> = data => {
+    const params = new URLSearchParams();
+    params.append("page", page);
+    params.append("search", data.search);
+    params.append("jobtype", data.jobType);
+    params.append("level", data.experienceLevel);
+    navigate(`${location.pathname}?${params.toString()}`, { replace: false });
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="search">

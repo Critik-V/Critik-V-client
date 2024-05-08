@@ -2,6 +2,7 @@ import axios from "axios";
 import { CreatePostType, FavActionType, Methods, UpdatePostType } from "./types";
 import { Post } from "../types/Prisma";
 import toast from "react-hot-toast";
+import { SearchInputType } from "@types";
 
 type PostResponse<T = Post | Post[] | boolean | undefined> = T extends undefined
   ? {
@@ -20,10 +21,16 @@ type PostResponse<T = Post | Post[] | boolean | undefined> = T extends undefined
 const postsUrl: string = import.meta.env.VITE_POSTS_URL;
 const AppEnv: "development" | "production" = import.meta.env.VITE_ENV;
 
-export const getPosts = async (page: number) => {
+export const getPosts = async (page: number, data: SearchInputType) => {
+  const { search, jobType, experienceLevel } = data;
   const method: Methods = Methods.GET;
   const url: string = postsUrl;
-  const params = { page };
+  const params = {
+    page,
+    search: search ? search : undefined,
+    jobType: jobType ? jobType : undefined,
+    experienceLevel: experienceLevel ? experienceLevel : undefined
+  };
   const withCredentials = true;
 
   try {
