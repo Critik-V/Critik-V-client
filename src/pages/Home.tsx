@@ -42,9 +42,6 @@ export default function Home(): JSX.Element {
 
   if (isLoading) return <Spinner />;
 
-  if (data && data?.data?.length === 0)
-    return <Empty subtitle="Aucun CV n'a été posté pour le moment" />;
-
   if (data)
     return (
       <main id="Home">
@@ -58,6 +55,9 @@ export default function Home(): JSX.Element {
             </button>
           </Link>
         </SubHeader>
+        {data && data?.data.length === 0 && (
+          <Empty subtitle="Aucun curriculum vitae (CV) n'a été trouvé" btn={false} />
+        )}
         {data && data?.data?.length > 0 && (
           <section id="all-posts">
             {data.data.map(post => (
