@@ -2,12 +2,19 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import "./styles/SearchBar.scss";
 import { JobtypeSelect, LevelSelect } from "@utils";
 import { SearchInputType } from "@types";
+// import { useMutation } from "@tanstack/react-query";
+// import { getPosts } from "@api/posts";
 
 export function SearchBar(): JSX.Element {
   const { register, handleSubmit } = useForm<SearchInputType>();
   const onSubmit: SubmitHandler<SearchInputType> = data => {
     console.log(data);
   };
+
+  // const mutation = useMutation({
+  //   mutationKey: ["search"],
+  //   mutationFn: () => getPosts(1)
+  // });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="search">
