@@ -52,11 +52,21 @@ export function SearchBar(): JSX.Element {
 }
 
 export function FavSearchBar(): JSX.Element {
-  const { register, handleSubmit } = useForm<SearchInputType>();
-  const onSubmit: SubmitHandler<SearchInputType> = data => {
-    console.log(data);
-  };
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [queries] = useSearchParams();
+  const page = queries.get("page") || "1";
 
+  const { register, handleSubmit } = useForm<SearchInputType>();
+
+  const onSubmit: SubmitHandler<SearchInputType> = data => {
+    const params = new URLSearchParams();
+    params.append("page", page);
+    params.append("search", data.search);
+    params.append("jobtype", data.jobType);
+    params.append("level", data.experienceLevel);
+    navigate(`${location.pathname}?${params.toString()}`, { replace: false });
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="search">
       <div className="search__first">

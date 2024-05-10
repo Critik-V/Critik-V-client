@@ -205,11 +205,17 @@ export const getArchivedPosts = async (page: number) => {
   }
 };
 
-export const getFavoritePosts = async (page: number) => {
+export const getFavoritePosts = async (page: number, data: SearchInputType) => {
+  const { search, jobType, experienceLevel } = data;
   const restPath: string = "/fav";
   const url: string = postsUrl + restPath;
   const method: Methods = Methods.GET;
-  const params = { page };
+  const params = {
+    page,
+    search: search ? search : undefined,
+    jobType: jobType ? jobType : undefined,
+    experienceLevel: experienceLevel ? experienceLevel : undefined
+  };
   const withCredentials = true;
 
   try {
