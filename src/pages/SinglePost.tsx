@@ -1,6 +1,6 @@
 import AwesomeIcons from "@components/AwesomeIcons";
 import "./styles/SinglePost.scss";
-import resumeExeImg from "@assets/resume.jpg";
+// import resumeExeImg from "@assets/resume.jpg";
 import { useParams } from "react-router-dom";
 import { useMutation, useQueries, useQuery } from "@tanstack/react-query";
 import { createComment, downLikeComment, getPostComments, upLikeComment } from "@api/comments";
@@ -10,6 +10,7 @@ import { AppQueryClient } from "../App";
 import { decodeJobType } from "@utils";
 import { FavActionType } from "@api/types";
 import { Comment } from "../types/Prisma";
+import { getPostResume } from "@api/files";
 
 export default function SinglePost(): JSX.Element {
   const { id: postId } = useParams<{ id: string }>();
@@ -24,12 +25,17 @@ export default function SinglePost(): JSX.Element {
       {
         queryKey: ["single-post-comments", postId],
         queryFn: () => getPostComments(postId || "")
+      },
+      {
+        queryKey: ["post-resume", postId],
+        queryFn: () => getPostResume(postId || "")
       }
     ]
   });
 
   const post = fetchData[0].data;
   const comments = fetchData[1].data;
+  const resume = fetchData[2].data;
 
   const mutation = useMutation({
     mutationKey: ["new-comment"],
@@ -51,7 +57,7 @@ export default function SinglePost(): JSX.Element {
 
   return (
     <main id="single-post">
-      <PostResume id={postId ?? ""} totalFav={post?.data.totalFav || 0} />
+      <PostResume src={resume} id={postId ?? ""} totalFav={post?.data.totalFav || 0} />
       <div id="single-post-other">
         <PostDescription
           descData={{
@@ -89,7 +95,15 @@ export default function SinglePost(): JSX.Element {
 
 // COMPONENTS
 
-export function PostResume({ id, totalFav }: { id: string; totalFav: number }): JSX.Element {
+export function PostResume({
+  id,
+  totalFav,
+  src
+}: {
+  id: string;
+  totalFav: number;
+  src?: string;
+}): JSX.Element {
   const [totalFavPost, setTotalFavPost] = useState<number>(0);
   useEffect(() => {
     setTotalFavPost(totalFav);
@@ -135,7 +149,7 @@ export function PostResume({ id, totalFav }: { id: string; totalFav: number }): 
         <AwesomeIcons type={isFav?.data ? "solid" : "regular"} name="bookmark" />
       </button>
       <div className="display">
-        <img src={resumeExeImg} alt="resume example" />
+        <img src={src} alt="resume example" />
       </div>
     </div>
   );
