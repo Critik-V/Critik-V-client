@@ -10,7 +10,7 @@ COPY package*.json ./
 RUN npm install -g pnpm
 
 # install requirements with pnpm
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 
 # copy the necessary files in the container
 COPY . .
