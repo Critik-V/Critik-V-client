@@ -24,9 +24,11 @@ export default function NewPost(): JSX.Element {
   const mutation = useMutation({
     mutationKey: ["new-post"],
     mutationFn: (data: CreatePostType) => createPost(data),
-    onSuccess: () => {
-      reset();
-      setFile(null);
+    onSuccess: data => {
+      if (data?.statusCode === 200 || data?.statusCode === 201) {
+        reset();
+        setFile(null);
+      }
     }
   });
 
@@ -127,10 +129,10 @@ export default function NewPost(): JSX.Element {
               }>
               <input {...getInputProps({})} />
               {isDragActive && <IsUploading />}
-              {acceptedFiles[0] && !isDragActive && (
+              {file && !isDragActive && (
                 <IsUploaded name={acceptedFiles[0].name} weight={acceptedFiles[0].size} />
               )}
-              {!acceptedFiles[0] && !isDragActive && <NofileUpload />}
+              {!file && !isDragActive && <NofileUpload />}
             </div>
           )}
         </Dropzone>
