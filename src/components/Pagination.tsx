@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
 import "./styles/Pagination.scss";
 import AwesomeIcons from "./AwesomeIcons";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 export default function Pagination({ totalPages }: { totalPages: number }) {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [queries] = useSearchParams();
+  const page = queries.get("page") || "1";
+
   const lastPage = totalPages;
   const division = 4;
   const plusInterval = 3;
 
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(+page);
   const [firstPartArray, setFirstPartArray] = useState<number[]>([]);
   const [secondPartArray, setSecondPartArray] = useState<number[]>([]);
   const [lastPartArray, setLastPartArray] = useState<number[]>([]);
@@ -37,16 +43,23 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
     }
   }, [currentPage, lastPage]);
 
+  const handlePagination = (page: number) => {
+    setCurrentPage(page);
+    const params = new URLSearchParams();
+    params.append("page", `${page}`);
+    navigate(`${location.pathname}?${params.toString()}`, { replace: false });
+  };
+
   return (
     <div className="pagination">
-      <button onClick={() => setCurrentPage(prev => --prev)} disabled={currentPage == 1}>
+      <button onClick={() => handlePagination(+page - 1)} disabled={currentPage == 1}>
         <AwesomeIcons type="solid" name="chevron-left" />
       </button>
       {firstPartArray.map(page => (
         <button
           key={page}
           className={currentPage === page ? "active" : ""}
-          onClick={() => setCurrentPage(page)}>
+          onClick={() => handlePagination(page)}>
           {page}
         </button>
       ))}
@@ -55,7 +68,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
         <button
           key={page}
           className={currentPage === page ? "active" : ""}
-          onClick={() => setCurrentPage(page)}>
+          onClick={() => handlePagination(page)}>
           {page}
         </button>
       ))}
@@ -64,11 +77,11 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
         <button
           key={page}
           className={currentPage === page ? "active" : ""}
-          onClick={() => setCurrentPage(page)}>
+          onClick={() => handlePagination(page)}>
           {page}
         </button>
       ))}
-      <button onClick={() => setCurrentPage(prev => ++prev)} disabled={currentPage == lastPage}>
+      <button onClick={() => handlePagination(+page + 1)} disabled={currentPage == lastPage}>
         <AwesomeIcons type="solid" name="chevron-right" />
       </button>
     </div>

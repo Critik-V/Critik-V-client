@@ -30,7 +30,7 @@ export default function Home(): JSX.Element {
   params.append("level", experienceLevel);
 
   const { data, isLoading } = useQuery({
-    queryKey: ["posts"],
+    queryKey: ["posts", +page],
     queryFn: () => getPosts(+page, { search, jobType, experienceLevel } as SearchInputType)
   });
 
