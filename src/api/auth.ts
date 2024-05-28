@@ -5,11 +5,12 @@ import { redirect } from "react-router-dom";
 import { User } from "../types/Prisma";
 
 const AppEnv: "development" | "production" = import.meta.env.VITE_ENV;
+const loginUrl: string = import.meta.env.VITE_LOGIN_URL;
 
-export const login = () => (window.location.href = import.meta.env.VITE_API_GOOGLE + "/login");
+export const login = () => (window.location.href = loginUrl);
 
 export const logout = async (): Promise<AxiosResponse | undefined> => {
-  const url: string = import.meta.env.VITE_API_GOOGLE + "/logout";
+  const url: string = import.meta.env.VITE_API_URL + "/logout";
   const method: Methods = Methods.GET;
   const withCredentials = true;
 
@@ -25,7 +26,7 @@ export const logout = async (): Promise<AxiosResponse | undefined> => {
 };
 
 export const getMe = async () => {
-  const url: string = import.meta.env.VITE_API_GOOGLE + "/user";
+  const url: string = import.meta.env.VITE_API_URL + "/user";
   const method: Methods = Methods.GET;
   const withCredentials = true;
 
@@ -41,7 +42,7 @@ export const getMe = async () => {
 };
 
 export const isAuthenticated = async (): Promise<{ isAuth: boolean } | undefined> => {
-  const url: string = import.meta.env.VITE_API_GOOGLE + "/is-authenticated";
+  const url: string = import.meta.env.VITE_API_URL + "/is-authenticated";
   const method: Methods = Methods.GET;
   const withCredentials = true;
 
