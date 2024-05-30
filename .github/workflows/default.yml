@@ -37,8 +37,8 @@ jobs:
           script: |
             whoami
             cd /critik-v
-            git clone https://github.com/${{github.repository}}.git
             rm -rf ./${{github.event.repository.name}}
+            git clone https://github.com/${{github.repository}}.git
             cd ./${{github.event.repository.name}}
             cp .env.example .env
             sed -i "s/VITE_ENV=.*$/VITE_ENV=production/" .env
