@@ -1,0 +1,46 @@
+name: Lint & clone repository to remote server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 21
+      - name: Install pnpm
+        run: npm install -g pnpm
+      - name: install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run eslint
+        shell: bash
+        run: pnpm run lint
+
+  build:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: root
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            whoami
+            cd /critik-v
+            git clone https://github.com/${{github.repository}}.git
+            cd ./${{github.event.repository.name}}
+            cp .env.example .env
+            sed -i "s/VITE_ENV=.*$/VITE_ENV=production/" .env
+            sed -i "s/SERVER_SERVICE_PORT=.*$/SERVER_SERVICE_PORT=${{secrets.SERVER_PORT}}/" .env
+            sed -i "s/SERVER_SERVICE=.*$/SERVER_SERVICE=${{secrets.SERVER_SERVICE}}/" .env
+          
