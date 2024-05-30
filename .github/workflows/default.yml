@@ -45,4 +45,3 @@ jobs:
             sed -i "s/VITE_DISCORD_LINK=.*$/VITE_DISCORD_LINK=""/" .env
             sed -i "s/SERVER_SERVICE_PORT=.*$/SERVER_SERVICE_PORT=${{secrets.SERVER_PORT}}/" .env
             sed -i "s/SERVER_SERVICE=.*$/SERVER_SERVICE=${{secrets.SERVER_SERVICE}}/" .env
-          
