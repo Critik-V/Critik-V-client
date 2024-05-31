@@ -42,7 +42,7 @@ jobs:
             cd ./${{github.event.repository.name}}
             cp .env.example .env
             sed -i "s/VITE_ENV=.*$/VITE_ENV=production/" .env
-            sed -i "s/VITE_GITHUB_LINK=.*$/VITE_GITHUB_LINK=${{secrets.ORGANIZATION_LINK}}/" .env
             sed -i "s/VITE_DISCORD_LINK=.*$/VITE_DISCORD_LINK=discord_link/" .env
             sed -i "s/SERVER_SERVICE_PORT=.*$/SERVER_SERVICE_PORT=${{secrets.SERVER_PORT}}/" .env
             sed -i "s/SERVER_SERVICE=.*$/SERVER_SERVICE=${{secrets.SERVER_SERVICE}}/" .env
+            echo "VITE_GITHUB_LINK=${{vars.ORGANIZATION_LINK}}" >> .env
