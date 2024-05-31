@@ -45,4 +45,6 @@ jobs:
             sed -i "s/VITE_DISCORD_LINK=.*$/VITE_DISCORD_LINK=discord_link/" .env
             sed -i "s/SERVER_SERVICE_PORT=.*$/SERVER_SERVICE_PORT=${{secrets.SERVER_PORT}}/" .env
             sed -i "s/SERVER_SERVICE=.*$/SERVER_SERVICE=${{secrets.SERVER_SERVICE}}/" .env
-            echo "VITE_GITHUB_LINK=${{vars.ORGANIZATION_LINK}}" >> .env
+            echo "VITE_GITHUB_LINK=${{vars.ORGANIZATION_GITHUB}}" >> .env
+            echo "VITE_DISCORD_LINK=${{vars.ORGANIZATION_DISCORD}}" >> .env
+
