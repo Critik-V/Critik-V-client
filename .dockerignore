@@ -1,6 +1,5 @@
 .prettierrc
 .eslintrc.cjs
-.pnpm-lock.yaml
 .gitignore
 .vscode
 .idea
