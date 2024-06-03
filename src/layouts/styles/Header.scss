@@ -47,6 +47,30 @@ header .menu {
 
 header .profile {
   display: flex;
+  align-items: center;
+
+  &__name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-right: 1rem;
+    padding: 1rem;
+    border-radius: 7.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $secondary-grey;
+    @include tablet-landscape {
+      display: none;
+    }
+    & span {
+      height: 7px;
+      width: 7px;
+      background: rgb(51, 240, 51);
+      border-radius: 100px;
+      margin-left: 0.5rem;
+    }
+  }
+
   &__mobile-btn {
     i {
       font-size: 1.5rem;

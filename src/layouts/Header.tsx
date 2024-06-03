@@ -72,6 +72,10 @@ export default function Header(): JSX.Element {
         </div>
       </div>
       <div className="profile">
+        <p className="profile__name">
+          {user?.fullname}
+          <span></span>
+        </p>
         <button
           ref={menuBtnRef}
           onClick={() => setIsMenuOpen(prev => !prev)}
