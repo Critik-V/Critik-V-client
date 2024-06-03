@@ -72,7 +72,9 @@ export function ArchivedCard({ data }: PostCardProps): JSX.Element {
 
   return (
     <div className="card">
-      <div className="card__tags">{TagDate(data.createdAt)}</div>
+      <div className="card__tags">
+        {TagDate(data.createdAt)} {UnreviewedCardTag(data.comments)}
+      </div>
       <div className="card__title">
         <h2>{data.title}</h2>
       </div>

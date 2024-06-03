@@ -149,7 +149,7 @@ export function PostResume({
         <AwesomeIcons type={isFav?.data ? "solid" : "regular"} name="bookmark" />
       </button>
       <div className="display">
-        <img src={src} alt="resume example" />
+        <img src={src} alt="resume" />
       </div>
     </div>
   );

@@ -58,7 +58,8 @@ header .profile {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: $secondary-grey;
+    background: #e9ebe91a;
+    border: 1px dashed $primary-grey;
     @include tablet-landscape {
       display: none;
     }
