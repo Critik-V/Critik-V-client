@@ -35,6 +35,7 @@ export function MyPostCard({ data }: PostCardProps): JSX.Element {
           <AwesomeIcons type="regular" name="bookmark" />
         </div>
         <button
+          title="Archiver"
           onClick={() => {
             show({ layout: "ARCHIVE", data });
           }}
@@ -42,6 +43,7 @@ export function MyPostCard({ data }: PostCardProps): JSX.Element {
           <AwesomeIcons type="regular" name="eye-slash" />
         </button>
         <button
+          title="Modifier"
           onClick={() => {
             show({ layout: "EDIT", data });
           }}
@@ -49,6 +51,7 @@ export function MyPostCard({ data }: PostCardProps): JSX.Element {
           <AwesomeIcons type="solid" name="pencil" />
         </button>
         <button
+          title="Supprimer"
           onClick={() => {
             show({ layout: "DELETE", data });
           }}
@@ -82,6 +85,7 @@ export function ArchivedCard({ data }: PostCardProps): JSX.Element {
           <AwesomeIcons type="regular" name="bookmark" />
         </div>
         <button
+          title="Désarchiver"
           onClick={() => {
             show({ layout: "UNARCHIVE", data });
           }}
@@ -89,6 +93,7 @@ export function ArchivedCard({ data }: PostCardProps): JSX.Element {
           <AwesomeIcons type="regular" name="eye" />
         </button>
         <button
+          title="Supprimer"
           onClick={() => {
             show({ layout: "DELETE", data });
           }}
