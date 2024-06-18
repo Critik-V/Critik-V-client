@@ -73,6 +73,8 @@ export type Comment = {
   updatedAt: Date;
   upLikes: User[];
   downLikes: User[];
+  posX: number;
+  posY: number;
 };
 
 export type Notification = {

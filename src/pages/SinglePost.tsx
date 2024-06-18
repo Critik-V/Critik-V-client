@@ -15,6 +15,7 @@ import { getPostResume } from "@api/files";
 export default function SinglePost(): JSX.Element {
   const { id: postId } = useParams<{ id: string }>();
   const [newComment, setNewComment] = useState<string>("");
+  const [commentPosition, setCommentPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
   const fetchData = useQueries({
     queries: [
@@ -33,13 +34,23 @@ export default function SinglePost(): JSX.Element {
     ]
   });
 
+  const getPinPosition = (output: { x: number; y: number }) => {
+    setCommentPosition(output);
+  };
+
   const post = fetchData[0].data;
   const comments = fetchData[1].data;
   const resume = fetchData[2].data;
 
   const mutation = useMutation({
     mutationKey: ["new-comment"],
-    mutationFn: () => createComment({ postId: postId || "", content: newComment }),
+    mutationFn: () =>
+      createComment({
+        postId: postId || "",
+        content: newComment,
+        posX: commentPosition.x,
+        posY: commentPosition.y
+      }),
     onSuccess: () => {
       AppQueryClient.invalidateQueries({
         queryKey: ["single-post-comments", postId]
@@ -53,10 +64,6 @@ export default function SinglePost(): JSX.Element {
     if (newComment.length > 0) {
       mutation.mutate();
     }
-  };
-
-  const getPinPosition = (output: { x: number; y: number }) => {
-    console.log(output);
   };
 
   return (
@@ -126,12 +133,12 @@ export function PostResume({
     setTotalFavPost(totalFav);
   }, [totalFav]);
 
-  useEffect(() => {
-    if (!canPin) {
-      setPinPosition({ x: 0, y: 0 });
-      pinXnY && pinXnY({ x: 0, y: 0 });
-    }
-  }, [canPin, pinXnY]);
+  // useEffect(() => {
+  //   if (!canPin) {
+  //     setPinPosition({ x: 0, y: 0 });
+  //     pinXnY && pinXnY({ x: 0, y: 0 });
+  //   }
+  // }, [canPin, pinXnY]);
 
   const { data: isFav } = useQuery({
     queryKey: ["favorite", id],
@@ -281,7 +288,7 @@ export function CommentComponent({ data }: { data: Comment }): JSX.Element {
   };
 
   return (
-    <div className="comment">
+    <div onClick={() => console.log(data.posX, data.posY)} className="comment">
       <p>{data.content}</p>
       <div>
         <button onClick={handleUpLike}>
