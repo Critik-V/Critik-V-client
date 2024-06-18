@@ -1,11 +1,11 @@
 import AwesomeIcons from "@components/AwesomeIcons";
 import "./styles/SinglePost.scss";
-// import resumeExeImg from "@assets/resume.jpg";
+import pinImg from "@assets/pin.png";
 import { useParams } from "react-router-dom";
 import { useMutation, useQueries, useQuery } from "@tanstack/react-query";
 import { createComment, downLikeComment, getPostComments, upLikeComment } from "@api/comments";
 import { favoritePost, getPost, isFavPost } from "@api/posts";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { AppQueryClient } from "../App";
 import { decodeJobType } from "@utils";
 import { FavActionType } from "@api/types";
@@ -55,9 +55,19 @@ export default function SinglePost(): JSX.Element {
     }
   };
 
+  const getPinPosition = (output: { x: number; y: number }) => {
+    console.log(output);
+  };
+
   return (
     <main id="single-post">
-      <PostResume src={resume} id={postId ?? ""} totalFav={post?.data.totalFav || 0} />
+      <PostResume
+        src={resume}
+        id={postId ?? ""}
+        totalFav={post?.data.totalFav || 0}
+        pinXnY={getPinPosition}
+        canPin={newComment.length > 0}
+      />
       <div id="single-post-other">
         <PostDescription
           descData={{
@@ -98,16 +108,30 @@ export default function SinglePost(): JSX.Element {
 export function PostResume({
   id,
   totalFav,
-  src
+  src,
+  pinXnY,
+  canPin
 }: {
   id: string;
   totalFav: number;
   src?: string;
+  pinXnY?: (output: { x: number; y: number }) => void;
+  canPin: boolean;
 }): JSX.Element {
   const [totalFavPost, setTotalFavPost] = useState<number>(0);
+  const [pinPosition, setPinPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const imgRef = useRef<HTMLImageElement>(null);
+
   useEffect(() => {
     setTotalFavPost(totalFav);
   }, [totalFav]);
+
+  useEffect(() => {
+    if (!canPin) {
+      setPinPosition({ x: 0, y: 0 });
+      pinXnY && pinXnY({ x: 0, y: 0 });
+    }
+  }, [canPin, pinXnY]);
 
   const { data: isFav } = useQuery({
     queryKey: ["favorite", id],
@@ -149,7 +173,33 @@ export function PostResume({
         <AwesomeIcons type={isFav?.data ? "solid" : "regular"} name="bookmark" />
       </button>
       <div className="display">
-        <img src={src} alt="resume" />
+        <div className="img-container">
+          {canPin && (
+            <img
+              id="pin"
+              src={pinImg}
+              style={{
+                top: pinPosition.y,
+                left: pinPosition.x
+              }}
+              alt="pin"
+            />
+          )}
+          <img
+            onClick={e => {
+              if (canPin) {
+                const rect = imgRef.current?.getBoundingClientRect();
+                const x = e.clientX - (rect?.left || 0);
+                const y = e.clientY - (rect?.top || 0);
+                setPinPosition({ x, y });
+                pinXnY && pinXnY({ x, y });
+              }
+            }}
+            ref={imgRef}
+            src={src}
+            alt="resume"
+          />
+        </div>
       </div>
     </div>
   );

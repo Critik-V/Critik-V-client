@@ -25,11 +25,24 @@
       min-height: 50dvh;
       max-height: 120dvh;
 
-      & img {
-        height: 100%;
-        width: auto;
-        text-align: center;
-        transform: scale(0.95);
+      & .img-container {
+        position: relative;
+        width: fit-content;
+        height: fit-content;
+
+        & img {
+          height: 100%;
+          width: auto;
+          text-align: center;
+          transform: scale(0.95);
+        }
+
+        & #pin {
+          position: absolute;
+          height: 2rem;
+          width: auto;
+          z-index: 2;
+        }
       }
     }
 
