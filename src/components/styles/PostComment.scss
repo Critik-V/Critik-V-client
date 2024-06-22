@@ -1,0 +1,32 @@
+@import "@sass/main";
+
+.single-post-comment {
+  width: 95%;
+  margin: 0.5rem auto;
+  background: white;
+  padding: 0.7rem;
+  border-radius: 5px;
+  cursor: pointer;
+  p {
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  & div {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    & button {
+      @include btn-effect;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      outline: none;
+      color: $primary-green;
+      & span {
+        color: $primary-black;
+      }
+    }
+  }
+}

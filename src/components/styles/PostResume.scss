@@ -1,0 +1,64 @@
+@import "@sass/main";
+
+#single-post-resume {
+  @include tablet-landscape {
+    height: fit-content;
+    max-height: 100vh;
+  }
+  padding: 1rem;
+  width: 100%;
+  height: 135dvh;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  grid-template-rows: 3rem 1fr;
+
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 0.3rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $primary-grey;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background: $secondary-grey;
+  }
+
+  & button {
+    width: fit-content;
+    color: $primary-green;
+    background: $white;
+    border: 1px solid $secondary-grey;
+    box-shadow: 0 0.1rem 0.7rem rgba(0, 0, 0, 0.1);
+    padding: 0.7rem;
+    border-radius: 10px;
+    cursor: pointer;
+    @include btn-effect;
+    & span {
+      margin-right: 0.5rem;
+      color: $primary-black;
+    }
+  }
+
+  & .display {
+    width: 100%;
+    height: 100%;
+    border: 1px solid $primary-grey;
+    justify-self: center;
+    display: flex;
+    justify-content: center;
+
+    .img-container {
+      position: relative;
+      width: fit-content;
+      height: fit-content;
+
+      & #resume-img {
+        height: 100%;
+        width: auto;
+        object-fit: cover;
+      }
+    }
+  }
+}

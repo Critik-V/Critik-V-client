@@ -8,60 +8,6 @@
 
   @include full;
 
-  &-resume {
-    overflow: auto;
-    // @include full;
-    padding: 1rem;
-    max-width: 100dvw;
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: 1fr;
-    grid-template-rows: 3rem 1fr;
-
-    & .display {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 50dvh;
-      max-height: 120dvh;
-
-      & .img-container {
-        position: relative;
-        width: fit-content;
-        height: fit-content;
-
-        & img {
-          height: 100%;
-          width: auto;
-          text-align: center;
-          transform: scale(0.95);
-        }
-
-        & #pin {
-          position: absolute;
-          height: 2rem;
-          width: auto;
-          z-index: 2;
-        }
-      }
-    }
-
-    & button {
-      width: fit-content;
-      color: $primary-green;
-      background: $white;
-      border: 1px solid $secondary-grey;
-      box-shadow: 0 0.1rem 0.7rem rgba(0, 0, 0, 0.1);
-      padding: 0.7rem;
-      border-radius: 10px;
-      cursor: pointer;
-      @include btn-effect;
-      & span {
-        margin-right: 0.5rem;
-        color: $primary-black;
-      }
-    }
-  }
   &-other {
     scroll-snap-align: start;
     height: fit-content;
@@ -70,64 +16,6 @@
     display: flex;
     flex-direction: column;
     position: relative;
-
-    & .desc {
-      @include full;
-      border-bottom: 1px dashed $primary-grey;
-      height: fit-content;
-      max-height: 45dvh;
-      padding: 1rem;
-      & h2 {
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: $primary-black;
-        margin-bottom: 0.5rem;
-      }
-      & p {
-        font-size: 0.85rem;
-        line-height: 1.5;
-        text-align: justify;
-      }
-      & .types {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 1rem;
-        margin: 1rem 0;
-        & span {
-          // padding: 0.5rem 0.7rem;
-          // border-radius: 100px;
-          // background: white;
-          // border: 1px solid #e0e0e0;
-          & i {
-            margin-right: 0.5rem;
-            color: $primary-green;
-          }
-        }
-      }
-      & .links {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 0.5rem;
-        margin: 0.7rem 0;
-        & a {
-          padding: 0.5rem 0.7rem;
-          border-radius: 100px;
-          background: white;
-          border: 1px solid #e0e0e0;
-          &:nth-child(1) {
-            color: #3b5998;
-          }
-          &:nth-child(2) {
-            color: #333;
-          }
-          & i {
-            margin-right: 0.5rem;
-          }
-        }
-      }
-    }
 
     & .no-comment {
       @include full;
@@ -157,36 +45,6 @@
       @include tablet-portrait {
         height: fit-content;
         max-height: 100vh;
-      }
-    }
-
-    & .comment {
-      width: 95%;
-      margin: 0.5rem auto;
-      background: white;
-      padding: 0.7rem;
-      border-radius: 5px;
-      p {
-        font-size: 0.8rem;
-        font-weight: 500;
-      }
-      & div {
-        margin-top: 0.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        gap: 0.5rem;
-        & button {
-          @include btn-effect;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          outline: none;
-          color: $primary-green;
-          & span {
-            color: $primary-black;
-          }
-        }
       }
     }
 
