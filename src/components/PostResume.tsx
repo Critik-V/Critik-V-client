@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { FavActionType } from "@api/types";
 import { AppQueryClient } from "../App";
 import AwesomeIcons from "./AwesomeIcons";
-import resumePlaceholder from "@assets/resume-placeholder.png";
+import resumePlaceholder from "@assets/resume-placeholder.jpg";
 
 export function PostResume({
   id,
