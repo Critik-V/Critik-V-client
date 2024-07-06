@@ -46,3 +46,4 @@ jobs:
             sed -i "s/SERVER_SERVICE=.*$/SERVER_SERVICE=${{secrets.SERVER_SERVICE}}/" .env
             echo "VITE_GITHUB_LINK=${{vars.ORGANIZATION_GITHUB}}" >> .env
             echo "VITE_DISCORD_LINK=${{vars.ORGANIZATION_DISCORD}}" >> .env
+            
