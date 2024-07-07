@@ -15,6 +15,9 @@
     flex-wrap: wrap;
     gap: 0.5rem;
     & > * {
+      appearance: none;
+      -moz-appearance: none;
+      -webkit-appearance: none;
       padding: 0.5rem 0.85rem;
       border-radius: 5px;
       border: 0;

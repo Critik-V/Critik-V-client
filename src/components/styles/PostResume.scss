@@ -57,7 +57,8 @@
       & #resume-img {
         height: 100%;
         width: auto;
-        object-fit: cover;
+        object-fit: contain;
+        max-width: 100%;
       }
     }
   }
