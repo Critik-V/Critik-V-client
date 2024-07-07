@@ -59,7 +59,7 @@ export function MyPostCard({ data }: PostCardProps): JSX.Element {
           <AwesomeIcons type="solid" name="trash-can" />
         </button>
         <button className="see-more" onClick={() => navigate(`/posts/${data.id}`)}>
-          Voir plus <AwesomeIcons type="solid" name="arrow-right" />
+          <AwesomeIcons type="solid" name="arrow-right" />
         </button>
       </div>
     </div>

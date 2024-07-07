@@ -8,10 +8,9 @@ export default function Guide(): JSX.Element {
       <h1>Guide du bon CV</h1>
       <img src={illustrationImg} alt="illustration image" />
       <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ea explicabo
-        aspernatur modi ipsum est omnis ducimus. Accusantium quo voluptatibus
-        reprehenderit, nam quod ad fugiat, fuga dolorum laboriosam quisquam
-        obcaecati molestias!
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ea explicabo aspernatur modi ipsum
+        est omnis ducimus. Accusantium quo voluptatibus reprehenderit, nam quod ad fugiat, fuga
+        dolorum laboriosam quisquam obcaecati molestias!
       </p>
       <button>
         <AwesomeIcons type="solid" name="download" /> Telecharger le PDF{" "}

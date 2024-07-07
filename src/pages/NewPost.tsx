@@ -10,6 +10,7 @@ import { JobtypeSelect, LevelSelect } from "@utils";
 import { useMutation } from "@tanstack/react-query";
 import { createPost } from "@api/index";
 import { CreatePostType } from "@api/types";
+import JSConfetti from "js-confetti";
 
 type IsUploadedProps = { name: string; weight: number };
 const textAreaxMaxLength: number = 400;
@@ -26,8 +27,14 @@ export default function NewPost(): JSX.Element {
     mutationFn: (data: CreatePostType) => createPost(data),
     onSuccess: data => {
       if (data?.statusCode === 200 || data?.statusCode === 201) {
+        const jsConfetti = new JSConfetti();
         reset();
         setFile(null);
+        jsConfetti.addConfetti({
+          confettiColors: ["#ff0000", "#00ff00", "#0000ff", "#ff00ff", "#00ffff"],
+          confettiRadius: 3,
+          confettiNumber: 300
+        });
       }
     }
   });
