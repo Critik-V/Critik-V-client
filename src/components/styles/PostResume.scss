@@ -44,18 +44,18 @@
   & .display {
     width: 100%;
     height: 100%;
-    border: 1px solid $primary-grey;
+    // border: 1px solid $primary-grey;
     justify-self: center;
     display: flex;
     justify-content: center;
 
     .img-container {
-      position: relative;
+      background: blue;
       width: fit-content;
       height: fit-content;
 
       & #resume-img {
-        height: 100%;
+        height: auto;
         width: auto;
         object-fit: contain;
         max-width: 100%;
