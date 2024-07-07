@@ -44,6 +44,6 @@ jobs:
             sed -i "s/VITE_ENV=.*$/VITE_ENV=production/" .env
             sed -i "s/SERVER_SERVICE_PORT=.*$/SERVER_SERVICE_PORT=${{secrets.SERVER_PORT}}/" .env
             sed -i "s/SERVER_SERVICE=.*$/SERVER_SERVICE=${{secrets.SERVER_SERVICE}}/" .env
-            sed -i "s/SERVER_DOMAIN_NAME=.*$/SERVER_SESERVER_DOMAIN_NAMERVICE_PROTOCOL=${{secrets.SERVER_DOMAIN_NAME}}/" .env
+            sed -i "s/SERVER_DOMAIN_NAME=.*$/SERVER_DOMAIN_NAME=${{secrets.SERVER_DOMAIN_NAME}}/" .env
             echo "VITE_GITHUB_LINK=${{vars.ORGANIZATION_GITHUB}}" >> .env
             echo "VITE_DISCORD_LINK=${{vars.ORGANIZATION_DISCORD}}" >> .env
