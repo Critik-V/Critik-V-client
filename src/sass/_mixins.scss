@@ -86,6 +86,9 @@
       border-radius: 7px;
       outline: none;
       color: $primary-black;
+      appearance: none;
+      -moz-appearance: none;
+      -webkit-appearance: none;
     }
     & > *:not(label, button) {
       border: 1px solid $primary-grey;

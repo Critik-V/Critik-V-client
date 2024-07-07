@@ -58,3 +58,12 @@ button {
   font-family: inherit;
   font-size: inherit;
 }
+
+input,
+textarea,
+select,
+button {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
