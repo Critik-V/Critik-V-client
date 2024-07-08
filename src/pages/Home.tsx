@@ -1,9 +1,8 @@
-import AwesomeIcons from "@components/AwesomeIcons";
 import "./styles/Home.scss";
 import { SearchBar } from "@components/SearchBars";
 import SubHeader from "@layouts/SubHeader";
 import { PostCard } from "@components/PostsCards";
-import { Link, Navigate, useLocation, useSearchParams } from "react-router-dom";
+import { Navigate, useLocation, useSearchParams } from "react-router-dom";
 import Pagination from "@components/Pagination";
 import { useQuery } from "@tanstack/react-query";
 import { getPosts } from "@api/index";
@@ -14,6 +13,7 @@ import { Fragment } from "react/jsx-runtime";
 import { SearchInputType } from "@types";
 import { useEffect } from "react";
 import { AppQueryClient } from "../App";
+import MakePostBtn from "@components/MakePostBtn";
 
 export default function Home(): JSX.Element {
   const location = useLocation();
@@ -48,12 +48,7 @@ export default function Home(): JSX.Element {
         <Navigate to={`${location.pathname}?${params.toString()}`} replace={true} />
         <SubHeader>
           <SearchBar />
-          <Link to="/new-post">
-            <button id="make-post-btn">
-              <AwesomeIcons type="regular" name="file" />
-              Poster son CV
-            </button>
-          </Link>
+          <MakePostBtn />
         </SubHeader>
         {data && data?.data.length === 0 && (
           <Empty subtitle="Aucun curriculum vitae (CV) n'a été trouvé" btn={false} />

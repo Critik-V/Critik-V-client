@@ -64,8 +64,12 @@ export default function NewPost(): JSX.Element {
           placeholder="Titre de votre post"
           {...register("title", {
             onChange: (e: ChangeEvent<HTMLInputElement>) =>
-              setIsTitleCorrect(e.target.value.length === 0 || e.target.value.length > 5),
-            onBlur: (e: FocusEvent<HTMLInputElement>) => e.target.value.trim()
+              setIsTitleCorrect(
+                e.target.value.length === 0 ||
+                  (e.target.value.length > 5 && e.currentTarget.value.trim() !== "")
+              ),
+            onBlur: (e: FocusEvent<HTMLInputElement>) =>
+              (e.currentTarget.value = e.currentTarget.value.trim())
           })}
         />
         <label htmlFor="new-post-description">
@@ -79,8 +83,12 @@ export default function NewPost(): JSX.Element {
           placeholder="Description de votre post"
           {...register("description", {
             onChange: (e: ChangeEvent<HTMLInputElement>) =>
-              setIsDescriptionCorrect(e.target.value.length === 0 || e.target.value.length > 5),
-            onBlur: (e: FocusEvent<HTMLInputElement>) => e.target.value.trim()
+              setIsDescriptionCorrect(
+                e.target.value.length === 0 ||
+                  (e.target.value.length > 5 && e.currentTarget.value.trim() !== "")
+              ),
+            onBlur: (e: FocusEvent<HTMLInputElement>) =>
+              (e.currentTarget.value = e.currentTarget.value.trim())
           })}
           cols={30}
           rows={4}></textarea>

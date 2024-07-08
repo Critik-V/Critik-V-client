@@ -1,25 +1,5 @@
 @import "@sass/main";
 
-#Home {
-  #make-post-btn {
-    @include tablet-portrait {
-      display: none;
-    }
-    i {
-      margin-right: 0.5rem;
-    }
-    padding: 0.5rem 0.85rem;
-    border-radius: 5px;
-    border: 0;
-    background-color: $primary-green;
-    color: $white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    @include btn-effect;
-  }
-}
-
 #all-posts {
   padding: 1rem;
   @include full;

@@ -46,6 +46,19 @@
     }
   }
 
+  & .owner {
+    margin-top: 0.5rem;
+    & a {
+      color: $primary-green;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.3s;
+      &:hover {
+        color: $primary-green;
+      }
+    }
+  }
+
   & .logo {
     @include full;
     display: flex;
@@ -61,7 +74,8 @@
       height: 2rem;
       width: auto;
       margin: 2rem auto;
-      filter: grayscale(100%) contrast(3);
+      filter: grayscale(100%);
+      -webkit-filter: grayscale(100%);
     }
   }
 }

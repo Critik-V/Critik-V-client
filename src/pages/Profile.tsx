@@ -55,7 +55,7 @@ export default function Profile(): JSX.Element {
 
   return (
     <main id="profile">
-      <h1>Vôtre profil</h1>
+      <h1>Votre profil</h1>
       <form onSubmit={onSubmit}>
         <label htmlFor="profile-username">Nom & Prénoms</label>
         <input type="text" id="profile-username" defaultValue={user?.fullname} disabled />

@@ -4,6 +4,9 @@ import logoImg from "@assets/logo.svg";
 import openSourceImg from "@assets/open-source.png";
 
 export default function AboutUs(): JSX.Element {
+  const ownerLinkedin: string = "https://www.linkedin.com/in/yannick-k-946970200/";
+  const ownerGithub: string = "https://github.com/yannick2009";
+
   return (
     <section id="about-us">
       <h1>À propos de nous</h1>
@@ -30,6 +33,16 @@ export default function AboutUs(): JSX.Element {
         Données ou Architecte Logiciel, votre expertise est inestimable pour notre communauté. Venez
         nous rejoindre pour participer à la construction d'une plateforme plus solide, afin d'aider
         les autres à améliorer leur CV.
+      </p>
+      <p className="owner">
+        Owner du projet:{" "}
+        <a target="_blank" href={ownerLinkedin}>
+          Linkedin
+        </a>{" "}
+        |{" "}
+        <a target="_blank" href={ownerGithub}>
+          Github
+        </a>
       </p>
       <div className="links">
         <a target="_blank" href={import.meta.env.VITE_GITHUB_LINK}>
