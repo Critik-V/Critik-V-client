@@ -1,24 +1,143 @@
-import Header from "@layouts/Header";
-import AboutUs from "@pages/AboutUs";
-import Favorite from "@pages/Favorite";
-import Guide from "@pages/Guide";
-import Home from "@pages/Home";
-import NewPost from "@pages/NewPost";
-import NotFound from "@pages/NotFound";
-import Posts from "@pages/Posts";
-import Profile from "@pages/Profile";
-import SinglePost from "@pages/SinglePost";
-import MyArchivedPosts from "@pages/sub-pages/MyArchivedPosts";
-import MyPosts from "@pages/sub-pages/MyPosts";
 import { Toaster } from "react-hot-toast";
 
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Fragment } from "react/jsx-runtime";
 import Modal from "@modals/Modal";
 import { modalContext } from "@context/store";
-import Login from "@pages/Login";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import ProtectedRoute from "./guard/ProtectedRoute";
+import { lazy, Suspense } from "react";
+
+const Header = lazy(() => import("@layouts/Header"));
+const Home = lazy(() => import("@pages/Home"));
+const SinglePost = lazy(() => import("@pages/SinglePost"));
+const Posts = lazy(() => import("@pages/Posts"));
+const MyPosts = lazy(() => import("@pages/sub-pages/MyPosts"));
+const MyArchivedPosts = lazy(() => import("@pages/sub-pages/MyArchivedPosts"));
+const NewPost = lazy(() => import("@pages/NewPost"));
+const Favorite = lazy(() => import("@pages/Favorite"));
+const Guide = lazy(() => import("@pages/Guide"));
+const AboutUs = lazy(() => import("@pages/AboutUs"));
+const Profile = lazy(() => import("@pages/Profile"));
+const Login = lazy(() => import("@pages/Login"));
+const NotFound = lazy(() => import("@pages/NotFound"));
+const Spinner = lazy(() => import("@layouts/Spinner"));
+
+const ProtectedRoute = lazy(() => import("./guard/ProtectedRoute"));
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <Suspense fallback={<Spinner />}>
+        <Fragment>
+          <Header />
+          <Outlet />
+        </Fragment>
+      </Suspense>
+    ),
+    children: [
+      {
+        path: "",
+        element: (
+          <Suspense fallback={<Spinner />}>
+            <ProtectedRoute component={<Home />} />
+          </Suspense>
+        ),
+        index: true
+      },
+      {
+        path: "posts/:id",
+        element: (
+          <Suspense fallback={<Spinner />}>
+            <ProtectedRoute component={<SinglePost />} />
+          </Suspense>
+        )
+      },
+      {
+        path: "my-posts",
+        element: (
+          <Suspense fallback={<Spinner />}>
+            <Posts />
+          </Suspense>
+        ),
+        children: [
+          {
+            path: "",
+            element: (
+              <Suspense fallback={<Spinner />}>
+                <ProtectedRoute component={<MyPosts />} />
+              </Suspense>
+            )
+          },
+          {
+            path: "archived",
+            element: (
+              <Suspense fallback={<Spinner />}>
+                <ProtectedRoute component={<MyArchivedPosts />} />
+              </Suspense>
+            )
+          }
+        ]
+      },
+      {
+        path: "new-post",
+        element: (
+          <Suspense fallback={<Spinner />}>
+            <ProtectedRoute component={<NewPost />} />
+          </Suspense>
+        )
+      },
+      {
+        path: "favorites",
+        element: (
+          <Suspense fallback={<Spinner />}>
+            <ProtectedRoute component={<Favorite />} />
+          </Suspense>
+        )
+      },
+      {
+        path: "guide",
+        element: (
+          <Suspense fallback={<Spinner />}>
+            <ProtectedRoute component={<Guide />} />
+          </Suspense>
+        )
+      },
+      {
+        path: "about-us",
+        element: (
+          <Suspense fallback={<Spinner />}>
+            <ProtectedRoute component={<AboutUs />} />
+          </Suspense>
+        )
+      },
+      {
+        path: "profile",
+        element: (
+          <Suspense fallback={<Spinner />}>
+            <ProtectedRoute component={<Profile />} />
+          </Suspense>
+        )
+      }
+    ]
+  },
+  {
+    path: "login",
+    element: (
+      <Suspense fallback={<Spinner />}>
+        <Login />
+      </Suspense>
+    )
+  },
+  {
+    path: "*",
+    element: (
+      <Suspense fallback={<Spinner />}>
+        <NotFound />
+      </Suspense>
+    )
+  }
+]);
 
 export const AppQueryClient = new QueryClient({
   defaultOptions: {
@@ -27,50 +146,6 @@ export const AppQueryClient = new QueryClient({
     }
   }
 });
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <Fragment>
-        <Header />
-        <Outlet />
-      </Fragment>
-    ),
-    children: [
-      {
-        path: "",
-        element: <ProtectedRoute component={<Home />} />,
-        index: true
-      },
-      { path: "posts/:id", element: <ProtectedRoute component={<SinglePost />} /> },
-      {
-        path: "my-posts",
-        element: <Posts />,
-        children: [
-          {
-            path: "",
-            element: <ProtectedRoute component={<MyPosts />} />
-          },
-          {
-            path: "archived",
-            element: <ProtectedRoute component={<MyArchivedPosts />} />
-          }
-        ]
-      },
-      { path: "new-post", element: <ProtectedRoute component={<NewPost />} /> },
-      {
-        path: "favorites",
-        element: <ProtectedRoute component={<Favorite />} />
-      },
-      { path: "guide", element: <ProtectedRoute component={<Guide />} /> },
-      { path: "about-us", element: <ProtectedRoute component={<AboutUs />} /> },
-      { path: "profile", element: <ProtectedRoute component={<Profile />} /> }
-    ]
-  },
-  { path: "login", element: <Login /> },
-  { path: "*", element: <NotFound /> }
-]);
 
 export default function App(): JSX.Element {
   const modalVisibilty = modalContext(state => state.visible);
