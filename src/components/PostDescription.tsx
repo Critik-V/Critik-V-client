@@ -1,5 +1,5 @@
 import "./styles/PostDescription.scss";
-import { decodeJobType } from "@utils";
+import { decodeJobType, decodeLevel } from "@utils";
 import AwesomeIcons from "./AwesomeIcons";
 
 export function PostDescription({
@@ -25,7 +25,7 @@ export function PostDescription({
         </span>
         <span>
           <AwesomeIcons type="solid" name="graduation-cap" />
-          {descData.level.toLowerCase()}
+          {decodeLevel(descData.level)}
         </span>
       </div>
       <div className="links">

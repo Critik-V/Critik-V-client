@@ -77,6 +77,7 @@ export default function Header(): JSX.Element {
           <span></span>
         </p>
         <button
+          aria-label="menu"
           ref={menuBtnRef}
           onClick={() => setIsMenuOpen(prev => !prev)}
           className="profile__mobile-btn">
@@ -87,7 +88,7 @@ export default function Header(): JSX.Element {
             <img src={user?.profilePic} alt="Profile" title="Profile" />
           </button>
         </Link>
-        <button onClick={handleLogout} id="disconnect-btn">
+        <button aria-label="se deconnecter" onClick={handleLogout} id="disconnect-btn">
           <AwesomeIcons type="solid" name="right-from-bracket" />
         </button>
       </div>

@@ -4,8 +4,9 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   build: {
-    cssMinify: "lightningcss"
-  },
+    cssMinify: "lightningcss",
+    ssr: true,
+    },
   resolve: {
     alias: {
       "@components": "/src/components",

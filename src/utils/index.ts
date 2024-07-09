@@ -24,3 +24,19 @@ export function decodeJobType(jobType: string): string {
       return "Non spécifié";
   }
 }
+
+export function decodeLevel(level: string): string {
+  level = level.toLowerCase();
+  switch (level) {
+    case "entry_level":
+      return "Débutant";
+    case "junior":
+      return "Junior";
+    case "mid":
+      return "Intermédiaire";
+    case "senior":
+      return "Senior";
+    default:
+      return "Non spécifié";
+  }
+}

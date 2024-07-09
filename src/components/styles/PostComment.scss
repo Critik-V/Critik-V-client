@@ -11,7 +11,31 @@
     font-size: 0.8rem;
     font-weight: 500;
   }
-  & div {
+  & .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+
+    & > * {
+      font-size: 0.63rem;
+    }
+
+    & .tag-one {
+      color: $primary-grey;
+      border-radius: 100px;
+      border: 0.7px dashed $primary-grey;
+      background: $secondary-grey;
+      padding: 0.2rem 0.5rem;
+    }
+    & .tag-two {
+      color: $secondary-purple;
+      border-radius: 100px;
+      border: 0.7px dashed $secondary-purple;
+      background: #d8c3fb;
+      padding: 0.2rem 0.5rem;
+    }
+  }
+  & .body {
     margin-top: 0.5rem;
     display: flex;
     align-items: center;

@@ -4,12 +4,9 @@ import { AppQueryClient } from "../App";
 import { downLikeComment, upLikeComment } from "@api/comments";
 import { Comment } from "../types/Prisma";
 import AwesomeIcons from "./AwesomeIcons";
+import timeAgo from "../utils/timeAgo";
 
-export function PostComment({
-  data
-}: {
-  data: Comment;
-}): JSX.Element {
+export function PostComment({ data, userId }: { data: Comment; userId: string }): JSX.Element {
   const upLikeMutation = useMutation({
     mutationFn: () => upLikeComment(data.id),
     onSuccess: () =>
@@ -34,13 +31,19 @@ export function PostComment({
     downLikeMutation.mutate();
   };
 
-
   return (
-    <div
-      title="Voir la partie concernée sur le CV"
-      className="single-post-comment">
+    <div className="single-post-comment">
+      <div className="header">
+        {data.authorId === userId ? (
+          <p className="tag-two">Auteur</p>
+        ) : (
+          <p className="tag-one">Anonyme</p>
+        )}
+
+        <p>{timeAgo(data.createdAt)}</p>
+      </div>
       <p>{data.content}</p>
-      <div>
+      <div className="body">
         <button onClick={handleUpLike}>
           <span>{data.totalUpLikes}</span>
           <AwesomeIcons name="thumbs-up" type="regular" />

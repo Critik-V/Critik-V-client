@@ -10,10 +10,12 @@ import { getPostResume } from "@api/files";
 import { PostResume } from "@components/PostResume";
 import { PostDescription } from "@components/PostDescription";
 import { PostComment } from "@components/PostComment";
+import { User } from "../types/Prisma";
 
 export default function SinglePost(): JSX.Element {
   const { id: postId } = useParams<{ id: string }>();
   const [newComment, setNewComment] = useState<string>("");
+  const user = AppQueryClient.getQueryData<User>(["user"]);
 
   const fetchData = useQueries({
     queries: [
@@ -32,6 +34,7 @@ export default function SinglePost(): JSX.Element {
     ]
   });
 
+
   const post = fetchData[0].data;
   const comments = fetchData[1].data;
   const resume = fetchData[2].data;
@@ -41,7 +44,7 @@ export default function SinglePost(): JSX.Element {
     mutationFn: () =>
       createComment({
         postId: postId || "",
-        content: newComment,
+        content: newComment
       }),
     onSuccess: () => {
       AppQueryClient.invalidateQueries({
@@ -60,11 +63,7 @@ export default function SinglePost(): JSX.Element {
 
   return (
     <main id="single-post">
-      <PostResume
-        src={resume}
-        id={postId ?? ""}
-        totalFav={post?.data.totalFav || 0}
-      />
+      <PostResume src={resume} id={postId ?? ""} totalFav={post?.data.totalFav || 0} />
       <div id="single-post-other">
         <PostDescription
           descData={{
@@ -81,7 +80,7 @@ export default function SinglePost(): JSX.Element {
           {comments?.data &&
             comments?.data?.length > 0 &&
             comments?.data.map(comment => (
-              <PostComment key={comment.id} data={comment} />
+              <PostComment userId={user?.id ?? ""} key={comment.id} data={comment} />
             ))}
           {comments?.data.length === 0 && <NoComment />}
           {!comments && <NoData />}
