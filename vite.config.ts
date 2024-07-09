@@ -5,8 +5,8 @@ export default defineConfig({
   plugins: [react()],
   build: {
     cssMinify: "lightningcss",
-    ssr: true,
-    },
+    minify: "esbuild"
+  },
   resolve: {
     alias: {
       "@components": "/src/components",
