@@ -12,21 +12,21 @@ export default function timeAgo(date: Date): string {
   if (interval > 1) {
     return interval + " ans";
   }
-  interval = Math.floor(seconds / monthInSecond);
+  interval = seconds / monthInSecond;
   if (interval > 1) {
-    return interval + " mois";
+    return Math.floor(interval) + " mois";
   }
-  interval = Math.floor(seconds / dayInSecond);
+  interval = seconds / dayInSecond;
   if (interval > 1) {
-    return interval + " jours";
+    return Math.floor(interval) + " jours";
   }
-  interval = Math.floor(seconds / hourInSecond);
+  interval = seconds / hourInSecond;
   if (interval > 1) {
-    return "il y a " + interval + " heures";
+    return "il y a " + Math.floor(interval) + " heures";
   }
-  interval = Math.floor(seconds / minuteInSecond);
+  interval = seconds / minuteInSecond;
   if (interval > 1) {
-    return "il y a " + interval + " minutes";
+    return "il y a " + Math.floor(interval) + " minutes";
   }
   return "il y a quelques secondes";
 }
