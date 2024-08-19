@@ -14,6 +14,7 @@ import JSConfetti from "js-confetti";
 
 type IsUploadedProps = { name: string; weight: number };
 const textAreaxMaxLength: number = 400;
+const maxFileSize: number = 3 * 1024 * 1024;
 
 export default function NewPost(): JSX.Element {
   const [file, setFile] = useState<File | null>(null);
@@ -123,7 +124,7 @@ export default function NewPost(): JSX.Element {
         </label>
         <Dropzone
           maxFiles={1}
-          maxSize={3 * 1024 * 1024}
+          maxSize={maxFileSize}
           accept={{ "application/pdf": [".pdf"] }}
           onDropAccepted={files => setFile(files[0])}
           onFileDialogOpen={() => setFile(null)}
@@ -188,7 +189,9 @@ export function IsUploaded({ name, weight }: IsUploadedProps): JSX.Element {
   return (
     <Fragment>
       <AwesomeIcons type="regular" name="file-pdf" />
-      <p style={{ fontWeight: 600 }}>{name}</p>
+      <p style={{ fontWeight: 600 }}>
+        {name.length < 40 ? name : name.split("").slice(0, 40).join("") + "..."}
+      </p>
       <p>
         <span>{(weight / (1024 * 1024)).toFixed(2)} Mo</span>
       </p>
