@@ -21,6 +21,7 @@ const Profile = lazy(() => import("@pages/Profile"));
 const Login = lazy(() => import("@pages/Login"));
 const NotFound = lazy(() => import("@pages/NotFound"));
 const Spinner = lazy(() => import("@layouts/Spinner"));
+const ErrorBoundary = lazy(() => import("@pages/ErrorBoundary"));
 
 const ProtectedRoute = lazy(() => import("./guard/ProtectedRoute"));
 
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
         </Fragment>
       </Suspense>
     ),
+    errorElement: <ErrorBoundary />,
     children: [
       {
         path: "",
@@ -127,7 +129,8 @@ const router = createBrowserRouter([
       <Suspense fallback={<Spinner />}>
         <Login />
       </Suspense>
-    )
+    ),
+    errorElement: <ErrorBoundary />
   },
   {
     path: "*",
