@@ -1,8 +1,9 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { Methods } from "./types";
 import toast from "react-hot-toast";
 import { redirect } from "react-router-dom";
 import { User } from "../types/Prisma";
+import { findErrorMessage } from "@errors";
 
 const AppEnv: "development" | "production" = import.meta.env.VITE_ENV;
 const loginUrl: string = import.meta.env.VITE_LOGIN_URL;
@@ -18,10 +19,12 @@ export const logout = async (): Promise<AxiosResponse | undefined> => {
     const res = await axios<AxiosResponse>({ method, url, withCredentials });
     return res;
   } catch (error) {
-    if (AppEnv !== "production") {
-      console.error(error);
+    if (error instanceof AxiosError) {
+      if (AppEnv !== "production") {
+        console.error(error);
+      }
+      toast.error(findErrorMessage(error.response?.data.message));
     }
-    toast.error("Une erreur s'est produite");
   }
 };
 

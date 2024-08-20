@@ -1,7 +1,8 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Methods } from "./types";
 import toast from "react-hot-toast";
 import { updateUserData } from "@types";
+import { findErrorMessage } from "@errors";
 
 const userUrl: string = import.meta.env.VITE_USERS_URL;
 const AppEnv: "development" | "production" = import.meta.env.VITE_ENV;
@@ -21,9 +22,11 @@ export const updateUser = async (data: updateUserData) => {
     toast.success("Vôtre profil a été mis à jour avec succès");
     return res;
   } catch (error) {
-    if (AppEnv !== "production") {
-      console.error(error);
+    if (error instanceof AxiosError) {
+      if (AppEnv !== "production") {
+        console.error(error);
+      }
+      toast.error(findErrorMessage(error.response?.data.message));
     }
-    toast.error("Vôtre profil n'a pas pu être mis à jour");
   }
 };

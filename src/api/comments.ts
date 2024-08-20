@@ -1,7 +1,8 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { CreateCommentType, Methods } from "./types";
 import { Comment } from "../types/Prisma";
 import toast from "react-hot-toast";
+import { findErrorMessage } from "@errors";
 
 const commentsUrl: string = import.meta.env.VITE_COMMENTS_URL;
 const AppEnv: "development" | "production" = import.meta.env.VITE_ENV;
@@ -32,10 +33,12 @@ export const createComment = async (data: CreateCommentType) => {
     toast.success("Commentaire publié avec succès");
     return res;
   } catch (error) {
-    if (AppEnv !== "production") {
-      console.error(error);
+    if (error instanceof AxiosError) {
+      if (AppEnv !== "production") {
+        console.error(error);
+      }
+      toast.error(findErrorMessage(error.response?.data.message));
     }
-    toast.error("Erreur lors de la publication du commentaire");
   }
 };
 
@@ -56,10 +59,12 @@ export const updateComment = async (Id: string, content: string) => {
     toast.success("Commentaire mis à jour avec succès");
     return res;
   } catch (error) {
-    if (AppEnv !== "production") {
-      console.error(error);
+    if (error instanceof AxiosError) {
+      if (AppEnv !== "production") {
+        console.error(error);
+      }
+      toast.error(findErrorMessage(error.response?.data.message));
     }
-    toast.error("Erreur lors de la mise à jour du commentaire");
   }
 };
 
@@ -95,8 +100,11 @@ export const getPostComments = async (postId: string) => {
     });
     return res;
   } catch (error) {
-    if (AppEnv !== "production") {
-      console.error(error);
+    if (error instanceof AxiosError) {
+      if (AppEnv !== "production") {
+        console.error(error);
+      }
+      toast.error(findErrorMessage(error.response?.data.message));
     }
   }
 };

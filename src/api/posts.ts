@@ -1,8 +1,9 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { CreatePostType, FavActionType, Methods, UpdatePostType } from "./types";
 import { Post } from "../types/Prisma";
 import toast from "react-hot-toast";
 import { SearchInputType } from "@types";
+import { findErrorMessage } from "@errors";
 
 type PostResponse<T = Post | Post[] | boolean | undefined> = T extends undefined
   ? {
@@ -65,10 +66,12 @@ export const createPost = async (data: CreatePostType) => {
     toast.success("Post créé avec succès");
     return res;
   } catch (error) {
-    if (AppEnv !== "production") {
-      console.error(error);
+    if (error instanceof AxiosError) {
+      if (AppEnv !== "production") {
+        console.error(error);
+      }
+      toast.error(findErrorMessage(error.response?.data.message));
     }
-    toast.error("le post n'a pas pu être créé");
   }
 };
 
@@ -83,8 +86,12 @@ export const updatePost = async (Id: string, data: UpdatePostType) => {
     toast.success("Post modifié avec succès");
     return res;
   } catch (error) {
-    console.log(error);
-    toast.error("le post n'a pas pu être modifié");
+    if (error instanceof AxiosError) {
+      if (AppEnv !== "production") {
+        console.error(error);
+      }
+      toast.error(findErrorMessage(error.response?.data.message));
+    }
   }
 };
 
@@ -98,10 +105,12 @@ export const deletePost = async (Id: string) => {
     toast.success("Post supprimé avec succès");
     return res;
   } catch (error) {
-    if (AppEnv !== "production") {
-      console.error(error);
+    if (error instanceof AxiosError) {
+      if (AppEnv !== "production") {
+        console.error(error);
+      }
+      toast.error(findErrorMessage(error.response?.data.message));
     }
-    toast.error("le post n'a pas pu être supprimé");
   }
 };
 
@@ -138,7 +147,12 @@ export const archivePost = async (postId: string) => {
     toast.success("Post archivé avec succès");
     return res;
   } catch (error) {
-    toast.error("le post n'a pas pu être archivé");
+    if (error instanceof AxiosError) {
+      if (AppEnv !== "production") {
+        console.error(error);
+      }
+      toast.error(findErrorMessage(error.response?.data.message));
+    }
   }
 };
 
@@ -153,10 +167,12 @@ export const unarchivePost = async (postId: string) => {
     toast.success("Post désarchivé avec succès");
     return res;
   } catch (error) {
-    if (AppEnv !== "production") {
-      console.error(error);
+    if (error instanceof AxiosError) {
+      if (AppEnv !== "production") {
+        console.error(error);
+      }
+      toast.error(findErrorMessage(error.response?.data.message));
     }
-    toast.error("le post n'a pas pu être désarchivé");
   }
 };
 
@@ -250,10 +266,12 @@ export const favoritePost = async (id: string, action: FavActionType) => {
     });
     return res;
   } catch (error) {
-    if (AppEnv !== "production") {
-      console.error(error);
+    if (error instanceof AxiosError) {
+      if (AppEnv !== "production") {
+        console.error(error);
+      }
+      toast.error(findErrorMessage(error.response?.data.message));
     }
-    toast.error("Une erreur s'est produite");
   }
 };
 
