@@ -17,7 +17,8 @@
       "@modals/*": ["./src/modals/*"],
       "@api/*": ["./src/api/*"],
       "@utils": ["./src/utils"],
-      "@types": ["./src/types"]
+      "@types": ["./src/types"],
+      "@errors": ["./src/errors"]
     },
 
     /* Bundler mode */

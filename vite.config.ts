@@ -20,7 +20,8 @@ export default defineConfig({
       "@layouts": "/src/layouts",
       "@modals": "/src/modals",
       "@types": "/src/types",
-      "@api": "/src/api"
+      "@api": "/src/api",
+      "@errors": "/src/errors",
     }
   }
 });
